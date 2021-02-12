@@ -10,30 +10,38 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private String nom;
-    private String prenom;
+    private String lastName;
+    private String firstName;
     private String email;
+    private String password;
+    private boolean civility;
 
-    public User(String nom, String prenom, String email) {
-        this.nom = nom;
-        this.prenom = prenom;
+    public User(String lastName, String firstName, String email, String password, boolean civility) {
+        this.lastName = lastName;
+        this.firstName = firstName;
         this.email = email;
+        this.password = password;
+        this.civility = civility;
     }
 
-    public String getNom() {
-        return nom;
+    public long getId() {
+        return id;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public String getLastName() {
+        return lastName;
     }
 
-    public String getPrenom() {
-        return prenom;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getEmail() {
@@ -42,5 +50,21 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword() {
+        this.password = password;
+    }
+
+    public boolean getCivility() {
+        return civility;
+    }
+
+    public void setCivility(boolean civility) {
+        this.civility = civility;
     }
 }
