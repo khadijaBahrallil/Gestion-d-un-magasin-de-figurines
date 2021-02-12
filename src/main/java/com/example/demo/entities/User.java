@@ -60,8 +60,11 @@ public class User {
         this.password = password;
     }
 
-    public boolean getCivility() {
-        return civility;
+    public String getCivility() {
+        if (civility){
+            return "Homme";
+        }
+        return "Femme";
     }
 
     public void setCivility(boolean civility) {

@@ -7,19 +7,31 @@
 <body>
 <form action="#" th:action="@{/add}" th:object="${user}" method="post">
     <div class="form-group">
-        <label for="Nom">Nom:</label>
-        <input type="text" class="form-control" id="nom" placeholder="Entrer votre nom" name="nom">
+        <label for="LastName">Nom :</label>
+        <input type="text" class="form-control" id="lastName" placeholder="Entrer votre nom" name="lastName">
     </div>
     <div class="form-group">
-        <label for="Prenom">Prenom:</label>
-        <input type="text" class="form-control" id="prenom" placeholder="Entrer votre prenom" name="prenom">
+        <label for="FirstName">Prénom :</label>
+        <input type="text" class="form-control" id="firstName" placeholder="Entrer votre prénom" name="firstName">
     </div>
     <div class="form-group">
-        <label for="email">Mail:</label>
+        <label for="email">Mail :</label>
         <input type="email" class="form-control" id="email" placeholder="Entrer votre email" name="email">
     </div>
+    <div class="form-group">
+        <label for="password">Mot de passe :</label>
+        <input type="password" class="form-control" id="password" placeholder="Entrer votre mot de passe" name="password">
+    </div>
+    <div class="form-group">
+        <p>Civilité :</p>
+        <input type="checkbox" class="form-control" id="civility" name="civility">
+        <label for="civility">Homme</label>
+        <input type="checkbox" class="form-control" id="civility" name="civility">
+        <label for="civility">Femme</label>
+    </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="reset" class="btn btn-primary">Réinitialiser</button>
+    <button type="submit" class="btn btn-primary">Soumettre</button>
 </form>
 
 </body>
