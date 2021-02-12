@@ -7,7 +7,7 @@ import javax.persistence.Id;
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private int id;
     private String name;
 
     public Category(String name) {
@@ -24,6 +24,6 @@ public class Category {
 
     //A changer
     public void sortLicence(){
-        
+
     }
 }
