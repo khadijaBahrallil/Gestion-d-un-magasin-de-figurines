@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,19 +13,51 @@ import com.example.demo.repositories.UserRepo;
 @Controller
 public class IndexController {
     private final UserRepo userRepo;
+
     @Autowired
-    IndexController(UserRepo userRepo) {this.userRepo = userRepo;}
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    IndexController(UserRepo userRepo) {
+        this.userRepo = userRepo;
+    }
 
     @GetMapping("/")
-    public String index() {return "index";}
+    public String index() {
+        return "index";
+    }
 
-    @GetMapping("/add")
-    public String addUser() {return "add";}
+    @GetMapping("/register")
+    public String addUser() {
 
-    @PostMapping("/add")
+        return "register";
+    }
+
+    @PostMapping("/addUser")
     public String addUser(User user, BindingResult result, Model model) {
-        if(result.hasErrors()) {return "index";}
+        if (result.hasErrors()) {
+            System.out.println(result.getAllErrors());
+            return "index";
+        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepo.save(user);
+        System.out.println("user créé avec succès");
+        return "index";
+    }
+
+    @GetMapping("login")
+    public String LoginUser() {
+
+        return "login";
+    }
+
+    @PostMapping("/loginUser")
+    public String LoginUser(User user, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            System.out.println(result.getAllErrors());
+            return "login";
+        }
+        //userRepo.save(user);
         System.out.println("user créé avec succès");
         return "index";
     }

@@ -5,7 +5,7 @@
     <title>404 figurines</title>
 </head>
 <body>
-<form action="#" th:action="@{/add}" th:object="${user}" method="post">
+<form action="#" th:action="@{/addUser}" th:object="${user}" method="post">
     <div class="form-group">
         <label for="LastName">Nom :</label>
         <input type="text" class="form-control" id="lastName" placeholder="Entrer votre nom" name="lastName">
@@ -15,8 +15,8 @@
         <input type="text" class="form-control" id="firstName" placeholder="Entrer votre prénom" name="firstName">
     </div>
     <div class="form-group">
-        <label for="email">Mail :</label>
-        <input type="email" class="form-control" id="email" placeholder="Entrer votre email" name="email">
+        <label for="userName">Mail :</label>
+        <input type="email" class="form-control" id="userName" placeholder="Entrer votre email" name="userName">
     </div>
     <div class="form-group">
         <label for="password">Mot de passe :</label>
@@ -24,9 +24,9 @@
     </div>
     <div class="form-group">
         <p>Civilité :</p>
-        <input type="radio" class="form-control" id="gender_H" name="gender" value="Homme" checked>
+        <input type="radio" class="form-control" id="gender_H" name="civility" value="true"  checked>
         <label for="gender_H">Homme</label>
-        <input type="radio" class="form-control" id="gender_F" name="gender" value="Femme">
+        <input type="radio" class="form-control" id="gender_F" name="civility" value="false"  >
         <label for="gender_F">Femme</label>
     </div>
 
