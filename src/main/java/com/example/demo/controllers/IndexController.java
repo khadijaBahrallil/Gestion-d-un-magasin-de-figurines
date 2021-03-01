@@ -46,16 +46,13 @@ public class IndexController {
     }
 
     @GetMapping("login")
-    public String LoginUser(Model model) {
+    public String LoginUser() {
 
         return "login";
     }
 
-    @GetMapping("logout")
-    public String Logout() {
 
-        return "index";
-    }
+
 
 
 }
