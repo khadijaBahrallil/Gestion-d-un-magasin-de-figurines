@@ -46,20 +46,17 @@ public class IndexController {
     }
 
     @GetMapping("login")
-    public String LoginUser() {
+    public String LoginUser(Model model) {
 
         return "login";
     }
 
-    @PostMapping("/loginUser")
-    public String LoginUser(User user, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            System.out.println(result.getAllErrors());
-            return "login";
-        }
-        //userRepo.save(user);
-        System.out.println("user créé avec succès");
+    @GetMapping("logout")
+    public String Logout() {
+
         return "index";
     }
+
+
 }
 
