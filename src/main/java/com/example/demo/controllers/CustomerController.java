@@ -36,11 +36,9 @@ public class CustomerController {
     @PostMapping("/addCustomer")
     public String addCustomer(@RequestParam String lastName, @RequestParam String firstName, @RequestParam String userName,
                               @RequestParam String password, @RequestParam Boolean civility) {
-        System.out.println(civility);
         if (lastName.equals("") || firstName.equals("") || userName.equals("") || password.equals("")){
             return "register";
         }
-
         Customer customer = new Customer();
         customer.setFirstName(firstName);
         customer.setLastName(lastName);

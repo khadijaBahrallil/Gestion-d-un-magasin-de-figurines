@@ -20,7 +20,7 @@ public class Customer implements UserDetails {
     private Boolean civility;
     private int bonusPoint;
     private int assets;
-    private String Pseudo;
+    private String pseudo;
     @OneToOne
     private Address address;
     @OneToMany
@@ -70,8 +70,8 @@ public class Customer implements UserDetails {
             return "Homme";
         }
         return "Femme";
-
     }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
