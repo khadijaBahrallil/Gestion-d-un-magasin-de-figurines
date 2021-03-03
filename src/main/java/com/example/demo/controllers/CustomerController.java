@@ -22,17 +22,6 @@ public class CustomerController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @RequestMapping("/")
-    public String index() {
-        return "index";
-    }
-
-    @GetMapping("/hello")
-    public String sayHello(@RequestParam(value = "myName", defaultValue = "World") String name) {
-        return String.format("Hello %s!", name);
-    }
-
-
     @PostMapping("/addCustomer")
     public String addCustomer(@RequestParam String lastName, @RequestParam String firstName, @RequestParam String userName,
                               @RequestParam String password, @RequestParam Boolean civility) {
