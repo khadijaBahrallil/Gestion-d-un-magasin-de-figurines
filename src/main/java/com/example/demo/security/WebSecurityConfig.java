@@ -25,15 +25,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/register");
+        //web.ignoring().antMatchers("/register");
         web.ignoring().antMatchers("/addUser");
+        web.ignoring().antMatchers("/addCustomer");
+        web.ignoring().antMatchers("/add");
+        web.ignoring().antMatchers("/index");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/index").permitAll()
+                .antMatchers("/", "/index","/register", "/addCustomer").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable()
@@ -48,6 +51,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutSuccessUrl("/")
                 .permitAll();
+
+
     }
     @Autowired
     @Override

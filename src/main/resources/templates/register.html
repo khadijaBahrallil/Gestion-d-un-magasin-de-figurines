@@ -5,13 +5,13 @@
     <title>404 figurines</title>
 </head>
 <body>
-<form action="#" th:action="@{/addUser}" th:object="${customer}" method="post">
+<form action="/addCustomer" method="post">
     <div class="form-group">
-        <label for="LastName">Nom :</label>
+        <label for="lastName">Nom :</label>
         <input type="text" class="form-control" id="lastName" placeholder="Entrer votre nom" name="lastName">
     </div>
     <div class="form-group">
-        <label for="FirstName">Prénom :</label>
+        <label for="firstName">Prénom :</label>
         <input type="text" class="form-control" id="firstName" placeholder="Entrer votre prénom" name="firstName">
     </div>
     <div class="form-group">

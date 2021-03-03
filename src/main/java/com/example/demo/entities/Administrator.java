@@ -17,7 +17,5 @@ public class Administrator {
     private String email;
     private String password;
     private boolean civility;
-    private int bonusPoint;
-    private int assets;
     private String Pseudo;
 }

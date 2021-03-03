@@ -3,6 +3,7 @@ package com.example.demo.controllers;
 import com.example.demo.repos.CustomerRepository;
 import com.example.demo.entities.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+
 
 @Controller
 public class CustomerController {
@@ -32,12 +34,23 @@ public class CustomerController {
 
 
     @PostMapping("/addCustomer")
-    public String addCustomer(@RequestParam String first, @RequestParam String last) {
+    public String addCustomer(@RequestParam String lastName, @RequestParam String firstName, @RequestParam String userName,
+                              @RequestParam String password, @RequestParam Boolean civility) {
+        System.out.println(civility);
+        if (lastName.equals("") || firstName.equals("") || userName.equals("") || password.equals("")){
+            return "register";
+        }
+
         Customer customer = new Customer();
-        customer.setFirstName(first);
-        customer.setLastName(last);
+        customer.setFirstName(firstName);
+        customer.setLastName(lastName);
+        customer.setUserName(userName);
+        passwordEncoder = new BCryptPasswordEncoder();
+        String hashedPassword = passwordEncoder.encode(password);
+        customer.setPassword(hashedPassword);
+        customer.setCivility(civility);
         customerRepository.save(customer);
-        return "Added new customer to repo!";
+        return "index";
     }
 
 
@@ -48,6 +61,7 @@ public class CustomerController {
     }
     @PostMapping("/addUser")
     public String addUser(Customer costumer, BindingResult result, Model model) {
+        System.out.println("testAddUser");
         if (result.hasErrors()) {
             System.out.println(result.getAllErrors());
             return "index";

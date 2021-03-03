@@ -17,7 +17,7 @@ public class Customer implements UserDetails {
     private String lastName;
     private String userName;
     private String password;
-    private boolean civility;
+    private Boolean civility;
     private int bonusPoint;
     private int assets;
     private String Pseudo;
@@ -52,6 +52,26 @@ public class Customer implements UserDetails {
         this.lastName = lastName;
     }
 
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setCivility(Boolean civility) {
+        if(civility){
+            this.civility = true;
+        }
+        else{
+            this.civility = false;
+        }
+    }
+
+    public String getCivility() {
+        if(civility){
+            return "Homme";
+        }
+        return "Femme";
+
+    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
@@ -60,6 +80,10 @@ public class Customer implements UserDetails {
     @Override
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String encode) {
+        this.password = encode;
     }
 
     @Override
@@ -85,9 +109,5 @@ public class Customer implements UserDetails {
     @Override
     public boolean isEnabled() {
         return false;
-    }
-
-    public void setPassword(String encode) {
-        this.password = password;
     }
 }
