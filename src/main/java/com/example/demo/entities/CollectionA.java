@@ -1,22 +1,18 @@
 package com.example.demo.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-public class Category {
+public class CollectionA {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
-    private int id;
+    private Integer id;
     private String name;
-	
-    @OneToMany(mappedBy="category")
-    private Collection<Licence> licences;
+    @OneToMany
+    private Collection<Figurine> figurines;
+    @OneToOne
+    private Customer customer;
 
     public Integer getId() {
         return id;
@@ -34,8 +30,5 @@ public class Category {
         this.name = name;
     }
 
-    /*public void sortLicence(){
-
-    }*/
 }
 
