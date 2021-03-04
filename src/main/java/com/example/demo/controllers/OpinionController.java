@@ -17,7 +17,7 @@ public class OpinionController {
     private OpinionRepository opinionRepository;
 
     @PostMapping("/addOpinion")
-    public String addCategory(@RequestParam String note, @RequestParam String text) {
+    public String addOpinion(@RequestParam String note, @RequestParam String text) {
         Opinion opinion = new Opinion();
         int new_note;
         try{
