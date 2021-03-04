@@ -18,7 +18,7 @@ public class LicenceController {
     @Autowired
     private LicenceRepository licenceRepository;
 
-    @GetMapping ("/addLicence")
+    @PostMapping ("/addLicence")
     public String addLicence(@RequestParam String id, @RequestParam String name){
         Category category;
         int new_id;
