@@ -12,6 +12,11 @@ public class CategoryController {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @GetMapping("/indexCategory")
+    public String indexCategory(){
+        return "indexCategory";
+    }
+
     //Post
     @PostMapping("/addCategory")
     public String addCategory(@RequestParam String name) {

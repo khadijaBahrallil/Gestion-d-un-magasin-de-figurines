@@ -7,7 +7,7 @@
     <body>
         <form action="/addLicence" method="POST" >
             <p>Licences</p>
-            <select th:field="*{categoryList}" name="category" id="category">
+            <select  id="category" th:field="*{categoryList}" >
                 <option th:each="category: ${categoryList}"
                         th:value="${category.getId()}"
                         th:text="${category.getName()}"/>
