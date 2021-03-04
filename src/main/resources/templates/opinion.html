@@ -11,10 +11,10 @@
 
     <form action="/addOpinion" method="POST">
         <label for="note">Note (0-5):</label>
-        <input type="number" id="note" name="note" min="0" max="5">
+        <input type="number" id="note" name="note" min="0" max="5" required>
         <div class="form-group">
             <label for="text">Laisser un commentaire:</label>
-            <input type="textarea" class="form-control" id="text" placeholder="Laisser un commentaire" name="text">
+            <textarea id="text" name="text" maxlength="255" required>Très belle figurine </textarea>
         </div>
         <input type="submit" value="Publier"/>
     </form>
