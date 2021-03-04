@@ -6,10 +6,7 @@ import com.example.demo.repos.CategoryRepository;
 import com.example.demo.repos.LicenceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -21,11 +18,21 @@ public class LicenceController {
     @Autowired
     private LicenceRepository licenceRepository;
 
-    @PostMapping("/addLicence")
-    public String addLicence(@RequestParam String name){
-       // Category category = categoryRepository.findCategoryById();
-        System.out.println("category");
+    @GetMapping ("/addLicence")
+    public String addLicence(@RequestParam String id, @RequestParam String name){
+        Category category;
+        int new_id;
+        try {
+            new_id = Integer.parseInt(id);
+            category = categoryRepository.findCategoryById(new_id);
+            if(name.length() > 255){
+                throw new Exception("Nom trop long");
+            }
+        }catch(Exception e){
+            return "licences";
+        }
         Licence licence = new Licence();
+        licence.setCategory(category);
         licence.setName(name);
         licenceRepository.save(licence);
         return "licences";

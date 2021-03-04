@@ -5,9 +5,9 @@
         <title>404 figurines</title>
     </head>
     <body>
-        <form action="/addLicence" method="POST" >
+        <form action="/addLicence" method="GET" >
             <p>Licences</p>
-            <select  id="category" th:field="*{categoryList}" >
+            <select  name ="id" id="id"  >
                 <option th:each="category: ${categoryList}"
                         th:value="${category.getId()}"
                         th:text="${category.getName()}"/>
