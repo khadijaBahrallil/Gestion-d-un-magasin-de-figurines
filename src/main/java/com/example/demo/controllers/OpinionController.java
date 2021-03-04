@@ -17,7 +17,7 @@ public class OpinionController {
     @Autowired
     private OpinionRepository opinionRepository;
 
-    @GetMapping("/addOpinion")
+    @PostMapping("/addOpinion")
     public String addOpinion(@RequestParam int note, @RequestParam String text) {
         Opinion opinion = new Opinion();
         try{
