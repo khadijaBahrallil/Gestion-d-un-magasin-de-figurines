@@ -1,38 +1,111 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
 <head>
-    <meta charset="UTF-8">
-    <title>404 figurines</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>404 FIGURINES</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+    <!-- Custom styles for this template -->
+    <link href="demo/static/main.css" rel="stylesheet">
 </head>
+
 <body>
-<form action="/addCustomer" method="post">
-    <div class="form-group">
-        <label for="lastName">Nom :</label>
-        <input type="text" class="form-control" id="lastName" placeholder="Entrer votre nom" name="lastName">
+<header>
+    <div class="navbar navbar-dark bg-dark box-shadow">
+        <div class="container d-flex justify-content-between">
+            <a href="index.html" class="navbar-brand d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                <strong>404 FIGURINES</strong>
+            </a>
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="index.html">Menu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="figurines.html">Figurines</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="login.html">Se connecter</a>
+                </li>
+            </ul>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="firstName">Prénom :</label>
-        <input type="text" class="form-control" id="firstName" placeholder="Entrer votre prénom" name="firstName">
-    </div>
-    <div class="form-group">
-        <label for="userName">Mail :</label>
-        <input type="email" class="form-control" id="userName" placeholder="Entrer votre email" name="userName">
-    </div>
-    <div class="form-group">
-        <label for="password">Mot de passe :</label>
-        <input type="password" class="form-control" id="password" placeholder="Entrer votre mot de passe" name="password">
-    </div>
-    <div class="form-group">
-        <p>Civilité :</p>
-        <input type="radio" class="form-control" id="gender_H" name="civility" value="true"  checked>
-        <label for="gender_H">Homme</label>
-        <input type="radio" class="form-control" id="gender_F" name="civility" value="false"  >
-        <label for="gender_F">Femme</label>
+</header>
+
+<form action="/addCustomer" method="POST">
+    <div style="padding-left:400px; padding-right:400px; padding-top:20px">
+        <h3>Formulaire d'inscription</h3>
+        </br>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="lastName">Nom :</label>
+                    <input type="text" class="form-control" id="lastName" placeholder="Entrer votre nom" name="lastName" required>
+                </div>
+                <div class="form-group">
+                    <label for="firstName">Prénom :</label>
+                    <input type="text" class="form-control" id="firstName" placeholder="Entrer votre prénom" name="firstName" required>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <p>Civilité :</p>
+                    <div class="row">
+                        <div class="col">
+                            <label for="gender_H">Homme</label>
+                        </div>
+                        <div class="col">
+                            <input type="radio" class="form-control" id="gender_H" name="civility" value="true" checked>
+                        </div>
+                    </div>
+                    </br>
+                    <div class="row">
+                        <div class="col">
+                            <label for="gender_F">Femme</label>
+                        </div>
+                        <div class="col">
+                            <input type="radio" class="form-control" id="gender_F" name="civility" value="false"  >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="userName">Mail :</label>
+                    <input type="email" class="form-control" id="userName" placeholder="Entrer votre email" name="userName" required>
+                    <input type="email" class="form-control" id="userNameVerification" placeholder="Confirmer votre email" name="userName" required>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="password">Mot de passe :</label>
+                    <input type="password" class="form-control" id="password" placeholder="Entrer votre mot de passe" name="password" required>
+                    <input type="password" class="form-control" id="passwordVerification" placeholder="Confirmer votre mot de passe" name="password" required>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <button type="reset" class="btn btn-primary">Réinitialiser</button>
-    <button type="submit" class="btn btn-primary">Soumettre</button>
+    <div style="text-align: center">
+        <button type="reset" class="btn btn-secondary">Réinitialiser</button>
+        <button type="submit" class="btn btn-primary">Inscription</button>
+    </div>
 </form>
+
 
 </body>
 </html>
