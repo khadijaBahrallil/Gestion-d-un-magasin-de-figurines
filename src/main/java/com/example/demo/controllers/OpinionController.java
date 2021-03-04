@@ -18,27 +18,24 @@ public class OpinionController {
     private OpinionRepository opinionRepository;
 
     @GetMapping("/addOpinion")
-    public String addOpinion(@RequestParam String note, @RequestParam String text) {
-        System.out.println("ici");
+    public String addOpinion(@RequestParam int note, @RequestParam String text) {
         Opinion opinion = new Opinion();
-        int new_note;
         try{
-            new_note = Integer.parseInt(note);
-            if(new_note < 0 || new_note > 5){
-                throw new Exception("Erreur, note non conforme");
+            if(note < 0 || note > 5){
+                throw new Exception("note non conforme");
             }
             if(text.length() > 255){
-                throw new Exception("Erreur, + de 255 caractères rentrés");
+                throw new Exception("+ de 255 caractères rentrés");
             }
         }catch (Exception e){
             System.out.println("erreur" +e);
             return "opinion";
         }
-        opinion.setNote(new_note);
+        opinion.setNote(note);
         opinion.setText(text);
         Date date = new Date(System.currentTimeMillis());
         opinion.setDate(date);
         opinionRepository.save(opinion);
-        return "Added new opinion to repo!";
+        return "opinion";
     }
 }
