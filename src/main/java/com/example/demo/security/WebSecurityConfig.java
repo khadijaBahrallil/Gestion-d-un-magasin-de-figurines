@@ -28,6 +28,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //web.ignoring().antMatchers("/register");
         web.ignoring().antMatchers("/addUser");
         web.ignoring().antMatchers("/addCustomer");
+        web.ignoring().antMatchers("/addFigurine");
+        web.ignoring().antMatchers("/indexFigurine");
         web.ignoring().antMatchers("/add");
         web.ignoring().antMatchers("/index");
     }
@@ -36,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/index","/register", "/addCustomer").permitAll()
+                .antMatchers("/", "/index","/register", "/addCustomer", "/indexFigurine","/addFigurine").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable()

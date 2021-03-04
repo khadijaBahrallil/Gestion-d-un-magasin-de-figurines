@@ -3,9 +3,10 @@ package com.example.demo.controllers;
 import com.example.demo.entities.Figurine;
 import com.example.demo.repos.FigurineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 public class FigurineController {
 
     @Autowired
@@ -17,7 +18,7 @@ public class FigurineController {
         Figurine figurine = new Figurine();
         figurine.setName(name);
         figurineRepository.save(figurine);
-        return "Added new figurine to repo!";
+        return "indexFigurine";
     }
 
     @GetMapping("/deleteFigurine")
