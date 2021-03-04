@@ -13,7 +13,7 @@ public class Figurine {
     private Float price;
     private int quantity;
     @ManyToOne
-    private Licence licence ;
+    private Licence licence;
     @ManyToMany
     private Collection<Picture> pictures;
     @OneToMany

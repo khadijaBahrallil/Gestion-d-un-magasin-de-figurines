@@ -1,28 +1,84 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>404 figurines</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>404 FIGURINES</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+    <!-- Custom styles for this template -->
+    <link href="demo/static/main.css" rel="stylesheet">
 </head>
 <body>
-<form action="/addFigurine" method="POST">
-    <p>Let's add a figurine.</p>
 
-    <div>
-        <label for="name"> Name figurine:</label>
-        <input name="name" id="name" maxlength="255" value="Ainz Ooal Gown">
+<header>
+    <div class="navbar navbar-dark bg-dark box-shadow">
+        <div class="container d-flex justify-content-between">
+            <a href="index.html" class="navbar-brand d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                <strong>404 FIGURINES</strong>
+            </a>
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="index.html">Menu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="figurines.html">Figurines</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="login.html">Se connecter</a>
+                </li>
+            </ul>
+        </div>
     </div>
+</header>
 
+<div style="text-align: center;">
+    <br/>
+    <form action="/addFigurine" method="POST">
+    <p>Ajoutons une figurine.</p>
+
+    <table class="table col-md-4" border align="center">
+        <tr>
+            <td><label for="name">Nom de la figurine :</label></td>
+            <td><input type="text" name="name" id="name" maxlength="255" value="Ainz Ooal Gown" class="form-control" required></td>
+        </tr>
+        <tr>
+            <td><label for="name">License :</label></td>
+            <td><input type="text" name="license" maxLength="255" value="Overlord" class="form-control" required></td>
+        </tr>
+        <tr>
+            <td><label for="name">Description :</label></td>
+            <td><input type="text" name="description" value="Magnifique figurine d'un personnage si emblématique de la série Overlord." class="form-control"></td>
+        </tr>
+        <tr>
+            <td><label for="name">Prix :</label></td>
+            <td><input type="number" name="price" required> €</td>
+        </tr>
+        <tr>
+            <td><label for="name">Nombre d'unités :</label></td>
+            <td><input type="number" name="quantity" required></td>
+        </tr>
+    </table>
+
+        </br>
     <div>
-        <button type="submit">Add Figurine</button>
+        <button type="submit">Ajouter la figurine</button>
     </div>
-</form>
-
-
-
-<form action="/listFigurine" method="GET">
-    <button>List Figurine</button>
-</form>
-<a href="realindex.html">Menu</a>
+    </form>
+    </br>
+    <form action="/listFigurine" method="GET">
+        <button>Liste des figurines</button>
+    </form>
+    </br>
+    <a href="index.html">Retour au menu</a>
+</div>
 </body>
 </html>
