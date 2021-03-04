@@ -19,7 +19,7 @@ public class IndexController {
     public String index() {return "index";}
 
     @GetMapping("/add")
-    public String addUser() {return "add";}
+    public String addUser() {return "register";}
 
     @PostMapping("/add")
     public String addUser(User user, BindingResult result, Model model) {
