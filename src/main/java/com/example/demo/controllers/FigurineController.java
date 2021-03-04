@@ -15,6 +15,13 @@ public class FigurineController {
     //Post
     @PostMapping("/addFigurine")
     public String addFigurine(@RequestParam String name) {
+        try {
+            if (name.length() > 255) {
+                throw new Exception("Erreur, nom trop grand");
+            }
+        }catch (Exception e){
+            return "indexFigurine";
+        }
         Figurine figurine = new Figurine();
         figurine.setName(name);
         figurineRepository.save(figurine);
