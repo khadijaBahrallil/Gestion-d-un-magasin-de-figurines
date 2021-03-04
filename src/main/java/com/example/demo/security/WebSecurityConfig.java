@@ -23,20 +23,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
-    @Override
+    /*@Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/register");
         web.ignoring().antMatchers("/addUser");
+        web.ignoring().antMatchers("/addOpinion");
         web.ignoring().antMatchers("/add");
         web.ignoring().antMatchers("/index");
         web.ignoring().antMatchers("/licences");
+        web.ignoring().antMatchers("/opinion");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/index","/register", "/licences").permitAll()
+                .antMatchers("/", "/index","/register", "/licences", "/opinion").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable()
@@ -54,6 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     }
+    */
     @Autowired
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

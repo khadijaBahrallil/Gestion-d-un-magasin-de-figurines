@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -21,13 +20,23 @@ public class LicenceController {
         return "licences";
     }
 
+    /*
     @ModelAttribute("category")
     protected ModelAndView  getAllCategory(){
         ModelAndView mv = new ModelAndView("category");
         List categoryList = categoryRepository.findAll();
         System.out.println(categoryList.size());
         mv.addObject("categoryList", categoryList);
+        System.out.println(mv.toString());
         return mv;
     }
+    */
+    @ModelAttribute("categoryList")
+    protected List<Category> getAllCategory(){
+        List categoryList = categoryRepository.findAll();
+        System.out.println(categoryList.size());
+        return categoryList;
+    }
+
 
 }

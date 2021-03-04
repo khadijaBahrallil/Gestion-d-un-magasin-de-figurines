@@ -1,16 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
         <title>404 figurines</title>
     </head>
     <body>
-        <form action="/addLicence" method="post"  modelAttribute="category">
-            <p>Licence</p>
-            <select path="category">
+        <form action="/addLicence" method="post" >
+            <p>Licences</p>
+            <select path="categoryList">
                 <option value="-" label="--Choisir une categorie--"/>
-                <options items="${ categoryList }" itemValue="name" itemLabel="name" ></options>
+                <options items="${ categoryList }" itemValue="category" itemLabel="category" ></options>
             </select>
+            <div class="form-group">
+                <label for="name">Nom de la nouvelle licence:</label>
+                <input type="text" class="form-control" id="name" placeholder="Nom de la licence" name="name">
+            </div>
+            <input type="submit" value="Créer la licence"/>
         </form>
+
     </body>
 </html>
