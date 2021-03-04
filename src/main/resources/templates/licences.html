@@ -7,9 +7,10 @@
     <body>
         <form action="/addLicence" method="post" >
             <p>Licences</p>
-            <select path="categoryList">
-                <option value="-" label="--Choisir une categorie--"/>
-                <options items="${ categoryList }" itemValue="category" itemLabel="category" ></options>
+            <select th:field="*{categoryList}" name="category" id="category">
+                <option th:each="category: ${categoryList}"
+                        th:value="${category.getId()}"
+                        th:text="${category.getName()}"/>
             </select>
             <div class="form-group">
                 <label for="name">Nom de la nouvelle licence:</label>
