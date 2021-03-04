@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>404 figurines</title>
+    </head>
+    <body>
+        <form action="/addLicence" method="GET" >
+            <p>Licences</p>
+            <select  name ="id" id="id"  >
+                <option th:each="category: ${categoryList}"
+                        th:value="${category.getId()}"
+                        th:text="${category.getName()}"/>
+            </select>
+            <div class="form-group">
+                <label for="name">Nom de la nouvelle licence:</label>
+                <input type="text" class="form-control" id="name" placeholder="Nom de la licence" name="name">
+            </div>
+            <button type="submit" >Créer la licence</button>
+        </form>
+    </body>
+</html>

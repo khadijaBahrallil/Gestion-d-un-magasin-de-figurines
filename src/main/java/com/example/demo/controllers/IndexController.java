@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.example.demo.repositories.UserRepo;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class IndexController {
@@ -15,7 +16,7 @@ public class IndexController {
     @Autowired
     IndexController(UserRepo userRepo) {this.userRepo = userRepo;}
 
-    @GetMapping("/")
+    @RequestMapping("/")
     public String index() {return "index";}
 
     @GetMapping("/add")

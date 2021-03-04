@@ -25,20 +25,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        //web.ignoring().antMatchers("/register");
+        web.ignoring().antMatchers("/register");
         web.ignoring().antMatchers("/addUser");
         web.ignoring().antMatchers("/addCustomer");
         web.ignoring().antMatchers("/addFigurine");
         web.ignoring().antMatchers("/indexFigurine");
+        web.ignoring().antMatchers("/addOpinion");
+        web.ignoring().antMatchers("/addLicence");
+        web.ignoring().antMatchers("/indexCategory");
         web.ignoring().antMatchers("/add");
         web.ignoring().antMatchers("/index");
+        web.ignoring().antMatchers("/licences");
+        web.ignoring().antMatchers("/opinion");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/index","/register", "/addCustomer", "/indexFigurine","/addFigurine").permitAll()
+                .antMatchers("/", "/index","/register", "/addCustomer", "/indexFigurine","/addFigurine", "/licences", "/opinion", "/addLicence", "/addOpinion", "/indexCategory").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable()
@@ -56,6 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     }
+
     @Autowired
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

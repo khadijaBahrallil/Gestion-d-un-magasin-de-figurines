@@ -17,7 +17,7 @@ public class Figurine {
     @ManyToMany
     private Collection<Picture> pictures;
     @OneToMany
-    private Collection<Figurine> figurines;
+    private Collection<Basket> baskets;
     public enum Status {
         EN_PRECOMANDE,
         EN_STOCK,
