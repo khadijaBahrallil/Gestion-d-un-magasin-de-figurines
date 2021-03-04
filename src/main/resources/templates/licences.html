@@ -5,7 +5,7 @@
         <title>404 figurines</title>
     </head>
     <body>
-        <form action="/addLicence" method="post" >
+        <form action="/addLicence" method="POST" >
             <p>Licences</p>
             <select th:field="*{categoryList}" name="category" id="category">
                 <option th:each="category: ${categoryList}"
@@ -16,7 +16,7 @@
                 <label for="name">Nom de la nouvelle licence:</label>
                 <input type="text" class="form-control" id="name" placeholder="Nom de la licence" name="name">
             </div>
-            <input type="submit" value="Créer la licence"/>
+            <button type="submit" >Créer la licence</button>
         </form>
     </body>
 </html>

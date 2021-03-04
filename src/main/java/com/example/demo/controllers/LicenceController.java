@@ -26,11 +26,11 @@ public class LicenceController {
         licence.setName(name);
         return "licences";
     }
-    /*
+
     @RequestMapping("/licences")
-    public String addLicence(HttpServletRequest request) throws Exception{
+    public String indexLicence(HttpServletRequest request) throws Exception{
         return "licences";
-    }*/
+    }
 
     /*
     @ModelAttribute("category")
