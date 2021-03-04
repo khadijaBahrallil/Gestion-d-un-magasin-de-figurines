@@ -23,7 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
-    /*@Override
+    @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/register");
         web.ignoring().antMatchers("/addUser");
@@ -56,7 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     }
-    */
+
     @Autowired
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
