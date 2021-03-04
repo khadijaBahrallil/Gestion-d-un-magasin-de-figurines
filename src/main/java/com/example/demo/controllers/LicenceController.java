@@ -31,6 +31,7 @@ public class LicenceController {
         return mv;
     }
     */
+
     @ModelAttribute("categoryList")
     protected List<Category> getAllCategory(){
         List categoryList = categoryRepository.findAll();
