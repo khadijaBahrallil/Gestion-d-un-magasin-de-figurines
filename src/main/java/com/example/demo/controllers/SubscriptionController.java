@@ -44,7 +44,6 @@ public class SubscriptionController {
 
     @PostMapping("/deleteSubscription")
     public String deleteSubscription(@RequestParam String id) {
-        System.out.println("ici");
         Subscription subscription;
         int new_id;
         try{
