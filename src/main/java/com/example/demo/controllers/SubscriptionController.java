@@ -4,8 +4,14 @@ import com.example.demo.entities.Subscription;
 import com.example.demo.repos.SubscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+
+import java.util.List;
+
 
 @Controller
 public class SubscriptionController {
@@ -34,5 +40,32 @@ public class SubscriptionController {
         subscription.setText(text);
         subscriptionRepository.save(subscription);
         return "subscription";
+    }
+
+    @PostMapping("/deleteSubscription")
+    public String deleteSubscription(@RequestParam String id) {
+        System.out.println("ici");
+        Subscription subscription;
+        int new_id;
+        try{
+            new_id = Integer.parseInt(id);
+            subscription = subscriptionRepository.findSubscriptionById(new_id);
+            subscriptionRepository.deleteById(new_id);
+        }catch (Exception e){
+            System.out.println("erreur" +e);
+            return "listSubscription";
+        }
+        return "listSubscription";
+    }
+
+    @GetMapping("/listSubscription")
+    public String listSubscription() {
+        return "listSubscription";
+    }
+
+    @ModelAttribute("subscriptionList")
+    protected List<Subscription> getAllSubscription(){
+        List<Subscription> subscriptionList = subscriptionRepository.findAll();
+        return subscriptionList;
     }
 }

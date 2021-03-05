@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>Subscription</p>
+<a href="abonnement">Ajouter</a>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>NOM</th>
+        <th>PRIX</th>
+        <th>DESCRIPTION</th>
+        <th>SUPPRIMER</th>
+    </tr>
+    <tr th:each="subscription: ${subscriptionList}">
+        <form action="/deleteSubscription" method="POST">
+            <input type="hidden" name="id" id="id" th:value="${subscription.getId()}">
+            <td th:text="${subscription.getId()}"/></td>
+            <td th:text="${subscription.getName()}"/></td>
+            <td th:text="${subscription.getPrice()}"/></td>
+            <td th:text="${subscription.getText()}"/></td>
+            <td><button type="submit">Supprimer</button></td>
+        </form>
+    </tr>
+</table>
+</body>
+</html>
