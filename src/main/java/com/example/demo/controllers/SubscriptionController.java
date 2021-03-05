@@ -7,8 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.sql.Date;
-
 @Controller
 public class SubscriptionController {
     @Autowired
@@ -29,12 +27,12 @@ public class SubscriptionController {
             }
         }catch (Exception e){
             System.out.println("erreur" +e);
-            return "abonnement";
+            return "subscription";
         }
         subscription.setName(name);
         subscription.setPrice(price);
         subscription.setText(text);
         subscriptionRepository.save(subscription);
-        return "abonnement";
+        return "subscription";
     }
 }
