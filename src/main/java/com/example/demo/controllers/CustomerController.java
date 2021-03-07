@@ -32,6 +32,13 @@ public class CustomerController {
         return "users";
     }
 
+
+    @GetMapping("/index")
+    public String index() {
+       
+        return "index";
+    }
+
     @PostMapping("/addCustomer")
     public String addCustomer(@RequestParam String lastName, @RequestParam String firstName, @RequestParam String userName,
                               @RequestParam String password, @RequestParam Boolean civility) {
