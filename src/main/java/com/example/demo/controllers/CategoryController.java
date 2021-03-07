@@ -17,19 +17,24 @@ public class CategoryController {
         return "indexCategory";
     }
 
+
+    @GetMapping("/realindex")
+    public String realindex(){
+        return "realindex";
+    }
     //Post
     @PostMapping("/addCategory")
     public String addCategory(@RequestParam String name) {
         Category category = new Category();
         category.setName(name);
         categoryRepository.save(category);
-        return "Added new category to repo!";
+        return "home";
     }
 
     @GetMapping("/deleteCategory")
     public String deleteCategory(@RequestParam Integer id) {
         categoryRepository.deleteById(id);
-        return "Delete complete";
+        return "home";
     }
 
 
