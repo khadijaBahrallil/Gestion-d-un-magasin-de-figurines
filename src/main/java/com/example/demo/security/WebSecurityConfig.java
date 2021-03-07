@@ -48,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/index");
         web.ignoring().antMatchers("/licences");
         web.ignoring().antMatchers("/opinion");
-        web.ignoring().antMatchers("/abonnement");
+        web.ignoring().antMatchers("/subscription");
         web.ignoring().antMatchers("/favicon.ico");
 
         web.ignoring().antMatchers("/listSubscription");
@@ -60,7 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/","/favicon.ico", "/favicon.ico", "/index","/register", "/addCustomer", "/indexFigurine","/addFigurine", "/licences", "/opinion",
-                        "/addLicence", "/addOpinion", "/indexCategory", "/abonnement", "/addSubscription","/listSubscription", "/deleteSubscription","/users").permitAll()
+                        "/addLicence", "/addOpinion", "/indexCategory", "/subscription", "/addSubscription","/listSubscription", "/deleteSubscription","/users").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable()
