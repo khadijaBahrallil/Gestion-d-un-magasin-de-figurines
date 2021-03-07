@@ -82,14 +82,13 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
         if (isUser) {
             String username;
             if (authentication.getPrincipal() instanceof Customer) {
-                System.out.println(authentication.getPrincipal());
                 username = ((Customer)authentication.getPrincipal()).getUsername();
             }
             else {
                 username = authentication.getName();
             }
 
-            return "/home.html?user="+username;
+            return "/home";
         } else if (isAdmin) {
             return "/home";
         } else {
