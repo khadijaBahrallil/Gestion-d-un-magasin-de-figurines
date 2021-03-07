@@ -76,6 +76,13 @@ public class CustomerController {
         return "login";
     }
 
+    @GetMapping("home")
+    public String home() {
+
+
+        return "home";
+    }
+
     @GetMapping("/listCustomer")
     public Iterable<Customer> getCustomers() {
         return customerRepository.findAll();
