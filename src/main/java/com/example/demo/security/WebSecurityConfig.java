@@ -13,6 +13,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -20,6 +22,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     UserService userDetailsService;
+
+    @Bean
+    public AuthenticationSuccessHandler myAuthenticationSuccessHandler() {
+        return new MyAuthenticationSuccessHandler();
+    }
+
+    @Autowired
+    private LogoutSuccessHandler myLogoutSuccessHandler;
 
 
 
@@ -39,6 +49,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/licences");
         web.ignoring().antMatchers("/opinion");
         web.ignoring().antMatchers("/abonnement");
+        web.ignoring().antMatchers("/favicon.ico");
+
         web.ignoring().antMatchers("/listSubscription");
         web.ignoring().antMatchers("/deleteSubscription");
     }
@@ -47,8 +59,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/index","/register", "/addCustomer", "/indexFigurine","/addFigurine", "/licences", "/opinion",
-                        "/addLicence", "/addOpinion", "/indexCategory", "/abonnement", "/addSubscription","/listSubscription", "/deleteSubscription").permitAll()
+                .antMatchers("/","/favicon.ico", "/favicon.ico", "/index","/register", "/addCustomer", "/indexFigurine","/addFigurine", "/licences", "/opinion",
+                        "/addLicence", "/addOpinion", "/indexCategory", "/abonnement", "/addSubscription","/listSubscription", "/deleteSubscription","/users").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable()
@@ -56,11 +68,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationProvider(getProvider())
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/home", true)
+                .successHandler(myAuthenticationSuccessHandler())
+                .passwordParameter("password")
+                .usernameParameter("username")
                 .failureUrl("/login?error=true")
                 .permitAll()
                 .and()
                 .logout()
+                .logoutSuccessHandler(myLogoutSuccessHandler)
                 .logoutSuccessUrl("/")
                 .permitAll();
 

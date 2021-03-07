@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.repos.CustomerRepository;
 import com.example.demo.entities.Customer;
+import com.example.demo.security.ActiveUserStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Locale;
 import java.util.Optional;
 
 
@@ -21,6 +23,14 @@ public class CustomerController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    ActiveUserStore activeUserStore;
+
+    @GetMapping("/loggedUsers")
+    public String getLoggedUsers(Locale locale, Model model) {
+        model.addAttribute("customers", activeUserStore.getCustomers());
+        return "users";
+    }
 
     @PostMapping("/addCustomer")
     public String addCustomer(@RequestParam String lastName, @RequestParam String firstName, @RequestParam String userName,
@@ -58,8 +68,10 @@ public class CustomerController {
         System.out.println("user créé avec succès");
         return "index";
     }
+
     @GetMapping("login")
     public String LoginUser() {
+
 
         return "login";
     }
