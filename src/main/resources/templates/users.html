@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<body>
+<h2>Currently logged in users</h2>
+<div th:each="customer : ${customers}">
+    <p th:text="${customer}">customer</p>
+</div>
+</body>
+</html>
