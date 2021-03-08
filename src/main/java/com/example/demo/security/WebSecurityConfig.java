@@ -43,6 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/addOpinion");
         web.ignoring().antMatchers("/addLicence");
         web.ignoring().antMatchers("/addSubscription");
+        web.ignoring().antMatchers("/addCategory");
         web.ignoring().antMatchers("/indexCategory");
         web.ignoring().antMatchers("/add");
         web.ignoring().antMatchers("/index");
@@ -52,7 +53,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/favicon.ico");
 
         web.ignoring().antMatchers("/listSubscription");
+        web.ignoring().antMatchers("/listLicence");
+        web.ignoring().antMatchers("/listCategory");
         web.ignoring().antMatchers("/deleteSubscription");
+        web.ignoring().antMatchers("/deleteLicence");
+        web.ignoring().antMatchers("/deleteCategory");
     }
 
     @Override
@@ -60,7 +65,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/","/favicon.ico", "/favicon.ico", "/index","/register", "/addCustomer", "/indexFigurine","/addFigurine", "/licences", "/opinion",
-                        "/addLicence", "/addOpinion", "/indexCategory", "/subscription", "/addSubscription","/listSubscription", "/deleteSubscription","/users").permitAll()
+                        "/addLicence", "/addOpinion", "/indexCategory", "/subscription", "/addSubscription","/listSubscription", "/deleteSubscription","/users",
+                        "/listLicence", "/deleteLicence", "/listCategory", "/deleteCategory", "/addCategory").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable()

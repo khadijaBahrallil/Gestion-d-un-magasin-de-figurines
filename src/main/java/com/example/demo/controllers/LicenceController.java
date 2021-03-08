@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.entities.Category;
 import com.example.demo.entities.Licence;
+import com.example.demo.entities.Subscription;
 import com.example.demo.repos.CategoryRepository;
 import com.example.demo.repos.LicenceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,25 @@ public class LicenceController {
         return "licences";
     }
 
+    @GetMapping("/listLicence")
+    public String listLicence() {
+        return "listLicence";
+    }
+
+    @PostMapping("/deleteLicence")
+    public String deleteLicence(@RequestParam String id) {
+        Licence licence;
+        int new_id;
+        try{
+            new_id = Integer.parseInt(id);
+            licence = licenceRepository.findLicenceById(new_id);
+            licenceRepository.deleteById(new_id);
+        }catch (Exception e){
+            System.out.println("erreur" +e);
+            return "listLicence";
+        }
+        return "listLicence";
+    }
     /*
     @ModelAttribute("category")
     protected ModelAndView  getAllCategory(){
@@ -54,6 +74,12 @@ public class LicenceController {
         return mv;
     }
     */
+
+    @ModelAttribute("licenceList")
+    protected List<Licence> getAllLicence(){
+        List<Licence> licenceList = licenceRepository.findAll();
+        return licenceList;
+    }
 
     @ModelAttribute("categoryList")
     protected List<Category> getAllCategory(){

@@ -62,6 +62,11 @@ public class SubscriptionController {
         return "listSubscription";
     }
 
+    @GetMapping("/subscription")
+    public String subscription() {
+        return "subscription";
+    }
+
     @ModelAttribute("subscriptionList")
     protected List<Subscription> getAllSubscription(){
         List<Subscription> subscriptionList = subscriptionRepository.findAll();
