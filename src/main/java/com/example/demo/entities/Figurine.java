@@ -1,6 +1,9 @@
 package com.example.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.Collection;
 
 @Entity
@@ -12,6 +15,8 @@ public class Figurine {
     private String description;
     private Float price;
     private int quantity;
+    @JsonFormat(pattern="dd/MM/yyyy")
+    private Date startDate;
     @ManyToOne
     private Licence licence;
     @ManyToMany
@@ -86,7 +91,23 @@ public class Figurine {
         this.pictures = pictures;
     }
 
-//A changer
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Collection<Basket> getBaskets() {
+        return baskets;
+    }
+
+    public void setBaskets(Collection<Basket> baskets) {
+        this.baskets = baskets;
+    }
+
+    //A changer
     /*public void sortLicence(){
 
     }*/
