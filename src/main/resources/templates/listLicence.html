@@ -22,7 +22,7 @@
             <td><input type="text" name="name" id="name" th:value="${licence.getName()}"></td>
             <!--<td th:text="${licence.getCategory().getName()}"/></td>-->
            <td>
-               <select  name="nameCat" id="nameCat"  >
+               <select  name="idCat" id="idCat"  >
                    <option  th:value="${licence.getCategory().getId()}" th:text="${licence.getCategory().getName()}" selected/>
                    <option th:each="category: ${categoryList}"
                            th:if="${category.getName()} != ${licence.getCategory().getName()}"

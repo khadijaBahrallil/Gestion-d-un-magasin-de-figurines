@@ -50,26 +50,30 @@ public class LicenceController {
     }
 
     @PostMapping("/updateLicence")
-    public String updateCategory(@RequestParam String idLicence, @RequestParam String name) {
+    public String updateCategory(@RequestParam String idLicence, @RequestParam String name, @RequestParam String idCat) {
         int new_id;
+        int new_idCat;
         Licence licence;
+        Category category;
         try {
             new_id = Integer.parseInt(idLicence);
+            new_idCat = Integer.parseInt(idCat);
             licence = licenceRepository.findLicenceById(new_id);
+            category = categoryRepository.findCategoryById(new_idCat);
             if(name.isEmpty()){
                 throw new Exception("nom vide");
             }
-            if(name.equals(licence.getName())){
+            if(name.equals(licence.getName()) && category.equals(licence.getCategory())){
                 throw new Exception("pas de changement");
             }
             List<Licence> listLicence = licenceRepository.findAll();
             for(int i = 0; i < listLicence.size(); i++){
-                if(listLicence.get(i).getName().equals(name)){
+                if(listLicence.get(i).getName().equals(name) && listLicence.get(i).getCategory().equals(category)){
                     throw new Exception("Licence déjà existante");
                 }
             }
             licence.setName(name);
-
+            licence.setCategory(category);
         }catch (Exception e){
             System.out.println("erreur" +e);
             return "listLicence";
