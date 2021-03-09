@@ -54,6 +54,9 @@ public class FigurineController {
         return "figurines";
     }
 
+    @RequestMapping("/opinion")
+    public String opinion(){ return "opinion";}
+
     @GetMapping("/listFigurine")
     public Iterable<Figurine> getFigurine() {
         return figurineRepository.findAll();
