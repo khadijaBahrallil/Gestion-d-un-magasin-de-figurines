@@ -57,6 +57,40 @@ public class SubscriptionController {
         return "listSubscription";
     }
 
+    @PostMapping("/updateSubscription")
+    public String updateSubscription(@RequestParam String idSubscription, @RequestParam String name, @RequestParam float price, @RequestParam String text) {
+        int new_id;
+        Subscription subscription;
+        try {
+            new_id = Integer.parseInt(idSubscription);
+            subscription = subscriptionRepository.findSubscriptionById(new_id);
+            if(price < 0){
+                throw new Exception("prix non valide");
+            }
+            if(text.length() > 255 || text.isEmpty()){
+                throw new Exception("description non valide");
+            }
+            if(name.isEmpty()){
+                throw new Exception("nom vide");
+            }
+            List<Subscription> listSubscription = subscriptionRepository.findAll();
+            for(int i = 0; i < listSubscription.size(); i++){
+                if(listSubscription.get(i).getName().equals(name) && listSubscription.get(i).getPrice() == price && listSubscription.get(i).getText().equals(text)){
+                    throw new Exception("Categorie déjà existante");
+                }
+            }
+            subscription.setName(name);
+            subscription.setPrice(price);
+            subscription.setText(text);
+
+        }catch (Exception e){
+            System.out.println("erreur" +e);
+            return "listSubscription";
+        }
+        subscriptionRepository.save(subscription);
+        return "listSubscription";
+    }
+
     @GetMapping("/listSubscription")
     public String listSubscription() {
         return "listSubscription";
