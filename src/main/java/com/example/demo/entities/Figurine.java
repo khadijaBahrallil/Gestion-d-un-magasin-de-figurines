@@ -23,6 +23,8 @@ public class Figurine {
     private Collection<Picture> pictures;
     @OneToMany
     private Collection<Basket> baskets;
+    @OneToMany
+    private Collection<Opinion> opinions;
     public enum Status {
         EN_PRECOMANDE,
         EN_STOCK,
@@ -84,7 +86,7 @@ public class Figurine {
     public Picture getPicture() {
          Object[] mpictures =  pictures.toArray();
          Picture picture = (Picture) mpictures[0];
-        return picture;
+         return picture;
     }
 
     public void setPictures(Collection<Picture> pictures) {
@@ -105,6 +107,14 @@ public class Figurine {
 
     public void setBaskets(Collection<Basket> baskets) {
         this.baskets = baskets;
+    }
+
+    public Collection<Opinion> getOpinions() {
+        return opinions;
+    }
+
+    public void setOpinions(Collection<Opinion> opinions) {
+        this.opinions = opinions;
     }
 
     //A changer

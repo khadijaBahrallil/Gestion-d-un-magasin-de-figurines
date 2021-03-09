@@ -51,16 +51,25 @@
                 <td><img  th:src="@{${'/images/' + figurine.getPicture().getName() + '.png'}}"/></td>
             </tr>
             <tr>
-                <td><p th:text="${'Categorie :' + figurine.getLicence().getCategory().getName()}"></p></td>
+                <td th:text="${'Categorie :' + figurine.getLicence().getCategory().getName()}"></td>
             </tr>
             <tr>
-                <td><p th:text="${'Licence :' + figurine.getLicence().getName()}"></p></td>
+                <td th:text="${'Licence :' + figurine.getLicence().getName()}"></td>
             </tr>
             <tr>
-                <td><p th:text="${'Prix (TTC) :' + figurine.getPrice() + '€'}"></p></td>
+                <td th:text="${'Prix (TTC) :' + figurine.getPrice() + '€'}"></td>
             </tr>
         </table>
+        <h3>Avis</h3>
+        <h3 th:text="${'Note ' + note + ' / 5'}"></h3>
 
+        <table th:each="opinion: ${opinions}">
+            <tr>
+                <td th:text="${'Avis :' + opinion.getText()}"></td>
+                <td th:text="${'Utilisateur :' + opinion.getCustomer().getUsername()}"></td>
+                <td th:text="${'Date :' + opinion.getDate()}"></td>
+            </tr>
+        </table>
     </div>
 
 </div>

@@ -1,18 +1,13 @@
 package com.example.demo.controllers;
 
-import com.example.demo.entities.Category;
-import com.example.demo.entities.Figurine;
-import com.example.demo.entities.Licence;
-import com.example.demo.entities.Picture;
-import com.example.demo.repos.CategoryRepository;
-import com.example.demo.repos.FigurineRepository;
-import com.example.demo.repos.LicenceRepository;
-import com.example.demo.repos.PictureRepository;
+import com.example.demo.entities.*;
+import com.example.demo.repos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -26,6 +21,8 @@ public class FigurineController {
     private LicenceRepository licenceRepository;
     @Autowired
     private PictureRepository pictureRepository;
+    @Autowired
+    private OpinionRepository opinionRepository;
 
     //Post
     @PostMapping("/addFigurine")
@@ -70,13 +67,26 @@ public class FigurineController {
     */
  @PostMapping("/findFigurine")
     public String findFigurine(@RequestParam Integer idFigurine, Model model) {
-     Figurine figurine;
+     Figurine figurine = new Figurine();
+     List<Opinion> opinions = new ArrayList<>();
+     int note = 0;
      try {
          figurine = figurineRepository.findFigurineById(idFigurine);
+         opinions = (List<Opinion>) figurine.getOpinions();
+         if(opinions.size() > 0) {
+             for (int i = 0; i < opinions.size(); i++) {
+                 note = note + opinions.get(i).getNote();
+             }
+             note = note / opinions.size();
+         }
+
      }catch(Exception e){
+         System.out.println(e);
          return "figurines";
      }
-        model.addAttribute("figurine", figurine);
+     model.addAttribute("figurine", figurine);
+     model.addAttribute("opinions", opinions);
+     model.addAttribute("note", note);
         return "figurineProfile";
     }
 
