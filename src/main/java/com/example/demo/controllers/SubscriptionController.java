@@ -65,18 +65,18 @@ public class SubscriptionController {
             new_id = Integer.parseInt(idSubscription);
             subscription = subscriptionRepository.findSubscriptionById(new_id);
             if(price < 0){
-                throw new Exception("prix non valide");
+                throw new Exception("Prix non valide");
             }
             if(text.length() > 255 || text.isEmpty()){
-                throw new Exception("description non valide");
+                throw new Exception("Description non valide");
             }
             if(name.isEmpty()){
-                throw new Exception("nom vide");
+                throw new Exception("Nom vide");
             }
             List<Subscription> listSubscription = subscriptionRepository.findAll();
             for(int i = 0; i < listSubscription.size(); i++){
                 if(listSubscription.get(i).getName().equals(name) && listSubscription.get(i).getPrice() == price && listSubscription.get(i).getText().equals(text)){
-                    throw new Exception("Categorie déjà existante");
+                    throw new Exception("Catégorie déjà existante");
                 }
             }
             subscription.setName(name);
@@ -84,7 +84,7 @@ public class SubscriptionController {
             subscription.setText(text);
 
         }catch (Exception e){
-            System.out.println("erreur" +e);
+            System.out.println("Erreur" +e);
             return "listSubscription";
         }
         subscriptionRepository.save(subscription);

@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
 
-    <title>404 FIGURINES</title>
+    <title>404 Figurines</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -48,15 +48,33 @@
     <table class="table col-md-4" border align="center">
         <tr>
             <td><label for="name">Nom de la figurine :</label></td>
-            <td><input type="text" name="name" id="name" maxlength="255" value="Ainz Ooal Gown" class="form-control" required></td>
+            <td><input type="text" name="name" id="name" maxlength="255" class="form-control" required></td>
         </tr>
         <tr>
-            <td><label for="license">License :</label></td>
-            <td><input type="text" name="license" id="license" maxLength="255" value="Overlord" class="form-control" required></td>
+            <td><label for="idCat">Catégorie :</label></td>
+<!--            <td><input type="text" name="category" id="category" maxLength="255" class="form-control" required></td>-->
+            <td>
+                <select name="idCat" id="idCat">
+                    <option th:each="category: ${categoryList}"
+                            th:value="${category.getId()}"
+                            th:text="${category.getName()}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="idLicense">Licence :</label></td>
+<!--            <td><input type="text" name="license" id="license" maxLength="255" class="form-control" required></td>-->
+            <td>
+                <select name="idLicense" id="idLicense">
+                    <option th:each="licence: ${licenceList}"
+                            th:value="${licence.getId()}"
+                            th:text="${licence.getName()}"></option>
+                </select>
+            </td>
         </tr>
         <tr>
             <td><label for="description">Description :</label></td>
-            <td><textarea type="text" name="description" id="description" rows="3" cols="30" class="form-control">Magnifique figurine d'un personnage si emblématique de la série Overlord.</textarea></td>
+            <td><textarea type="text" name="description" id="description" rows="3" cols="30" class="form-control"></textarea></td>
         </tr>
         <tr>
             <td><label for="price">Prix :</label></td>
@@ -74,9 +92,8 @@
     </div>
     </form>
     </br>
-    <form action="/listFigurine" method="GET">
-        <button>Liste des figurines</button>
-    </form>
+    <a href="/figurines">Liste des figurines</a>
+    </br>
     </br>
     <a href="index">Retour au menu</a>
 </div>

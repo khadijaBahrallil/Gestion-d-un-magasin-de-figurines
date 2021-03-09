@@ -6,6 +6,7 @@ import com.example.demo.entities.Category;
 import com.example.demo.repos.LicenceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -96,8 +97,15 @@ public class CategoryController {
 
 
     @GetMapping("/listCategory")
-    public Iterable<Category> getCategory() {
-        return categoryRepository.findAll();
+    public String getCategory() {
+        return "listCategory";
+    }
+
+    @RequestMapping("/listCategoryPerso")
+    public String getCategory(@RequestParam String recherche, Model model) {
+        List<Category> categoryList = categoryRepository.findCategoryWithPartOfName(recherche);
+        model.addAttribute("categoryList", categoryList);
+        return "listCategory";
     }
 
     @GetMapping("/findCategory/{id}")

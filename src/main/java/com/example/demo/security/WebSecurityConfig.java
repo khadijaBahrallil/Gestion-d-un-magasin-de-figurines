@@ -31,14 +31,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private LogoutSuccessHandler myLogoutSuccessHandler;
 
-
-
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/register");
         web.ignoring().antMatchers("/addUser");
         web.ignoring().antMatchers("/addCustomer");
         web.ignoring().antMatchers("/addFigurine");
+        web.ignoring().antMatchers("/figurines");
         web.ignoring().antMatchers("/indexFigurine");
         web.ignoring().antMatchers("/addOpinion");
         web.ignoring().antMatchers("/addLicence");
@@ -61,6 +60,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/updateCategory");
         web.ignoring().antMatchers("/updateLicence");
         web.ignoring().antMatchers("/updateSubscription");
+        web.ignoring().antMatchers("/findFigurine");
+        web.ignoring().antMatchers("/listCategoryPerso");
+        web.ignoring().antMatchers("/static/**");
     }
 
     @Override
@@ -69,7 +71,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/","/favicon.ico", "/favicon.ico", "/index","/register", "/addCustomer", "/indexFigurine","/addFigurine", "/licences", "/opinion",
                         "/addLicence", "/addOpinion", "/indexCategory", "/subscription", "/addSubscription","/listSubscription", "/deleteSubscription","/users",
-                        "/listLicence", "/deleteLicence", "/listCategory", "/deleteCategory", "/addCategory", "/updateCategory", "/updateLicence", "/updateSubscription").permitAll()
+                        "/listLicence", "/deleteLicence", "/listCategory", "/deleteCategory", "/addCategory", "/updateCategory", "/updateLicence", "/updateSubscription",
+                        "/figurines", "/images/**", "static/**", "/findFigurine", "/listCategoryPerso").permitAll()
+
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable()
