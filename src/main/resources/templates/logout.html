@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="fr">
+<html lang="fr" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../../../favicon.ico">
+    <link rel="icon" href="favicon.ico">
 
     <title>404 Figurines</title>
 
@@ -19,6 +18,7 @@
 </head>
 
 <body>
+
 <header>
     <div class="navbar navbar-dark bg-dark box-shadow">
         <div class="container d-flex justify-content-between">
@@ -28,13 +28,13 @@
             </a>
             <ul class="nav">
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="index">Menu</a>
+                    <a href="index" class="nav-link text-white" >Menu</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="indexFigurine">Figurines</a>
+                    <a class="nav-link text-white" href="figurines">Figurines</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="register">S'inscrire</a>
+                    <a class="nav-link text-white" href="login">Se connecter</a>
                 </li>
             </ul>
         </div>
@@ -42,28 +42,12 @@
 </header>
 
 <div style="text-align: center; padding-top: 50px; padding-bottom: 20px">
-    <div th:if="${param.error}">
-        <I>Adresse mail et mot de passe invalide.</I>
-    </div>
     <div th:if="${param.logout}">
-        <I>Vous avez été déconnecté.</I>
+        <h4><I>Vous avez été déconnecté.</I></h4>
+        </br>
+        <h4>Merci d'avoir utilisé notre site, en espérant que vous ayez trouvé votre bonheur dessus.</h4>
     </div>
 </div>
-
-<form th:action="@{/login}" method="post">
-    <div style="padding-left: 42%; padding-right: 40%">
-        <div class="row">
-            <div class="col-5"><label>Email :</label></div>
-            <div class="col"><input type="email" id="username" name="username"/></div>
-        </div>
-        <div class="row">
-            <div class="col-5"><label>Mot de passe :</label></div>
-            <div class="col"><input type="password" id="password" name="password"/></div>
-        </div>
-    </div>
-    <div style="text-align: center; padding-top: 20px"><input type="submit" value="Sign In"/></div>
-</form>
-
 
 </body>
 </html>
