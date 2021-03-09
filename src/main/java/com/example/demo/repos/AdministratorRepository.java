@@ -1,7 +1,6 @@
 package com.example.demo.repos;
 
 import com.example.demo.entities.Administrator;
-import com.example.demo.entities.Customer;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 

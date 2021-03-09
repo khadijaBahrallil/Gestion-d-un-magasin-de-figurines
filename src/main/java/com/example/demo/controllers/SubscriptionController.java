@@ -1,7 +1,9 @@
 package com.example.demo.controllers;
 
 import com.example.demo.entities.Category;
+import com.example.demo.entities.Customer;
 import com.example.demo.entities.Subscription;
+import com.example.demo.repos.CustomerRepository;
 import com.example.demo.repos.SubscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,8 @@ import java.util.List;
 public class SubscriptionController {
     @Autowired
     private SubscriptionRepository subscriptionRepository;
+    @Autowired
+    private CustomerRepository customerRepository;
 
     @PostMapping("/addSubscription")
     public String addSubscription(@RequestParam String name, @RequestParam float price, @RequestParam String text) {
@@ -48,9 +52,19 @@ public class SubscriptionController {
         try{
             new_id = Integer.parseInt(id);
             subscription = subscriptionRepository.findSubscriptionById(new_id);
+            List<Customer> customers = customerRepository.findAll();
+            for (int i = 0; i < customers.size(); i++ ){
+                if(customers.get(i).getSubscription() != null) {
+                    if (customers.get(i).getSubscription().equals(subscription)) {
+                        customers.get(i).setSubscription(null);
+                        customerRepository.save(customers.get(i));
+                    }
+                }
+            }
+
             subscriptionRepository.deleteById(new_id);
         }catch (Exception e){
-            System.out.println("erreur" +e);
+            System.out.println("erreur " +e);
             return "listSubscription";
         }
         return "listSubscription";

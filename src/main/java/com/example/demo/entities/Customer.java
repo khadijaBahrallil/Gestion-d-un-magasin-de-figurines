@@ -119,4 +119,12 @@ public class Customer implements UserDetails {
     public boolean isEnabled() {
         return false;
     }
+
+    public Subscription getSubscription() {
+        return subscription;
+    }
+
+    public void setSubscription(Subscription subscription) {
+        this.subscription = subscription;
+    }
 }

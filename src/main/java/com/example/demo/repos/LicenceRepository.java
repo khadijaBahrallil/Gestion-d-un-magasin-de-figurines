@@ -1,6 +1,5 @@
 package com.example.demo.repos;
 
-import com.example.demo.entities.Category;
 import com.example.demo.entities.Licence;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
