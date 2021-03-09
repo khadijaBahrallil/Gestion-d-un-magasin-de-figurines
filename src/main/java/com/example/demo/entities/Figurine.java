@@ -73,7 +73,20 @@ public class Figurine {
         this.name = name;
     }
 
-    //A changer
+    public Collection<Picture> getPictures() {
+        return pictures;
+    }
+    public Picture getPicture() {
+         Object[] mpictures =  pictures.toArray();
+         Picture picture = (Picture) mpictures[0];
+        return picture;
+    }
+
+    public void setPictures(Collection<Picture> pictures) {
+        this.pictures = pictures;
+    }
+
+//A changer
     /*public void sortLicence(){
 
     }*/

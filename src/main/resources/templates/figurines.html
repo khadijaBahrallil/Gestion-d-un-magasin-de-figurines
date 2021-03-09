@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/html">
+<html lang="fr"  xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -55,8 +55,8 @@
                 <label>Catégorie :</label>
                 <select name="category_name" class="form-control" required>
                     <option selected>Toutes</option>
-                    <th:block th:each="category : ${categories}">
-                        <option th:text="${category.nom}">...</option>
+                    <th:block th:each="category : ${categoryList}">
+                        <option th:text="${category.getName()}">...</option>
                     </th:block>
                 </select>
             </div>
@@ -64,8 +64,8 @@
                 <label>Licence :</label>
                 <select name="license_name" class="form-control" required>
                     <option selected>Toutes</option>
-                    <th:block th:each="license : ${licenses}">
-                        <option th:text="${license.nom}">...</option>
+                    <th:block th:each="license : ${licenceList}">
+                        <option th:text="${license.getName()}">...</option>
                     </th:block>
                 </select>
             </div>
@@ -91,14 +91,15 @@
             <th></th>
         </tr>
         <br/>
-        <th:block th:each="figurine : ${figurines}">
-            <tr style="width:100%">
-                <td style="width: 20%; text-align: center" th:text="${figurine.nom}"></td>
-                <td style="width: 20%; text-align: center"><img th:src="${figurine.picture}" style="max-height: 150px"></td>
-                <td style="width: 15%; text-align: center" th:text="${figurine.category.name}"></td>
-                <td style="width: 15%; text-align: center" th:text="${figurine.license.name}"></td>
-                <td style="width: 15%; text-align: center" th:text="${figurine.quantity}"></td>
-                <td style="width: 15%; text-align: center" th:text="${figurine.price}"></td>
+        <tr style="width:100%"th:block th:each="figurine : ${figurineList}">
+                <td style="width: 20%; text-align: center" th:text="${figurine.getName()}"></td>
+                <td style="width: 20%; text-align: center" th:text="${figurine.getPicture().getName()}"></td>
+                <td><img src="../resources/img/a.png"/></td>
+            <!-- <td style="width: 20%; text-align: center"><img th:src="${figurine.getName()}" style="max-height: 150px"></td>IMAGE-->
+                <td style="width: 15%; text-align: center" th:text="${figurine.getLicence().getCategory().getName()}"></td>
+                <td style="width: 15%; text-align: center" th:text="${figurine.getLicence().getName()}"></td>
+                <td style="width: 15%; text-align: center" th:text="${figurine.getQuantity()}"></td>
+                <td style="width: 15%; text-align: center" th:text="${figurine.getPrice()}"></td>
             </tr>
         </th:block>
     </table>

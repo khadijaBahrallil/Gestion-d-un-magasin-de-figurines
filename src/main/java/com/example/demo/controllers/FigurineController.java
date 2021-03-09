@@ -1,16 +1,30 @@
 package com.example.demo.controllers;
 
+import com.example.demo.entities.Category;
 import com.example.demo.entities.Figurine;
+import com.example.demo.entities.Licence;
+import com.example.demo.entities.Picture;
+import com.example.demo.repos.CategoryRepository;
 import com.example.demo.repos.FigurineRepository;
+import com.example.demo.repos.LicenceRepository;
+import com.example.demo.repos.PictureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 public class FigurineController {
 
     @Autowired
     private FigurineRepository figurineRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
+    @Autowired
+    private LicenceRepository licenceRepository;
+    @Autowired
+    private PictureRepository pictureRepository;
 
     //Post
     @PostMapping("/addFigurine")
@@ -35,6 +49,11 @@ public class FigurineController {
     }
 
 
+    @RequestMapping("/figurines")
+    public String figurines(){
+        return "figurines";
+    }
+
     @GetMapping("/listFigurine")
     public Iterable<Figurine> getFigurine() {
         return figurineRepository.findAll();
@@ -43,5 +62,29 @@ public class FigurineController {
     @GetMapping("/findFigurine/{id}")
     public Figurine findFigurineById(@PathVariable Integer id) {
         return figurineRepository.findFigurineById(id);
+    }
+
+    @ModelAttribute("figurineList")
+    protected List<Figurine> getAllFigurine(){
+        List<Figurine> figurineList = figurineRepository.findAll();
+        return figurineList;
+    }
+
+    @ModelAttribute("categoryList")
+    protected List<Category> getAllCategory(){
+        List<Category> categoryList = categoryRepository.findAll();
+        return categoryList;
+    }
+
+    @ModelAttribute("licenceList")
+    protected List<Licence> getAllLicence(){
+        List<Licence> licenceList = licenceRepository.findAll();
+        return licenceList;
+    }
+
+    @ModelAttribute("pictureList")
+    protected List<Picture> getAllPicture(){
+        List<Picture> pictureList = pictureRepository.findAll();
+        return pictureList;
     }
 }
