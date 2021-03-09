@@ -7,6 +7,12 @@
 <body>
 <p>Subscription</p>
 <a href="subscription">Ajouter</a>
+<a href="/listSubscription">Annuler recherche</a>
+<form action="/listSubscriptionPerso" method="GET">
+    <label>Nom de l'abonnement:</label>
+    <input type="text" name="recherche" id="recherche" class="form-control">
+    <input type="submit" value="Rechercher" class="btn btn-info">
+</form>
 <table>
     <tr>
         <th>ID</th>

@@ -1,13 +1,12 @@
 package com.example.demo.controllers;
 
+import com.example.demo.entities.Category;
 import com.example.demo.entities.Subscription;
 import com.example.demo.repos.SubscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
@@ -93,6 +92,13 @@ public class SubscriptionController {
 
     @GetMapping("/listSubscription")
     public String listSubscription() {
+        return "listSubscription";
+    }
+
+    @RequestMapping("/listSubscriptionPerso")
+    public String listSubscription(@RequestParam String recherche, Model model) {
+        List<Subscription> subscriptionList = subscriptionRepository.findSubscriptionWithPartOfName(recherche);
+        model.addAttribute("subscriptionList", subscriptionList);
         return "listSubscription";
     }
 
