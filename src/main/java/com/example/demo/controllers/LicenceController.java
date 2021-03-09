@@ -7,6 +7,7 @@ import com.example.demo.repos.CategoryRepository;
 import com.example.demo.repos.LicenceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,6 +47,13 @@ public class LicenceController {
 
     @GetMapping("/listLicence")
     public String listLicence() {
+        return "listLicence";
+    }
+
+    @RequestMapping("/listLicencePerso")
+    public String listLicence(@RequestParam String recherche, Model model) {
+        List<Licence> licenceList = licenceRepository.findLicenceWithPartOfName(recherche);
+        model.addAttribute("licenceList", licenceList);
         return "listLicence";
     }
 
