@@ -35,7 +35,7 @@ public class CustomerController {
 
     @GetMapping("/index")
     public String index() {
-       
+
         return "index";
     }
 

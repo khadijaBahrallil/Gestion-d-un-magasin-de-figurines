@@ -34,6 +34,12 @@ public class FigurineController {
         return "Delete complete";
     }
 
+    @GetMapping("/figurines")
+    public String figurines() {
+
+        return "index";
+    }
+
 
     @GetMapping("/listFigurine")
     public Iterable<Figurine> getFigurine() {
