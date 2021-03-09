@@ -40,6 +40,29 @@ public class FigurineController {
         return "indexFigurine";
     }
 
+    @GetMapping("/recherche")
+    public String recherche() {
+
+        return "recherche";
+    }
+
+    @PostMapping("/recherche")
+    public String rechercheCategorie(@RequestParam("recherche") String recherche, Model model) {
+        ArrayList<String> figurines = new ArrayList<>();
+        for(Figurine figurine : figurineRepository.findAll()){
+
+            figurines.add(figurine.getName());
+
+
+
+        }
+
+
+        model.addAttribute("figurines", figurines);
+        return "recherche";
+    }
+
+
     @GetMapping("/deleteFigurine")
     public String deleteFigurine(@RequestParam Integer id) {
         figurineRepository.deleteById(id);
