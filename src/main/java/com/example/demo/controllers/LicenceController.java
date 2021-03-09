@@ -49,6 +49,35 @@ public class LicenceController {
         return "listLicence";
     }
 
+    @PostMapping("/updateLicence")
+    public String updateCategory(@RequestParam String idLicence, @RequestParam String name) {
+        int new_id;
+        Licence licence;
+        try {
+            new_id = Integer.parseInt(idLicence);
+            licence = licenceRepository.findLicenceById(new_id);
+            if(name.isEmpty()){
+                throw new Exception("nom vide");
+            }
+            if(name.equals(licence.getName())){
+                throw new Exception("pas de changement");
+            }
+            List<Licence> listLicence = licenceRepository.findAll();
+            for(int i = 0; i < listLicence.size(); i++){
+                if(listLicence.get(i).getName().equals(name)){
+                    throw new Exception("Licence déjà existante");
+                }
+            }
+            licence.setName(name);
+
+        }catch (Exception e){
+            System.out.println("erreur" +e);
+            return "listLicence";
+        }
+        licenceRepository.save(licence);
+        return "listLicence";
+    }
+
     @PostMapping("/deleteLicence")
     public String deleteLicence(@RequestParam String id) {
         Licence licence;
@@ -86,6 +115,5 @@ public class LicenceController {
         List<Category> categoryList = categoryRepository.findAll();
         return categoryList;
     }
-
 
 }
