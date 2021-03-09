@@ -92,9 +92,9 @@
         </tr>
         <br/>
         <tr style="width:100%"th:block th:each="figurine : ${figurineList}">
-                <td style="width: 20%; text-align: center" th:text="${figurine.getName()}"></td>
+            <td style="width: 20%; text-align: center" th:text="${figurine.getName()}"></td>
                 <td style="width: 20%; text-align: center" th:text="${figurine.getPicture().getName()}"></td>
-                <td><img src="../resources/img/a.png"/></td>
+                <td><img  th:src="@{${'/images/' + figurine.getPicture().getName() + '.png'}}"/></td>
             <!-- <td style="width: 20%; text-align: center"><img th:src="${figurine.getName()}" style="max-height: 150px"></td>IMAGE-->
                 <td style="width: 15%; text-align: center" th:text="${figurine.getLicence().getCategory().getName()}"></td>
                 <td style="width: 15%; text-align: center" th:text="${figurine.getLicence().getName()}"></td>
