@@ -31,8 +31,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private LogoutSuccessHandler myLogoutSuccessHandler;
 
-
-
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/register");
@@ -62,6 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/updateCategory");
         web.ignoring().antMatchers("/updateLicence");
         web.ignoring().antMatchers("/updateSubscription");
+        web.ignoring().antMatchers("/findFigurine");
         web.ignoring().antMatchers("/static/**");
     }
 
@@ -72,7 +71,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/","/favicon.ico", "/favicon.ico", "/index","/register", "/addCustomer", "/indexFigurine","/addFigurine", "/licences", "/opinion",
                         "/addLicence", "/addOpinion", "/indexCategory", "/subscription", "/addSubscription","/listSubscription", "/deleteSubscription","/users",
                         "/listLicence", "/deleteLicence", "/listCategory", "/deleteCategory", "/addCategory", "/updateCategory", "/updateLicence", "/updateSubscription",
-                        "/figurines", "/images/**", "static/**").permitAll()
+                        "/figurines", "/images/**", "static/**", "/findFigurine").permitAll()
 
                 .anyRequest().authenticated()
                 .and()

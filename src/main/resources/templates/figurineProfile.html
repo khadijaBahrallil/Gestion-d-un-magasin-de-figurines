@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr"  xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 
 <head>
     <meta charset="utf-8">
@@ -43,10 +43,25 @@
 
 <div style="padding-left:400px; padding-right:400px; padding-top:20px">
     <div class="row">
-        <h3>Page Figurine</h3>
+        <table>
+            <tr>
+                <td><h3  th:text="${'Page Figurine : ' + figurine.getName()}"></h3></td>
+            </tr>
+            <tr>
+                <td><img  th:src="@{${'/images/' + figurine.getPicture().getName() + '.png'}}"/></td>
+            </tr>
+            <tr>
+                <td><p th:text="${'Categorie :' + figurine.getLicence().getCategory().getName()}"></p></td>
+            </tr>
+            <tr>
+                <td><p th:text="${'Licence :' + figurine.getLicence().getName()}"></p></td>
+            </tr>
+            <tr>
+                <td><p th:text="${'Prix (TTC) :' + figurine.getPrice() + '€'}"></p></td>
+            </tr>
+        </table>
 
     </div>
-    </br>
 
 </div>
 

@@ -10,6 +10,7 @@ import com.example.demo.repos.LicenceRepository;
 import com.example.demo.repos.PictureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -62,9 +63,16 @@ public class FigurineController {
         return figurineRepository.findAll();
     }
 
-    @GetMapping("/findFigurine/{id}")
+   /* @RequestMapping("/findFigurine/{id}")
     public Figurine findFigurineById(@PathVariable Integer id) {
         return figurineRepository.findFigurineById(id);
+    }
+    */
+ @PostMapping("/findFigurine")
+    public String findFigurine(@RequestParam Integer idFigurine, Model model) {
+        Figurine figurine = figurineRepository.findFigurineById(idFigurine);
+        model.addAttribute("figurine", figurine);
+        return "figurineProfile";
     }
 
     @GetMapping("/findFigurineProfile/{id}")
@@ -77,6 +85,7 @@ public class FigurineController {
         List<Figurine> figurineList = figurineRepository.findAll();
         return figurineList;
     }
+
 
     @ModelAttribute("categoryList")
     protected List<Category> getAllCategory(){

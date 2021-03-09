@@ -100,7 +100,10 @@
             <td style="width: 15%; text-align: center" th:text="${figurine.getLicence().getName()}"></td>
             <td style="width: 10%; text-align: center" th:text="${figurine.getQuantity()}"></td>
             <td style="width: 15%; text-align: center" th:text="${figurine.getPrice()}"></td>
-            <td style="width: 15%; text-align: center" th:text="${figurine.getId()}"></td>
+            <form action="/findFigurine" method="POST">
+                <input type="hidden" name="idFigurine" id="idFigurine" th:value="${figurine.getId()}">
+                <td><button type="submit">Voir</button></td>
+            </form>
         </tr>
         </th:block>
     </table>
