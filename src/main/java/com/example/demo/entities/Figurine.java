@@ -83,6 +83,7 @@ public class Figurine {
     public Collection<Picture> getPictures() {
         return pictures;
     }
+
     public Picture getPicture() {
          Object[] mpictures =  pictures.toArray();
          Picture picture = (Picture) mpictures[0];
