@@ -64,6 +64,11 @@ public class FigurineController {
         return figurineRepository.findFigurineById(id);
     }
 
+    @GetMapping("/findFigurineProfile/{id}")
+    public String findFigurineProfileById(@PathVariable Integer id) {
+        return "/figurineProfile";
+    }
+
     @ModelAttribute("figurineList")
     protected List<Figurine> getAllFigurine(){
         List<Figurine> figurineList = figurineRepository.findAll();
