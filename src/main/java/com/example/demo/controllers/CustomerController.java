@@ -33,11 +33,25 @@ public class CustomerController {
     }
 
 
+    @GetMapping("/profile")
+    public String profile(Locale locale, Model model) {
+        Customer costumer = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0)).get();
+        model.addAttribute("lname",costumer.getLastName());
+        model.addAttribute("fname",costumer.getFirstName());
+        model.addAttribute("username",costumer.getUsername());
+
+        return "profile";
+    }
+
+
     @GetMapping("/index")
     public String index() {
 
+
         return "index";
     }
+
+
 
     @PostMapping("/addCustomer")
     public String addCustomer(@RequestParam String lastName, @RequestParam String firstName, @RequestParam String userName,

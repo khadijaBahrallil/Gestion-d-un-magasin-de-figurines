@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -50,12 +50,15 @@
         <div class="col">
             <div class="row">
                 <label>Nom :</label>
+                <p th:text="${lname}">lname</p>
             </div>
             <div class="row">
                 <label>Prénom :</label>
+                <p th:text="${fname}">fname</p>
             </div>
             <div class="row">
                 <label>Adresse mail :</label>
+                <p th:text="${username}">username</p>
             </div>
         </div>
         <div class="col">
