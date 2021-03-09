@@ -14,12 +14,16 @@
         <th>SUPPRIMER</th>
     </tr>
     <tr th:each="category: ${categoryList}">
-        <form action="/deleteCategory" method="POST">
-            <input type="hidden" name="id" id="id" th:value="${category.getId()}">
-            <td th:text="${category.getId()}"/></td>
-            <td th:text="${category.getName()}"/></td>
-            <td><button type="submit">Supprimer</button></td>
+        <form action="/updateCategory" method="POST">
+            <input type="hidden" name="idCat" id="idCat" th:value="${category.getId()}">
+            <td th:text="${category.getId()}"></td>
+            <td><input type="text" name="name" id="name" th:value="${category.getName()}"></td>
+            <td><button type="submit">Mettre à jour</button></td>
         </form>
+            <form action="/deleteCategory" method="POST">
+                <td><button type="submit">Supprimer</button></td>
+                <input type="hidden" name="id" id="id" th:value="${category.getId()}">
+            </form>
     </tr>
 </table>
 </body>

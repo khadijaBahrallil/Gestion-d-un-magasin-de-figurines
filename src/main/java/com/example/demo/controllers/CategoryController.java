@@ -28,6 +28,36 @@ public class CategoryController {
     public String realindex(){
         return "realindex";
     }
+
+    @PostMapping("/updateCategory")
+    public String updateCategory(@RequestParam String idCat, @RequestParam String name) {
+        int new_id;
+        Category category;
+        try {
+            new_id = Integer.parseInt(idCat);
+            category = categoryRepository.findCategoryById(new_id);
+            if(name.isEmpty()){
+                throw new Exception("nom vide");
+            }
+            if(name.equals(category.getName())){
+                throw new Exception("pas de changement");
+            }
+            List<Category> listCategory = categoryRepository.findAll();
+            for(int i = 0; i < listCategory.size(); i++){
+                if(listCategory.get(i).getName().equals(name)){
+                    throw new Exception("Categorie déjà existante");
+                }
+            }
+            category.setName(name);
+
+        }catch (Exception e){
+            System.out.println("erreur" +e);
+            return "listCategory";
+        }
+        categoryRepository.save(category);
+        return "listCategory";
+    }
+
     //Post
     @PostMapping("/addCategory")
     public String addCategory(@RequestParam String name) {
