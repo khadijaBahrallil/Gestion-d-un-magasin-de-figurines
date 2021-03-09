@@ -70,12 +70,13 @@ public class FigurineController {
     */
  @PostMapping("/findFigurine")
     public String findFigurine(@RequestParam Integer idFigurine, Model model) {
+     Figurine figurine;
      try {
-         Figurine figurine = figurineRepository.findFigurineById(idFigurine);
-         model.addAttribute("figurine", figurine);
+         figurine = figurineRepository.findFigurineById(idFigurine);
      }catch(Exception e){
          return "figurines";
      }
+        model.addAttribute("figurine", figurine);
         return "figurineProfile";
     }
 
