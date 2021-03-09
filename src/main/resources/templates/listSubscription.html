@@ -6,22 +6,27 @@
 </head>
 <body>
 <p>Subscription</p>
-<a href="abonnement">Ajouter</a>
+<a href="subscription">Ajouter</a>
 <table>
     <tr>
         <th>ID</th>
         <th>NOM</th>
         <th>PRIX</th>
         <th>DESCRIPTION</th>
+        <th>MAJ</th>
         <th>SUPPRIMER</th>
     </tr>
     <tr th:each="subscription: ${subscriptionList}">
+        <form action="/updateSubscription" method="POST">
+            <input type="hidden" name="idSubscription" id="idSubscription" th:value="${subscription.getId()}">
+            <td th:text="${subscription.getId()}"/></td>
+            <td><input type="text" name="name" id="name" th:value="${subscription.getName()}"></td>
+            <td><input type="number" name="price" id="price" th:value="${subscription.getPrice()}">€</td>
+            <td><textarea type="text" name="text" id="text" rows="3" cols="30" class="form-control" th:text="${subscription.getText()}"></textarea></td>
+            <td><button type="submit">Mise à jour</button></td>
+        </form>
         <form action="/deleteSubscription" method="POST">
             <input type="hidden" name="id" id="id" th:value="${subscription.getId()}">
-            <td th:text="${subscription.getId()}"/></td>
-            <td th:text="${subscription.getName()}"/></td>
-            <td th:text="${subscription.getPrice()}"/></td>
-            <td th:text="${subscription.getText()}"/></td>
             <td><button type="submit">Supprimer</button></td>
         </form>
     </tr>

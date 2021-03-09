@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>Categorie</p>
+<a href="indexCategory">Ajouter</a>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>NOM</th>
+        <th>MAJ</th>
+        <th>SUPPRIMER</th>
+    </tr>
+    <tr th:each="category: ${categoryList}">
+        <form action="/updateCategory" method="POST">
+            <input type="hidden" name="idCat" id="idCat" th:value="${category.getId()}">
+            <td th:text="${category.getId()}"></td>
+            <td><input type="text" name="name" id="name" th:value="${category.getName()}"></td>
+            <td><button type="submit">Mettre à jour</button></td>
+        </form>
+            <form action="/deleteCategory" method="POST">
+                <td><button type="submit">Supprimer</button></td>
+                <input type="hidden" name="id" id="id" th:value="${category.getId()}">
+            </form>
+    </tr>
+</table>
+</body>
+</html>

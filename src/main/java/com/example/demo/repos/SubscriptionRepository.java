@@ -1,6 +1,5 @@
 package com.example.demo.repos;
 
-import com.example.demo.entities.Category;
 import com.example.demo.entities.Subscription;
 import org.springframework.data.repository.CrudRepository;
 

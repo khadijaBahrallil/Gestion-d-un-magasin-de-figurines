@@ -63,6 +63,8 @@ public class CustomerController {
 
         return "register";
     }
+
+
     @PostMapping("/addUser")
     public String addUser(Customer costumer, BindingResult result, Model model) {
         System.out.println("testAddUser");

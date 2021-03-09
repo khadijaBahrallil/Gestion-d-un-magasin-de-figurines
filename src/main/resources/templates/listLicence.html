@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>Licence</p>
+<a href="licences">Ajouter</a>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>NOM</th>
+        <th>CATEGORIE</th>
+        <th>MAJ</th>
+        <th>SUPPRIMER</th>
+    </tr>
+    <tr th:each="licence: ${licenceList}">
+        <form action="/updateLicence" method="POST">
+            <input type="hidden" name="idLicence" id="idLicence" th:value="${licence.getId()}">
+            <td th:text="${licence.getId()}"/></td>
+            <td><input type="text" name="name" id="name" th:value="${licence.getName()}"></td>
+            <!--<td th:text="${licence.getCategory().getName()}"/></td>-->
+           <td>
+               <select  name="idCat" id="idCat"  >
+                   <option  th:value="${licence.getCategory().getId()}" th:text="${licence.getCategory().getName()}" selected/>
+                   <option th:each="category: ${categoryList}"
+                           th:if="${category.getName()} != ${licence.getCategory().getName()}"
+                        th:value="${category.getId()}"
+                        th:text="${category.getName()}"/>
+                </select>
+           </td>
+            <td><button type="submit">Mettre à jour</button></td>
+        </form>
+        <form action="/deleteLicence" method="POST">
+            <input type="hidden" name="id" id="id" th:value="${licence.getId()}">
+            <td><button type="submit">Supprimer</button></td>
+        </form>
+    </tr>
+</table>
+</body>
+</html>
