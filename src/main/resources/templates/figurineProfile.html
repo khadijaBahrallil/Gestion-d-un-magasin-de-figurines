@@ -66,6 +66,7 @@
         <table th:each="opinion: ${opinions}">
             <tr>
                 <td th:text="${'Avis :' + opinion.getText()}"></td>
+                <td th:text="${'Note :' + opinion.getNote()}"></td>
                 <td th:text="${'Utilisateur :' + opinion.getCustomer().getUsername()}"></td>
                 <td th:text="${'Date :' + opinion.getDate()}"></td>
             </tr>

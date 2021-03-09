@@ -34,52 +34,65 @@
                     <a class="nav-link text-white" href="indexFigurine">Figurines</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="login">Se connecter</a>
+                    <a class="nav-link text-white" href="register">Profil</a>
                 </li>
             </ul>
         </div>
     </div>
 </header>
 
+<div style="padding-left:400px; padding-right:400px; padding-top:20px">
+    <h3>Liste des licences</h3>
+    </br>
+    <p>Pour ajouter une figurine, veuillez cliquer <a href="indexFigurine">ici</a>.</p>
+    </br>
 
-<p>Licence</p>
-<a href="licences">Ajouter</a>
-<a href="listLicence">Annuler recherche</a>
-<form action="/listLicencePerso" method="GET">
-    <label>Nom de la licence:</label>
-    <input type="text" name="recherche" id="recherche" class="form-control">
-    <input type="submit" value="Rechercher" class="btn btn-info">
-</form>
-<table>
-    <tr>
-        <th>ID</th>
-        <th>NOM</th>
-        <th>CATEGORIE</th>
-        <th>MAJ</th>
-        <th>SUPPRIMER</th>
-    </tr>
-    <tr th:each="licence: ${licenceList}">
-        <form action="/updateLicence" method="POST">
-            <input type="hidden" name="idLicence" id="idLicence" th:value="${licence.getId()}">
-            <td th:text="${licence.getId()}"></td>
-            <td><input type="text" name="name" id="name" th:value="${licence.getName()}"></td>
-            <!--<td th:text="${licence.getCategory().getName()}"/></td>-->
-           <td>
-               <select  name="idCat" id="idCat"  >
-                   <option  th:value="${licence.getCategory().getId()}" th:text="${licence.getCategory().getName()}" selected></option>
-                   <option th:each="category: ${categoryList}"
-                           th:if="${category.getName()} != ${licence.getCategory().getName()}"
-                        th:value="${category.getId()}"
-                        th:text="${category.getName()}"></option>
-                </select>
-           </td>
-            <td><button type="submit">Mettre à jour</button></td>
-        </form>
-        <form action="/deleteLicence" method="POST">
-            <input type="hidden" name="id" id="id" th:value="${licence.getId()}">
-            <td><button type="submit">Supprimer</button></td>
-        </form>
-    </tr>
-</table>
+    <form action="/listLicencePerso" method="GET">
+        <div class="col-md-4" style="display: inline-block">
+            <label for="recherche">Nom de la licence:</label>
+            <input type="text" name="recherche" id="recherche" class="form-control">
+        </div>
+        <div class="col-md-5" style="display: inline-block">
+            <input type="submit" value="Rechercher" class="btn btn-info">
+            <button type="reset" class="btn btn-secondary">Annuler la recherche</button>
+        </div>
+    </form>
+
+    <div style="text-align: center; padding-top: 40px">
+        <table>
+            <tr style="width:75%">
+                <th style="width:5%">ID</th>
+                <th style="width:20%">NOM</th>
+                <th style="width:20%">CATÉGORIE</th>
+                <th style="width:15%">MAJ</th>
+                <th style="width:15%">SUPPRIMER</th>
+            </tr>
+            <tr th:each="licence: ${licenceList}">
+                <form action="/updateLicence" method="POST">
+                    <input type="hidden" name="idLicence" id="idLicence" th:value="${licence.getId()}">
+                    <td th:text="${licence.getId()}"></td>
+                    <td><input type="text" name="name" id="name" th:value="${licence.getName()}"></td>
+                    <!--<td th:text="${licence.getCategory().getName()}"/></td>-->
+                    <td>
+                        <select  name="idCat" id="idCat"  >
+                            <option  th:value="${licence.getCategory().getId()}" th:text="${licence.getCategory().getName()}" selected></option>
+                            <option th:each="category: ${categoryList}"
+                                    th:if="${category.getName()} != ${licence.getCategory().getName()}"
+                                    th:value="${category.getId()}"
+                                    th:text="${category.getName()}"></option>
+                        </select>
+                    </td>
+                    <td><button type="submit">Mettre à jour</button></td>
+                </form>
+                <form action="/deleteLicence" method="POST">
+                    <input type="hidden" name="id" id="id" th:value="${licence.getId()}">
+                    <td><button type="submit">Supprimer</button></td>
+                </form>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
 </body>
 </html>

@@ -91,7 +91,7 @@ public class FigurineController {
     public String findFigurine(@RequestParam Integer idFigurine, Model model) {
      Figurine figurine = new Figurine();
      List<Opinion> opinions = new ArrayList<>();
-     int note = 0;
+     float note = 0;
      try {
          figurine = figurineRepository.findFigurineById(idFigurine);
          opinions = (List<Opinion>) figurine.getOpinions();

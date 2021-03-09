@@ -44,7 +44,7 @@
 <section class="jumbotron text-center">
     <div class="container">
         <h1 class="jumbotron-heading">Bienvenue sur 404 Figurines</h1>
-        <h2 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h2>
+        <h2 th:inline="text">Bonjour [[${#httpServletRequest.remoteUser}]] !</h2>
         </br>
         <p class="lead text-muted">Acheter des figurines de vos comics, mangas, séries TV préférés et bien plus...</p>
         <form th:action="@{/logout}" method="post">
