@@ -19,5 +19,6 @@ public class MyLogoutSuccessHandler implements LogoutSuccessHandler {
         if (session != null){
             session.removeAttribute("customer");
         }
+        response.setStatus(HttpServletResponse.SC_OK);
     }
 }

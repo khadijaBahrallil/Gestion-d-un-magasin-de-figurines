@@ -100,6 +100,16 @@ public class CustomerController {
         return "login";
     }
 
+
+    @GetMapping("/logout")
+    public String LogoutUser() {
+
+        System.out.println("logout");
+        return "logout";
+    }
+
+
+
     @GetMapping("home")
     public String home(Model model) {
         //Customer customer = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0)).get();
