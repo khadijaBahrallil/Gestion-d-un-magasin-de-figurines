@@ -35,10 +35,11 @@ public class CustomerController {
 
     @GetMapping("/profile")
     public String profile(Locale locale, Model model) {
-        Customer costumer = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0)).get();
-        model.addAttribute("lname",costumer.getLastName());
-        model.addAttribute("fname",costumer.getFirstName());
-        model.addAttribute("username",costumer.getUsername());
+        Customer customer = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0)).get();
+        model.addAttribute("lname",customer.getLastName());
+        model.addAttribute("fname",customer.getFirstName());
+        model.addAttribute("username",customer.getUsername());
+        model.addAttribute("address",customer.getAddress());
 
         return "profile";
     }
