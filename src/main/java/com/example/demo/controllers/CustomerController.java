@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.repos.AddressRepository;
 import com.example.demo.repos.CustomerRepository;
 import com.example.demo.entities.Customer;
 import com.example.demo.security.ActiveUserStore;
@@ -20,7 +21,8 @@ public class CustomerController {
 
     @Autowired
     private CustomerRepository customerRepository;
-
+    @Autowired
+    private AddressRepository addressRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
@@ -66,6 +68,7 @@ public class CustomerController {
         String hashedPassword = passwordEncoder.encode(password);
         customer.setPassword(hashedPassword);
         customer.setCivility(civility);
+        customer.setAddress(addressRepository.findAddressById(1));//change
         customerRepository.save(customer);
         return "index";
     }

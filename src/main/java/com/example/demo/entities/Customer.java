@@ -81,6 +81,10 @@ public class Customer implements UserDetails {
         return address;
     }
 
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
