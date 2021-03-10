@@ -50,6 +50,7 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
             }
             LoggedCustomer customer = new LoggedCustomer(username, activeUserStore);
             session.setAttribute("customer", customer);
+
         }
         clearAuthenticationAttributes(request);
 

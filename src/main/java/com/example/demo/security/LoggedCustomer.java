@@ -34,6 +34,7 @@ public class LoggedCustomer implements HttpSessionBindingListener {
     public void valueUnbound(HttpSessionBindingEvent event) {
         List<String> customers = activeUserStore.getCustomers();
         LoggedCustomer customer = (LoggedCustomer) event.getValue();
+        System.out.println(customer.getUsername());
         customers.remove(customer.getUsername());
     }
 

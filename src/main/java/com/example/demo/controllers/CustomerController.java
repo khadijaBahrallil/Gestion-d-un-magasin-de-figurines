@@ -1,5 +1,7 @@
 package com.example.demo.controllers;
 
+import com.example.demo.entities.Administrator;
+import com.example.demo.repos.AdministratorRepository;
 import com.example.demo.repos.CustomerRepository;
 import com.example.demo.entities.Customer;
 import com.example.demo.security.ActiveUserStore;
@@ -11,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -20,6 +23,9 @@ public class CustomerController {
 
     @Autowired
     private CustomerRepository customerRepository;
+
+    @Autowired
+    private AdministratorRepository administratorRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -108,9 +114,10 @@ public class CustomerController {
 
     @GetMapping("home")
     public String home(Model model) {
-        //Customer customer = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0)).get();
 
-        model.addAttribute("role","admin");
+
+        model.addAttribute("role",findRole());
+        System.out.println(findRole());
         return "home";
     }
 
@@ -122,5 +129,19 @@ public class CustomerController {
     @GetMapping("/findCustomer/{id}")
     public Optional<Customer> findCustomerByName(@PathVariable String username) {
         return customerRepository.findCustomerByName(username);
+    }
+
+
+    public String findRole(){
+        Optional<Customer> customer = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0));
+        if (!customer.isEmpty()){
+            return "user";
+        } else {
+            Optional<Administrator> administrator = administratorRepository.findAdministratorByName(activeUserStore.getCustomers().get(0));
+            if (!administrator.isEmpty()){
+                return "admin";
+            }
+        }
+        return null;
     }
 }
