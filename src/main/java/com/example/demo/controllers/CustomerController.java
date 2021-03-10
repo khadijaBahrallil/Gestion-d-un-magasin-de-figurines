@@ -46,9 +46,10 @@ public class CustomerController {
 
 
     @GetMapping("/profile")
-    public String profile(Locale locale, Model model) {
+    public String profile(Model model) {
         if (findRole().equals("user")) {
             Customer customer = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0)).get();
+            model.addAttribute("role", "user");
             model.addAttribute("lname", customer.getLastName());
             model.addAttribute("fname", customer.getFirstName());
             model.addAttribute("username", customer.getUsername());
@@ -58,7 +59,8 @@ public class CustomerController {
             model.addAttribute("lname", administrator.getLastName());
             model.addAttribute("fname", administrator.getFirstName());
             model.addAttribute("username", administrator.getUsername());
-            model.addAttribute("address", "Add me");
+            model.addAttribute("address", administrator.getAddress());
+            model.addAttribute("role", "admin");
         }
 
         return "profile";
@@ -110,7 +112,6 @@ public class CustomerController {
         customer.setCivility(civility);
         customer.setAddress(addressRepository.findAddressById(1));//change
         customerRepository.save(customer);
-        System.out.println("po");
         return "index";
     }
 
@@ -123,7 +124,6 @@ public class CustomerController {
 
     @PostMapping("/addUser")
     public String addUser(Customer costumer, BindingResult result, Model model) {
-        System.out.println("testAddUser");
         if (result.hasErrors()) {
             System.out.println(result.getAllErrors());
             return "index";
@@ -146,10 +146,19 @@ public class CustomerController {
         return "logout";
     }
 
-    @GetMapping("home")
+
+    @GetMapping("/home")
     public String home(Model model) {
+        List<Figurine> figurinesListSort = figurineRepository.findFigurineLast();
+        List<Figurine> figurinesList = new ArrayList<>();
+        for(int i = 0; i < figurinesListSort.size(); i++){
+            figurinesList.add(figurinesListSort.get(i));
+            if(figurinesList.size() == 6){
+                i = figurinesListSort.size();
+            }
+        }
+        model.addAttribute("figurineList", figurinesList);
         model.addAttribute("role",findRole());
-        System.out.println(findRole());
         return "home";
     }
 

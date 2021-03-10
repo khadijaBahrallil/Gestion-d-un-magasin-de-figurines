@@ -1,8 +1,10 @@
 package com.example.demo.controllers;
 
+import com.example.demo.entities.Administrator;
 import com.example.demo.entities.Customer;
 import com.example.demo.entities.Figurine;
 import com.example.demo.entities.Opinion;
+import com.example.demo.repos.AdministratorRepository;
 import com.example.demo.repos.CustomerRepository;
 import com.example.demo.repos.FigurineRepository;
 import com.example.demo.repos.OpinionRepository;
@@ -18,6 +20,7 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class OpinionController {
@@ -29,11 +32,24 @@ public class OpinionController {
     @Autowired
     private CustomerRepository customerRepository;
     @Autowired
+    private AdministratorRepository administratorRepository;
+    @Autowired
     ActiveUserStore activeUserStore;
 
 
     @PostMapping("/opinion")
     public String opinion(@RequestParam int idFigurine, Model model) {
+        if (findRole().equals("user")) {
+            Customer customerCo = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0)).get();
+            model.addAttribute("role", "user");
+            model.addAttribute("lname", customerCo.getLastName());
+            model.addAttribute("fname", customerCo.getFirstName());
+            model.addAttribute("username", customerCo.getUsername());
+            model.addAttribute("address", customerCo.getAddress());
+        }else if (findRole().equals("admin")) {
+            model.addAttribute("figurineList", figurineRepository.findAll());
+            return "figurines";
+        }
         Figurine figurine = new Figurine();
         Customer customer;
         Opinion opinion;
@@ -56,7 +72,18 @@ public class OpinionController {
         return "opinion";
     }
     @PostMapping("/updateOpinion")
-    public String updateOpinion(@RequestParam int idOpinion,@RequestParam int note, @RequestParam String text, Model model) {
+    public String updateOpinion(@RequestParam int idOpinion, @RequestParam int note, @RequestParam String text, Model model) {
+        if (findRole().equals("user")) {
+            Customer customerCo = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0)).get();
+            model.addAttribute("role", "user");
+            model.addAttribute("lname", customerCo.getLastName());
+            model.addAttribute("fname", customerCo.getFirstName());
+            model.addAttribute("username", customerCo.getUsername());
+            model.addAttribute("address", customerCo.getAddress());
+        }else if (findRole().equals("admin")) {
+            model.addAttribute("figurineList", figurineRepository.findAll());
+            return "figurines";
+        }
         Opinion opinion = new Opinion();
         Figurine figurine = new Figurine();
         float noteTotal = 0;
@@ -91,11 +118,13 @@ public class OpinionController {
                 noteTotal = noteTotal / opinions.size();
             }
         }catch (Exception e){
+            model.addAttribute("figurineList", figurineRepository.findAll());
             return "figurines";
         }
         model.addAttribute("figurine", figurine);
         model.addAttribute("opinions", opinions);
         model.addAttribute("note", noteTotal);
+
         return "figurineProfile";
     }
 
@@ -146,5 +175,18 @@ public class OpinionController {
         model.addAttribute("opinions", opinions);
         model.addAttribute("note", noteTotal);
         return "figurineProfile";
+    }
+
+    public String findRole(){
+        Optional<Customer> customer = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0));
+        if (!customer.isEmpty()){
+            return "user";
+        } else {
+            Optional<Administrator> administrator = administratorRepository.findAdministratorByName(activeUserStore.getCustomers().get(0));
+            if (!administrator.isEmpty()){
+                return "admin";
+            }
+        }
+        return null;
     }
 }
