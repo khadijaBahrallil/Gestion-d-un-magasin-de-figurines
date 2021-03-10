@@ -31,7 +31,7 @@
                     <a class="nav-link text-white" href="index">Menu</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="indexFigurine">Figurines</a>
+                    <a class="nav-link text-white" href="figurines">Figurines</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="login">Se connecter</a>
@@ -79,7 +79,12 @@
     </div>
 
 
-    <h4 style="padding-top: 40px">Commentaires</h4>
+    <div class="row" style="padding-top: 40px">
+        <h4>Commentaires</h4>
+        <p class="float-right" style="padding-left: 600px">
+            <button class="btn btn-primary" th:href="opinion" type="submit">Laisser un commentaire</button>
+        </p>
+    </div>
     </br>
     <h5 th:text="${'Note moyenne : ' + note + ' / 5'}"></h5>
 
