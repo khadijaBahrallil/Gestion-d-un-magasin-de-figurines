@@ -62,11 +62,13 @@
         </div>
         <div class="col">
             <div class="row">
-                <p th:text="${'Adresse de facturation : ' + address}">adress</p>
+                <p th:text="${'Adresse de facturation : ' + address.getStreetnumber() + ' '
+                + address.getStreet() + ' ' + address.getPostalCode() + ' ' + address.getCity() + ' ' + address.getPays()}">adress</p>
             </div>
             </br>
             <div class="row">
-                <p th:text="${'Adresse de livraison : ' + address}">adress</p>
+                <p th:text="${'Adresse de livraison : ' + address.getStreetnumber() + ' '
+                + address.getStreet() + ' ' + address.getPostalCode() + ' ' + address.getCity() + ' ' + address.getPays()}">adress</p>
             </div>
         </div>
     </div>
