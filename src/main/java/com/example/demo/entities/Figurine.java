@@ -118,6 +118,9 @@ public class Figurine {
         this.opinions = opinions;
     }
 
+    public void setOpinion(Opinion opinion) {
+        this.opinions.add(opinion);
+    }
     //A changer
     /*public void sortLicence(){
 

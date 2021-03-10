@@ -81,9 +81,12 @@
 
     <div class="row" style="padding-top: 40px">
         <h4>Commentaires</h4>
-        <p class="float-right" style="padding-left: 600px">
-            <button class="btn btn-primary" th:href="opinion" type="submit">Laisser un commentaire</button>
-        </p>
+        <form action="/opinion" method="POST">
+            <input type="hidden" name="idFigurine" id="idFigurine" th:value="${figurine.getId()}">
+            <p class="float-right" style="padding-left: 600px">
+            <button class="btn btn-primary" type="submit">Laisser un commentaire</button>
+            </p>
+        </form>
     </div>
     </br>
     <h5 th:text="${'Note moyenne : ' + note + ' / 5'}"></h5>
