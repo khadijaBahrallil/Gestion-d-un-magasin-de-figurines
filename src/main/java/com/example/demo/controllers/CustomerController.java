@@ -47,8 +47,6 @@ public class CustomerController {
 
     @GetMapping("/index")
     public String index() {
-
-
         return "index";
     }
 
@@ -75,7 +73,6 @@ public class CustomerController {
 
     @GetMapping("/register")
     public String addUser() {
-
         return "register";
     }
 
@@ -95,13 +92,11 @@ public class CustomerController {
 
     @GetMapping("login")
     public String LoginUser() {
-
-
         return "login";
     }
 
 
-    @GetMapping("/logout")
+    @GetMapping("/indexlogout")
     public String LogoutUser() {
 
         System.out.println("logout");
@@ -110,14 +105,12 @@ public class CustomerController {
 
 
 
+
     @GetMapping("home")
     public String home(Model model) {
         //Customer customer = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0)).get();
 
         model.addAttribute("role","admin");
-
-
-
         return "home";
     }
 
