@@ -28,7 +28,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new MyAuthenticationSuccessHandler();
     }
 
-
+    @Autowired
+    private LogoutSuccessHandler myLogoutSuccessHandler;
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -92,7 +93,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .logout()
-
+                .logoutSuccessHandler(myLogoutSuccessHandler)
 
                 .logoutSuccessUrl("/indexlogout")
 
