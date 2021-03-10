@@ -83,13 +83,13 @@
         <h4>Commentaires</h4>
         <form action="/opinion" method="POST">
             <input type="hidden" name="idFigurine" id="idFigurine" th:value="${figurine.getId()}">
-            <p class="float-right" style="padding-left: 600px">
+            <p class="float-right" style="padding-left: 650px">
             <button class="btn btn-primary" type="submit">Laisser un commentaire</button>
             </p>
         </form>
     </div>
     </br>
-    <h5 th:text="${#numbers.formatDecimal(note, 0, 'COMMA', 2, 'POINT')}"></h5>
+    <h5 th:text="${'Note moyenne : ' + #numbers.formatDecimal(note, 0, 'COMMA', 2, 'POINT') + ' / 5'}"></h5>
 
     <table style="padding-top: 40px">
         <tr style="width: 100%; text-align: center">
