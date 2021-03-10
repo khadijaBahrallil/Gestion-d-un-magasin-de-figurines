@@ -51,7 +51,7 @@ public class BasketController {
         }catch (Exception e){
             return "redirect:/login";
         }
-        Figurine figurine = basketRepository.findFugirineByID(idFigurine);
+        Figurine figurine = basketRepository.findFigurineByID(idFigurine);
         if(figurine == null)  return "redirect:/figurines";
 
         Basket basket = basketRepository.findBasketByCustomerID(customer);
@@ -96,7 +96,7 @@ public class BasketController {
         }catch (Exception e){
             return "redirect:/login";
         }
-        Figurine figurine = basketRepository.findFugirineByID(idFigurine);
+        Figurine figurine = basketRepository.findFigurineByID(idFigurine);
         if(figurine == null)  return "redirect:/figurines";
 
         Basket basket = basketRepository.findBasketByCustomerID(customer);
@@ -193,7 +193,7 @@ public class BasketController {
         List<Figurine> listfigurine = new ArrayList<>();
 
         for(HashMap.Entry<Integer, Integer> mapFig : basket.getQuantityFigurineOfbasket().entrySet()){
-            Figurine mockfigurine = basketRepository.findFugirineByID(mapFig.getKey());
+            Figurine mockfigurine = basketRepository.findFigurineByID(mapFig.getKey());
             mockfigurine.setQuantity(mapFig.getValue());
             listfigurine.add(mockfigurine);
         }
@@ -261,7 +261,7 @@ public class BasketController {
         List<Figurine> listfigurine = new ArrayList<>();
 
         for(HashMap.Entry<Integer, Integer> mapFig : basket.getQuantityFigurineOfbasket().entrySet()){
-            Figurine mockfigurine = basketRepository.findFugirineByID(mapFig.getKey());
+            Figurine mockfigurine = basketRepository.findFigurineByID(mapFig.getKey());
             mockfigurine.setQuantityBasket(-mapFig.getValue());
             listfigurine.add(mockfigurine);
         }
