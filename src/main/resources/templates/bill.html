@@ -42,18 +42,13 @@
 </header>
 
 <div style="padding-left:400px; padding-right:400px; padding-top:20px">
-    <h3>Page produit</h3>
+    <h3>Prévisualisation de la facture</h3>
     </br>
     <div class="row" style="padding-top: 20px">
-        <div class="col">
-            <img th:src="@{${'/images/' + figurine.getPicture().getName() + '.png'}}" height="450" width="400"/>
-        </div>
+        <h4 th:text="${'Facture # ' + bill.getId()}"></h4>
         <div class="col">
             <div class="row" style="padding-top: 20px">
                 <h5 th:text="${'Figurine : ' + figurine.getName()}"></h5>
-            </div>
-            <div class="row" style="padding-top: 20px">
-                <p th:text="${'Date de parution : ' + #dates.format(figurine.getStartDate(), 'dd-MMM-yyyy')}"></p>
             </div>
             <div class="row" style="padding-top: 20px">
                 <p th:text="${'Categorie : ' + figurine.getLicence().getCategory().getName()}"></p>
@@ -62,50 +57,39 @@
                 <p th:text="${'Licence : ' + figurine.getLicence().getName()}"></p>
             </div>
             <div class="row" style="padding-top: 20px">
-                <p th:text="${'Description : ' + figurine.getDescription()}"></p>
+                <p th:text="${'Prix de la commande : ' + figurine.getPrice() + ' €'}"></p>
             </div>
-            <div class="row" style="padding-top: 20px">
-                <p th:text="${'Prix (TTC) : ' + figurine.getPrice() + ' €'}"></p>
-            </div>
-            <div class="row" style="padding-top: 20px">
-                <form action="/basket" method="POST">
-                    <button type="submit" class="btn btn-primary">Ajouter au panier</button>
-                </form>
-                <form action="/bill" method="POST" style="padding-left: 30px">
-                    <button type="submit" class="btn btn-success">Payer</button>
-                </form>
-            </div>
+        </div>
+
+        <div class="col">
+            <img th:src="@{${'/images/' + figurine.getPicture().getName() + '.png'}}" height="300" width="200"/>
         </div>
     </div>
 
-
-    <div class="row" style="padding-top: 40px">
-        <h4>Commentaires</h4>
-        <form action="/opinion" method="POST">
-            <input type="hidden" name="idFigurine" id="idFigurine" th:value="${figurine.getId()}">
-            <p class="float-right" style="padding-left: 650px">
-            <button class="btn btn-primary" type="submit">Laisser un commentaire</button>
-            </p>
+    <div style="padding-top: 40px">
+        <form action="/addAddress" method="POST">
+            <div class="form-group">
+                <label for="facturationAddress">Adresse de facturation :</label>
+                <input type="text" class="form-control" id="facturationAddress" placeholder="Adresse, Ville, Code postal, Pays" name="facturationAddress" required>
+            </div>
+            <div class="form-group">
+                <label for="livraisonAddress">Adresse de livraison :</label>
+                <input type="text" class="form-control" id="livraisonAddress" placeholder="Adresse, Ville, Code postal, Pays" name="livraisonAddress" required>
+            </div>
         </form>
     </div>
-    </br>
-    <h5 th:text="${'Note moyenne : ' + #numbers.formatDecimal(note, 0, 'COMMA', 2, 'POINT') + ' / 5'}"></h5>
 
-    <table style="padding-top: 40px">
-        <tr style="width: 100%; text-align: center">
-            <th style="width:50%">Avis</th>
-            <th style="width:10%">Note</th>
-            <th style="width:10%">Utilisateur</th>
-            <th style="width:10%">Date</th>
-        </tr>
-        <tr style="text-align: center" th:each="opinion: ${opinions}">
-            <td th:text="${opinion.getText()}"></td>
-            <td th:text="${opinion.getNote()}"></td>
-            <td th:text="${opinion.getCustomer().getUsername()}"></td>
-            <td th:text="${#dates.format(opinion.getDate(), 'dd-MMM-yyyy')}"></td>
-        </tr>
-    </table>
-
+    <div style="padding-top: 40px">
+        <h5>Paiement</h5>
+        <div class="row">
+            <form action="/profile" method="get" style="padding-left: 10px">
+                <button type="submit" class="btn btn-success">Payer par carte bancaire</button>
+            </form>
+            <form action="/profile" method="get" style="padding-left: 30px">
+                <button type="submit" class="btn btn-success">Payer par Paypal</button>
+            </form>
+        </div>
+    </div>
 </div>
 
 </body>
