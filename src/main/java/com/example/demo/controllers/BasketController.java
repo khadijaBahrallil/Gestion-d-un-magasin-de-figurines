@@ -13,8 +13,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -104,7 +108,7 @@ public class BasketController {
         value += quantity;
 
         if(value > figurine.getQuantity()){
-            return "redirect:/figurines";
+            return "redirect:/getBasketUser";
         }
 
         if(value <= 0 )
@@ -258,17 +262,20 @@ public class BasketController {
 
         for(HashMap.Entry<Integer, Integer> mapFig : basket.getQuantityFigurineOfbasket().entrySet()){
             Figurine mockfigurine = basketRepository.findFugirineByID(mapFig.getKey());
-            mockfigurine.setQuantity(mapFig.getValue());
+            mockfigurine.setQuantityBasket(-mapFig.getValue());
             listfigurine.add(mockfigurine);
         }
 
-        //Date date = new Date();
-        //DateFormat dft = new SimpleDateFormat("dd/MM/yyyy");
-        //modelMap.addAttribute("Date", dft.format(date));
+        Date date = new Date(System.currentTimeMillis());
+        DateFormat dft = new SimpleDateFormat("dd/MM/yyyy");
+
+        modelMap.addAttribute("Date", dft.format(date));
         DecimalFormat df = new DecimalFormat("0.00");
+
         modelMap.addAttribute("figurines", listfigurine);
         modelMap.addAttribute("solde", df.format(basket.getSubTotal()));
         modelMap.addAttribute("customer", basket.getCustomer());
+        modelMap.addAttribute("date", dft.format(date));
 
         basketRepository.delete(basket);
 

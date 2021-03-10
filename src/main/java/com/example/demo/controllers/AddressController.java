@@ -56,7 +56,7 @@ public class AddressController {
         }
         customer.setAddress(address);
 
-        customerRepository.save(customer);
+        //customerRepository.save(customer);
         addressRepository.save(address);
 
         return "redirect:/getBasketUser";

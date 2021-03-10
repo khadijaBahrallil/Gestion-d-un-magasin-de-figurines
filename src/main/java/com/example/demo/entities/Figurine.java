@@ -56,6 +56,10 @@ public class Figurine {
         this.quantity = quantity;
     }
 
+    public void setQuantityBasket(int quantity) {
+        this.quantity += quantity;
+    }
+
     public Licence getLicence() {
         return licence;
     }
