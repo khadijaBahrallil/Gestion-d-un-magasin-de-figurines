@@ -7,11 +7,11 @@ import com.example.demo.entities.Customer;
 import com.example.demo.repos.FigurineRepository;
 import com.example.demo.security.ActiveUserStore;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.entities.Administrator;
@@ -64,6 +64,19 @@ public class CustomerController {
         return "profile";
     }
 
+    @RequestMapping("/")
+    public String indexa(Model model){
+        List<Figurine> figurinesListSort = figurineRepository.findFigurineLast();
+        List<Figurine> figurinesList = new ArrayList<>();
+        for(int i = 0; i < figurinesListSort.size(); i++){
+            figurinesList.add(figurinesListSort.get(i));
+            if(figurinesList.size() == 6){
+                i = figurinesListSort.size();
+            }
+        }
+        model.addAttribute("figurineList", figurinesList);
+        return "index";
+    }
 
     @GetMapping("/index")
     public String index(Model model) {
@@ -97,6 +110,7 @@ public class CustomerController {
         customer.setCivility(civility);
         customer.setAddress(addressRepository.findAddressById(1));//change
         customerRepository.save(customer);
+        System.out.println("po");
         return "index";
     }
 
@@ -125,16 +139,12 @@ public class CustomerController {
         return "login";
     }
 
-
     @GetMapping("/indexlogout")
     public String LogoutUser() {
 
         System.out.println("logout");
         return "logout";
     }
-
-
-
 
     @GetMapping("home")
     public String home(Model model) {
