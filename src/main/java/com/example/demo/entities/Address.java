@@ -14,7 +14,7 @@ public class Address {
     private String city;
     private String street;
     private String streetnumber;
-    private String pays;
+    private String country;
 
     public Integer getId() {
         return id;
@@ -56,11 +56,11 @@ public class Address {
         this.streetnumber = streetnumber;
     }
 
-    public String getPays() {
-        return pays;
+    public String getCountry() {
+        return country;
     }
 
-    public void setPays(String pays) {
-        this.pays = pays;
+    public void setCountry(String country) {
+        this.country = country;
     }
 }

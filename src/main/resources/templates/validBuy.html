@@ -1,5 +1,6 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -21,7 +22,7 @@
 <header>
     <div class="navbar navbar-dark bg-dark box-shadow">
         <div class="container d-flex justify-content-between">
-            <a href="home" class="navbar-brand d-flex align-items-center">
+            <a href="index" class="navbar-brand d-flex align-items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
                 <strong>404 FIGURINES</strong>
             </a>
@@ -31,15 +32,6 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="figurines">Figurines</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="listCategory">Catégories</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="listLicence">Licences</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="listSubscription">Abonnements</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="/getBasketUser">Voir Panier</a>
@@ -53,27 +45,44 @@
 </header>
 
 <div style="padding-left:400px; padding-right:400px; padding-top:20px">
-    <h3 style="padding-bottom: 20px">Formulaire ajout d'une catégorie</h3>
-
-    <div style="text-align: center">
-        <form action="/addCategory" method="POST">
-            <div style="padding-bottom: 20px">
-                <label for="name"> Nom de la nouvelle catégorie :</label>
-                <input type="text" name="name" id="name" placeholder="Nom de la catégorie">
+    <h3>Facture d'achat</h3>
+    </br>
+    <div class="row" style="padding-top: 20px">
+        <div class="col">
+            <div class="row" style="padding-top: 20px">
+                <h5 th:text="${'Nom : ' + customer.getLastName()}"></h5>
             </div>
-
-            <div>
-                <button type="submit">Créer la catégorie</button>
+            <div class="row" style="padding-top: 20px">
+                <p th:text="${'Prénom : ' + customer.getFirstName()}"></p>
             </div>
-        </form>
-
-        </br>
-        <a href="listCategory">Liste des catégories</a>
-        </br>
-        </br>
-        <a href="home">Retour au menu</a>
+            <div class="row" style="padding-top: 20px">
+                <p th:text="${'Adresse : ' + customer.getAddress().getStreetnumber() + ' ' + customer.getAddress().getStreet() + ' ' }"></p>
+                <p th:text="${customer.getAddress().getPostalCode() + ' ' + customer.getAddress().getCity() + ' ' }"></p>
+                <p th:text="${customer.getAddress().getCountry()}"></p>
+            </div>
+            <div class="row" style="padding-top: 20px">
+                <p th:text="${'Montant total: ' + solde + ' €'}"></p>
+            </div>
+        </div>
     </div>
 
+    <table class="table">
+        <tr>
+            <th style="text-align: center">Image</th>
+            <th style="text-align: center">Nom</th>
+            <th style="text-align: center">Quantité</th>
+            <th style="text-align: center">Prix (€)</th>
+        </tr>
+        <br/>
+        <tr style="width:100%" th:each="figurine : ${figurines}">
+            <td style="width: 20%"><img th:src="@{${'/images/' + figurine.getPicture().getName() + '.png'}}" height="80" width="80"></td>
+            <td style="width: 15%; text-align: center" th:text="${figurine.getName()}"></td>
+            <td style="width: 10%; text-align: center" th:text="${figurine.getQuantity()}"></td>
+            <td style="width: 15%; text-align: center" th:text="${figurine.getPrice()}"></td>
+        </tr>
+    </table>
+
 </div>
+
 </body>
 </html>
