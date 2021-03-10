@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-<html lang="fr">
-<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 <head>
@@ -10,7 +8,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
 
-    <title>404 Figurines</title>
+    <title>404 FIGURINES</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -33,7 +31,7 @@
                     <a class="nav-link text-white" href="index">Menu</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="figurines">Figurines</a>
+                    <a class="nav-link text-white" href="indexFigurine">Figurines</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="/getBasketUser">Voir Panier</a>
@@ -46,27 +44,52 @@
     </div>
 </header>
 
-<div style="text-align: center;">
-    <br/>
-    <form action="/addSubscription" method="POST">
-        <p>Ajoutons un abonnement.</p>
-        <table class="table col-md-4" border align="center">
-            <tr>
-                <td><label for="name">Nom de l'abonnement :</label></td>
-                <td><input type="text" name="name" id="name" maxlength="255" value="" class="form-control" required></td>
-            </tr>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-            <tr>
-                <td><label for="price">Prix :</label></td>
-                <td><input type="number" name="price" id="price" required> €</td>
-            </tr>
-            <tr>
-                <td><label for="text">Description :</label></td>
-                <td><textarea type="text" name="text" id="text" rows="3" cols="30" class="form-control"></textarea></td>
-            </tr>
-        </table>
-        <button type="submit">Publier</button>
-    </form>
-</div>
+<form th:method="post" th:action="@{/addAddress}" class="w3-container w3-card-4 w3-light-grey w3-text-blue w3-margin">
+    <h2 class="w3-center">Ajouter votre adresse</h2>
+
+    <div class="w3-row w3-section">
+        <div class="w3-col" style="width:50px"></div>
+        <div class="w3-rest">
+            <input class="w3-input w3-border" name="streetnumber" type="text" placeholder="Numéro de la rue">
+        </div>
+    </div>
+
+    <div class="w3-row w3-section">
+        <div class="w3-col" style="width:50px"></i></div>
+        <div class="w3-rest">
+            <input class="w3-input w3-border" name="street" type="text" placeholder="Nom de la rue, Bâtiment, N° Appartement">
+        </div>
+    </div>
+
+    <div class="w3-row w3-section">
+        <div class="w3-col" style="width:50px"></i></div>
+        <div class="w3-rest">
+            <input class="w3-input w3-border" name="postalCode" type="text" placeholder="Code Postal">
+        </div>
+    </div>
+
+    <div class="w3-row w3-section">
+        <div class="w3-col" style="width:50px"></div>
+        <div class="w3-rest">
+            <input class="w3-input w3-border" name="city" type="text" placeholder="Ville">
+        </div>
+    </div>
+
+    <div class="w3-row w3-section">
+        <div class="w3-col" style="width:50px"></div>
+        <div class="w3-rest">
+            <input class="w3-input w3-border" name="country" type="text" placeholder="Pays">
+        </div>
+    </div>
+
+    <p class="w3-center">
+        <button class="w3-button w3-section w3-blue w3-ripple"> Ajouter </button>
+    </p>
+</form>
+
 </body>
 </html>

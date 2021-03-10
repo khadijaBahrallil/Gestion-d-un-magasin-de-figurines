@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr"  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>404 Figurines</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+    <!-- Custom styles for this template -->
+    <link href="demo/static/main.css" rel="stylesheet">
+</head>
+
+<body>
+<header>
+    <div class="navbar navbar-dark bg-dark box-shadow">
+        <div class="container d-flex justify-content-between">
+            <a href="index" class="navbar-brand d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                <strong>404 FIGURINES</strong>
+            </a>
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="index">Menu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="figurines">Figurines</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="login">Se connecter</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<div style="padding-left:400px; padding-right:400px; padding-top:20px">
+    <h3>Votre Panier</h3>
+    </br>
+
+    <div>
+        <div class="text-right">
+            <p class="card-text" th:text="'Montant total: '+${solde}+' €'" ></p>
+            <div class="row" style="padding-top: 20px">
+                <form th:method="get" th:action="@{/toBuy}">
+                    <button type="submit" class="btn btn-primary float-right" >Payer</button>
+                </form>
+                <form th:method="get" th:action="@{/removeBasket}">
+                    <button type="submit" class="btn btn-primary float-right">Vider</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    </br>
+    </br>
+
+    <h3>Vitrine de nos figurines</h3>
+    </br>
+
+    <table class="table">
+        <tr>
+            <th style="text-align: center">Image</th>
+            <th style="text-align: center">Nom</th>
+            <th style="text-align: center">Description</th>
+            <th style="text-align: center">Quantité</th>
+            <th style="text-align: center">Prix (€)</th>
+
+        </tr>
+        <br/>
+        <tr style="width:100%" th:each="figurine : ${figurines}">
+            <td style="width: 20%"><img th:src="@{${'/images/' + figurine.getPicture().getName() + '.png'}}" height="100" width="100"></td>
+            <td style="width: 15%; text-align: center" th:text="${figurine.getName()}"></td>
+            <td style="width: 15%; text-align: center" th:text="${figurine.getDescription()}"></td>
+            <td style="width: 10%; text-align: center" th:text="${figurine.getQuantity()}"></td>
+            <td style="width: 15%; text-align: center" th:text="${figurine.getPrice()}"></td>
+
+            <form th:action="@{/removeQantityOfProduct}" th:method="POST">
+                <input type="hidden" name="idFigurine" id="idFigurineAdd" th:value="${figurine.getId()}">
+                <td class="row" style="..."><button type="submit" class="btn btn-primary">-</button>
+            </form>
+            <form th:action="@{/adQantityOfProduct}" th:method="POST">
+                <input type="hidden" name="idFigurine" id="idFigurineRemove" th:value="${figurine.getId()}">
+                <button type="submit" class="btn btn-primary">+</button></td>
+            </form>
+        </tr>
+    </table>
+
+</div>
+
+</body>
+</html>

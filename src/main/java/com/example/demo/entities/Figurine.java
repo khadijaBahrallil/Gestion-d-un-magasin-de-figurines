@@ -32,6 +32,7 @@ public class Figurine {
         EN_COURS_DE_REAPPROVISIONNEMENT
     }
 
+
     public String getDescription() {
         return description;
     }

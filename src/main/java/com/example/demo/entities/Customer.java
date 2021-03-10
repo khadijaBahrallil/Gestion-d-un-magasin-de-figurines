@@ -131,4 +131,8 @@ public class Customer implements UserDetails {
     public void setSubscription(Subscription subscription) {
         this.subscription = subscription;
     }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 }

@@ -34,6 +34,9 @@
                     <a class="nav-link text-white" href="indexFigurine">Figurines</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link text-white" href="/getBasketUser">Voir Panier</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link text-white" href="login">Se connecter</a>
                 </li>
             </ul>
@@ -46,13 +49,13 @@
     </br>
     <div class="row" style="padding-top: 20px">
         <div class="col">
-            <img th:src="@{${'/images/' + figurine.getPicture().getName() + '.png'}}" height="450" width="400"/>
+           <img th:src="@{${'/images/' + figurine.getPicture().getName() + '.png'}}" height="450" width="400"/>-
         </div>
         <div class="col">
             <div class="row" style="padding-top: 20px">
                 <h5 th:text="${'Figurine : ' + figurine.getName()}"></h5>
             </div>
-            <div class="row" style="padding-top: 20px">
+          <div class="row" style="padding-top: 20px">
                 <p th:text="${'Date de parution : ' + figurine.getStartDate()}"></p>
             </div>
             <div class="row" style="padding-top: 20px">
@@ -68,11 +71,10 @@
                 <p th:text="${'Prix (TTC) : ' + figurine.getPrice() + ' €'}"></p>
             </div>
             <div class="row" style="padding-top: 20px">
-                <form action="/basket" method="POST">
+                <form th:method="post" th:action="@{/addProductInBasket}">
+                    <input type="hidden" name="idFigurine" id="idFigurine" th:value="${figurine.getId()}">
+                    <input type="number" id="quantity" name="quantity" value="Quantité" min="0" max="${figurine.getQuantity()}" placeholder="Entrer le quantité" required>
                     <button type="submit" class="btn btn-primary">Ajouter au panier</button>
-                </form>
-                <form action="/bill" method="POST" style="padding-left: 30px">
-                    <button type="submit" class="btn btn-success">Payer</button>
                 </form>
             </div>
         </div>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -7,7 +8,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
 
-    <title>404 FIGURINES</title>
+    <title>404 Figurines</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -30,13 +31,13 @@
                     <a class="nav-link text-white" href="index">Menu</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="figurines">Figurines</a>
+                    <a class="nav-link text-white" href="indexFigurine">Figurines</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="/getBasketUser">Voir Panier</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="logout">Se déconnecter</a>
+                    <a class="nav-link text-white" href="login">Se connecter</a>
                 </li>
             </ul>
         </div>
@@ -44,50 +45,43 @@
 </header>
 
 <div style="padding-left:400px; padding-right:400px; padding-top:20px">
-    <h3>Mon Profil</h3>
+    <h3>Facture d'achat</h3>
     </br>
-
-    <h4>Mes informations</h4>
-    </br>
-    <div class="row" style="padding-left: 20px; padding-bottom: 40px">
+    <div class="row" style="padding-top: 20px">
         <div class="col">
-            <div class="row">
-                <label>Nom :</label>
+            <div class="row" style="padding-top: 20px">
+                <h5 th:text="${'Nom : ' + customer.getLastName()}"></h5>
             </div>
-            <div class="row">
-                <label>Prénom :</label>
+            <div class="row" style="padding-top: 20px">
+                <p th:text="${'Prénom : ' + customer.getFirstName()}"></p>
             </div>
-            <div class="row">
-                <label>Adresse mail :</label>
+            <div class="row" style="padding-top: 20px">
+                <p th:text="${'Adresse : ' + customer.getAddress().getStreetnumber() + ' ' + customer.getAddress().getStreet() + ' ' }"></p>
+                <p th:text="${customer.getAddress().getPostalCode() + ' ' + customer.getAddress().getCity() + ' ' }"></p>
+                <p th:text="${customer.getAddress().getCountry()}"></p>
             </div>
-        </div>
-        <div class="col">
-            <div class="row">
-                <label>Adresse de facturation :</label>
-            </div>
-            </br>
-            <div class="row">
-                <label>Adresse de livraison :</label>
+            <div class="row" style="padding-top: 20px">
+                <p th:text="${'Montant total: ' + solde + ' €'}"></p>
             </div>
         </div>
     </div>
 
-    <div style="padding-bottom: 60px">
-        <div class="row">
-            <form action="/information" method="GET" style="padding-left: 200px">
-                <button class="btn-primary">Modifier mes informations</button>
-            </form>
-            <form action="/password" method="GET" style="padding-left: 40px; padding-right: 40px">
-                <button class="btn-primary">Modifier mon mot de passe</button>
-            </form>
-            <form action="/address" method="GET" style="padding-right: 200px">
-                <button class="btn-primary">Modifier mes adresses</button>
-            </form>
-        </div>
-    </div>
+    <table class="table">
+        <tr>
+            <th style="text-align: center">Image</th>
+            <th style="text-align: center">Nom</th>
+            <th style="text-align: center">Quantité</th>
+            <th style="text-align: center">Prix (€)</th>
+        </tr>
+        <br/>
+        <tr style="width:100%" th:each="figurine : ${figurines}">
+            <td style="width: 20%"><img th:src="@{${'/images/' + figurine.getPicture().getName() + '.png'}}" height="80" width="80"></td>
+            <td style="width: 15%; text-align: center" th:text="${figurine.getName()}"></td>
+            <td style="width: 10%; text-align: center" th:text="${figurine.getQuantity()}"></td>
+            <td style="width: 15%; text-align: center" th:text="${figurine.getPrice()}"></td>
+        </tr>
+    </table>
 
-    <h4>Mes factures</h4>
-    </br>
 </div>
 
 </body>
