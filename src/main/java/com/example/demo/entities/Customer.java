@@ -75,6 +75,10 @@ public class Customer implements UserDetails {
         return "Femme";
     }
 
+    public Address getAddress(){
+        return address;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 

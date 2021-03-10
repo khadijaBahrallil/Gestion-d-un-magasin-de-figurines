@@ -51,25 +51,22 @@
     <div class="row" style="padding-left: 20px; padding-bottom: 40px">
         <div class="col">
             <div class="row">
-                <label>Nom :</label>
-                <p th:text="${lname}">lname</p>
+                <p th:text="${'Nom : ' + lname}">lname</p>
             </div>
             <div class="row">
-                <label>Prénom :</label>
-                <p th:text="${fname}">fname</p>
+                <p th:text="${'Prénom : ' + fname}">fname</p>
             </div>
             <div class="row">
-                <label>Adresse mail :</label>
-                <p th:text="${username}">username</p>
+                <p th:text="${'Adresse mail : ' + username}">username</p>
             </div>
         </div>
         <div class="col">
             <div class="row">
-                <label>Adresse de facturation :</label>
+                <p th:text="${'Adresse de facturation : ' + address}">adress</p>
             </div>
             </br>
             <div class="row">
-                <label>Adresse de livraison :</label>
+                <p th:text="${'Adresse de livraison : ' + address}">adress</p>
             </div>
         </div>
     </div>
