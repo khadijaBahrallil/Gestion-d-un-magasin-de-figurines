@@ -23,7 +23,7 @@ public class CategoryController {
     public String indexCategory(){
         return "indexCategory";
     }
-    
+
     @PostMapping("/updateCategory")
     public String updateCategory(@RequestParam String idCat, @RequestParam String name) {
         int new_id;
@@ -31,8 +31,8 @@ public class CategoryController {
         try {
             new_id = Integer.parseInt(idCat);
             category = categoryRepository.findCategoryById(new_id);
-            if(name.isEmpty()){
-                throw new Exception("nom vide");
+            if(name.isEmpty() || name.length() > 255){
+                throw new Exception("Prblème avec le nom");
             }
             if(name.equals(category.getName())){
                 throw new Exception("pas de changement");
@@ -57,7 +57,7 @@ public class CategoryController {
     public String addCategory(@RequestParam String name) {
         Category category = new Category();
         List<Category> categorys = categoryRepository.findAll();
-        if(name.equals("")){
+        if(name.equals("") || name.length() > 255){
             return "indexCategory";
         }
         for(int i = 0; i < categorys.size(); i++){
