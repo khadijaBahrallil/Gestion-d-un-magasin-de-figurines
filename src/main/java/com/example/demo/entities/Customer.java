@@ -31,6 +31,7 @@ public class Customer implements UserDetails {
     @OneToOne
     private Subscription subscription;
 
+
     public Integer getId() {
         return id;
     }

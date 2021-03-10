@@ -34,6 +34,7 @@ public class CustomAuthProvider extends DaoAuthenticationProvider {
             throw new BadCredentialsException("Invalid Credentials " + auth.getPrincipal());
         }
         if (!passwordEncoder.matches(password, user.getPassword())) {
+            System.out.println("password prob");
             throw new BadCredentialsException("Invalid Credentials " + auth.getPrincipal());
         }
 
