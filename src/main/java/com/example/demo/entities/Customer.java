@@ -24,6 +24,7 @@ public class Customer implements UserDetails {
     private int bonusPoint;
     private int assets;
     private String pseudo;
+    private String phoneNumber;
     @OneToOne
     private Address address;
     @OneToMany
@@ -78,6 +79,10 @@ public class Customer implements UserDetails {
 
     public Address getAddress(){
         return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     @Override

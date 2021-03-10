@@ -107,17 +107,6 @@ public class LicenceController {
         model.addAttribute("licenceList", licenceList);
         return "listLicence";
     }
-    /*
-    @ModelAttribute("category")
-    protected ModelAndView  getAllCategory(){
-        ModelAndView mv = new ModelAndView("category");
-        List categoryList = categoryRepository.findAll();
-        System.out.println(categoryList.size());
-        mv.addObject("categoryList", categoryList);
-        System.out.println(mv.toString());
-        return mv;
-    }
-    */
 
     @ModelAttribute("licenceList")
     protected List<Licence> getAllLicence(){

@@ -22,7 +22,6 @@ public class AdministratorController {
 
     @GetMapping("/addAdministrator")
     public String addAdministrator() {
-
             return "registeradmin";
 
     }
