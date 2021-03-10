@@ -53,7 +53,7 @@
                 <h5 th:text="${'Figurine : ' + figurine.getName()}"></h5>
             </div>
             <div class="row" style="padding-top: 20px">
-                <p th:text="${'Date de parution : ' + figurine.getStartDate()}"></p>
+                <p th:text="${'Date de parution : ' + #dates.format(figurine.getStartDate(), 'dd-MMM-yyyy')}"></p>
             </div>
             <div class="row" style="padding-top: 20px">
                 <p th:text="${'Categorie : ' + figurine.getLicence().getCategory().getName()}"></p>
@@ -94,7 +94,7 @@
             <td th:text="${opinion.getText()}"></td>
             <td th:text="${opinion.getNote()}"></td>
             <td th:text="${opinion.getCustomer().getUsername()}"></td>
-            <td th:text="${opinion.getDate()}"></td>
+            <td th:text="${#dates.format(opinion.getDate(), 'dd-MMM-yyyy')}"></td>
         </tr>
     </table>
 
