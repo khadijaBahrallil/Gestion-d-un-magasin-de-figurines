@@ -45,24 +45,24 @@
     <h3>Prévisualisation de la facture</h3>
     </br>
     <div class="row" style="padding-top: 20px">
-        <h4 th:text="${'Facture # ' + bill.getId()}"></h4>
-        <div class="col">
+        <h4 th:text="${'Facture # '}">Facture #</h4>
+        <div class="col" style="padding-top: 20px">
             <div class="row" style="padding-top: 20px">
-                <h5 th:text="${'Figurine : ' + figurine.getName()}"></h5>
+                <h5 th:text="${'Figurine : ' }">Figurine :</h5>
             </div>
             <div class="row" style="padding-top: 20px">
-                <p th:text="${'Categorie : ' + figurine.getLicence().getCategory().getName()}"></p>
+                <p th:text="${'Categorie : '}">Categorie : '</p>
             </div>
             <div class="row" style="padding-top: 20px">
-                <p th:text="${'Licence : ' + figurine.getLicence().getName()}"></p>
+                <p th:text="${'Licence : '}">Licence : '</p>
             </div>
             <div class="row" style="padding-top: 20px">
-                <p th:text="${'Prix de la commande : ' + figurine.getPrice() + ' €'}"></p>
+                <p th:text="${'Prix de la commande : €'}">Prix de la commande : €</p>
             </div>
         </div>
 
         <div class="col">
-            <img th:src="@{${'/images/' + figurine.getPicture().getName() + '.png'}}" height="300" width="200"/>
+            <img th:src="@{${'/images/.png'}}" height="300" width="200"/>
         </div>
     </div>
 
