@@ -46,7 +46,7 @@ public class SubscriptionController {
     }
 
     @PostMapping("/deleteSubscription")
-    public String deleteSubscription(@RequestParam String id) {
+    public String deleteSubscription(@RequestParam String id, Model model) {
         Subscription subscription;
         int new_id;
         try{
@@ -67,6 +67,8 @@ public class SubscriptionController {
             System.out.println("erreur " +e);
             return "listSubscription";
         }
+        List<Subscription> subscriptionList = subscriptionRepository.findAll();
+        model.addAttribute("subscriptionList", subscriptionList);
         return "listSubscription";
     }
 

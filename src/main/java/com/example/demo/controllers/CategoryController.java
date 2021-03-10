@@ -69,7 +69,7 @@ public class CategoryController {
     }
 
     @PostMapping("/deleteCategory")
-    public String deleteCategory(@RequestParam String id) {
+    public String deleteCategory(@RequestParam String id, Model model) {
         Category category;
         int new_id;
         try{
@@ -86,6 +86,8 @@ public class CategoryController {
             System.out.println("erreur" +e);
             return "listCategory";
         }
+        List<Category> categoryList = categoryRepository.findAll();
+        model.addAttribute("categoryList", categoryList);
         return "listCategory";
     }
 
@@ -105,6 +107,7 @@ public class CategoryController {
     public String getCategory(@RequestParam String recherche, Model model) {
         List<Category> categoryList = categoryRepository.findCategoryWithPartOfName(recherche);
         model.addAttribute("categoryList", categoryList);
+        model.addAttribute("recherche",recherche);
         return "listCategory";
     }
 

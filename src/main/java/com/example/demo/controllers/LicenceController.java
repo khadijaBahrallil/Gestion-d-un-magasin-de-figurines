@@ -54,6 +54,7 @@ public class LicenceController {
     public String listLicence(@RequestParam String recherche, Model model) {
         List<Licence> licenceList = licenceRepository.findLicenceWithPartOfName(recherche);
         model.addAttribute("licenceList", licenceList);
+        model.addAttribute("recherche",recherche);
         return "listLicence";
     }
 
@@ -91,7 +92,7 @@ public class LicenceController {
     }
 
     @PostMapping("/deleteLicence")
-    public String deleteLicence(@RequestParam String id) {
+    public String deleteLicence(@RequestParam String id, Model model) {
         Licence licence;
         int new_id;
         try{
@@ -102,6 +103,8 @@ public class LicenceController {
             System.out.println("erreur" +e);
             return "listLicence";
         }
+        List <Licence> licenceList = licenceRepository.findAll();
+        model.addAttribute("licenceList", licenceList);
         return "listLicence";
     }
     /*

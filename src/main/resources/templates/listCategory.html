@@ -46,7 +46,7 @@
 <a href="listCategory">Annuler recherche</a>
 <form action="/listCategoryPerso" method="GET">
     <label>Nom de la catégorie:</label>
-    <input type="text" name="recherche" id="recherche" class="form-control">
+    <input type="text" name="recherche" id="recherche" class="form-control" th:value="${recherche} ?: ''">
     <input type="submit" value="Rechercher" class="btn btn-info">
 </form>
 

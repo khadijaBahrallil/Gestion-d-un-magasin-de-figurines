@@ -50,11 +50,15 @@
     <form action="/listLicencePerso" method="GET">
         <div class="col-md-4" style="display: inline-block">
             <label for="recherche">Nom de la licence ou categorie:</label>
-            <input type="text" name="recherche" id="recherche" class="form-control">
+            <input type="text" name="recherche" id="recherche" class="form-control" th:value="${recherche} ?: ''">
         </div>
         <div class="col-md-5" style="display: inline-block">
             <input type="submit" value="Rechercher" class="btn btn-info">
-            <button type="reset" class="btn btn-secondary">Annuler la recherche</button>
+        </div>
+    </form>
+    <form action="/listLicence" method="GET">
+        <div class="col-md-5" style="display: inline-block">
+            <button type="submit" class="btn btn-secondary">Annuler la recherche</button>
         </div>
     </form>
 
