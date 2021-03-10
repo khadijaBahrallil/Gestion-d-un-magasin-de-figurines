@@ -191,7 +191,7 @@ public class BasketController {
         }
 
         Basket basket = basketRepository.findBasketByCustomerID(customer);
-        if(basket == null) return "redirect:/figurines";
+        if(basket == null) return "redirect:/basket";
 
         List<Figurine> listfigurine = new ArrayList<>();
 
@@ -225,7 +225,7 @@ public class BasketController {
 
         Basket basket = basketRepository.findBasketByCustomerID(customer);
 
-        if(basket == null) return "redirect:/figurines";
+        if(basket == null) return "redirect:/getBasketUser";
         if(customer.getAddress() == null) return "redirect:/address";
 
         return "redirect:/getValidBuy";

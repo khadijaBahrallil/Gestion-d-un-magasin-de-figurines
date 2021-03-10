@@ -85,7 +85,7 @@
                 <input type="hidden" name="idFigurine" id="idFigurineAdd" th:value="${figurine.getId()}">
                 <td class="row" style="..."><button type="submit" class="btn btn-primary">-</button>
             </form>
-            <form th:action="@{/adQantityOfProduct}" th:method="POST">
+            <form th:action="@{/addQantityOfProduct}" th:method="POST">
                 <input type="hidden" name="idFigurine" id="idFigurineRemove" th:value="${figurine.getId()}">
                 <button type="submit" class="btn btn-primary">+</button></td>
             </form>
