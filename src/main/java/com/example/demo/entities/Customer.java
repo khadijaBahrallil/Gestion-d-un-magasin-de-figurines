@@ -24,6 +24,7 @@ public class Customer implements UserDetails {
     private int bonusPoint;
     private int assets;
     private String pseudo;
+    private String phoneNumber;
     @OneToOne
     private Address address;
     @OneToMany

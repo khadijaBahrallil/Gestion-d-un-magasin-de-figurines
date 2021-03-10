@@ -23,13 +23,7 @@ public class CategoryController {
     public String indexCategory(){
         return "indexCategory";
     }
-
-
-    @GetMapping("/realindex")
-    public String realindex(){
-        return "realindex";
-    }
-
+    
     @PostMapping("/updateCategory")
     public String updateCategory(@RequestParam String idCat, @RequestParam String name) {
         int new_id;
@@ -59,10 +53,18 @@ public class CategoryController {
         return "listCategory";
     }
 
-    //Post
     @PostMapping("/addCategory")
     public String addCategory(@RequestParam String name) {
         Category category = new Category();
+        List<Category> categorys = categoryRepository.findAll();
+        if(name.equals("")){
+            return "indexCategory";
+        }
+        for(int i = 0; i < categorys.size(); i++){
+            if(categorys.get(i).getName().equals(name)){
+                return "indexCategory";
+            }
+        }
         category.setName(name);
         categoryRepository.save(category);
         return "indexCategory";

@@ -10,8 +10,9 @@ public class BillsCustomer {
     private Integer id;
     @OneToOne
     private Customer customer;
-    @OneToMany
+    @ManyToMany
     private Collection<Figurine> figurines;
+    private float prix;
     public enum StatusOrdered {
         PAYEE,
         VALIDEE,
