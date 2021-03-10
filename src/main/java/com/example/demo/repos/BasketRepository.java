@@ -18,6 +18,6 @@ public interface BasketRepository extends CrudRepository<Basket, Integer> {
     Customer findCustomerByUserName(String userName);
 
     @Query(" select u from Figurine u  where u.id = ?1")
-    Figurine findFugirineByID(Integer figurineID);
+    Figurine findFigurineByID(Integer figurineID);
 
 }

@@ -47,12 +47,12 @@ public class BasketController {
         }catch (Exception e){
             return "redirect:/login";
         }
-        Figurine figurine = basketRepository.findFugirineByID(idFigurine);
+        Figurine figurine = basketRepository.findFigurineByID(idFigurine);
         if(figurine == null)  return "redirect:/figurines";
 
         Basket basket = basketRepository.findBasketByCustomerID(customer);
         if(basket == null)  basket = new Basket(customer);
-
+        System.out.println(basket);
         if(!basket.getQuantityFigurineOfbasket().isEmpty()) {
             if (basket.getQuantityFigurineOfbasket().containsKey(figurine.getId())) {
                 value = basket.getQuantityFigurineOfbasket().get(figurine.getId());
@@ -62,7 +62,7 @@ public class BasketController {
 
         try {
             if(value > figurine.getQuantity()) {
-                throw new Exception("Quanté choisi superieur au stock");
+                throw new Exception("Quantité choisi superieur au stock");
             }
         }catch (Exception e){
             return "redirect:/figurines";
@@ -81,7 +81,7 @@ public class BasketController {
      * @param quantity
      * @return
      */
-    public String updateQantityProductInBasket( Integer idFigurine, Integer quantity){
+    public String updateQuantityProductInBasket( Integer idFigurine, Integer quantity){
         Integer value = 0;
         double solde = 0;
         Customer customer = getActivecustomer();
@@ -92,7 +92,7 @@ public class BasketController {
         }catch (Exception e){
             return "redirect:/login";
         }
-        Figurine figurine = basketRepository.findFugirineByID(idFigurine);
+        Figurine figurine = basketRepository.findFigurineByID(idFigurine);
         if(figurine == null)  return "redirect:/figurines";
 
         Basket basket = basketRepository.findBasketByCustomerID(customer);
@@ -123,8 +123,8 @@ public class BasketController {
      * @return
      */
     @PostMapping("/addQantityOfProduct")
-    public String addQantityOfProduct(@RequestParam Integer idFigurine){
-        return updateQantityProductInBasket(idFigurine,1);
+    public String addQuantityOfProduct(@RequestParam Integer idFigurine){
+        return updateQuantityProductInBasket(idFigurine,1);
     }
 
     /**
@@ -133,7 +133,7 @@ public class BasketController {
      */
     @PostMapping("/removeQantityOfProduct")
     public String removeQantityOfProduct(@RequestParam Integer idFigurine){
-        return updateQantityProductInBasket(idFigurine,-1);
+        return updateQuantityProductInBasket(idFigurine,-1);
     }
 
     /**
@@ -189,7 +189,7 @@ public class BasketController {
         List<Figurine> listfigurine = new ArrayList<>();
 
         for(HashMap.Entry<Integer, Integer> mapFig : basket.getQuantityFigurineOfbasket().entrySet()){
-            Figurine mockfigurine = basketRepository.findFugirineByID(mapFig.getKey());
+            Figurine mockfigurine = basketRepository.findFigurineByID(mapFig.getKey());
             mockfigurine.setQuantity(mapFig.getValue());
             listfigurine.add(mockfigurine);
         }
@@ -257,7 +257,7 @@ public class BasketController {
         List<Figurine> listfigurine = new ArrayList<>();
 
         for(HashMap.Entry<Integer, Integer> mapFig : basket.getQuantityFigurineOfbasket().entrySet()){
-            Figurine mockfigurine = basketRepository.findFugirineByID(mapFig.getKey());
+            Figurine mockfigurine = basketRepository.findFigurineByID(mapFig.getKey());
             mockfigurine.setQuantity(mapFig.getValue());
             listfigurine.add(mockfigurine);
         }
