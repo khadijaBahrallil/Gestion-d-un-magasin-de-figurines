@@ -30,6 +30,10 @@ public class OpinionController {
     @PostMapping("/opinion")
     public String opinion(@RequestParam int idFigurine, Model model) {
         Figurine figurine = new Figurine();
+        //TEST
+        //if user have already an opinion
+        //return "figurines"; or updateOpinion
+        //
         try{
             figurine = figurineRepository.findFigurineById(idFigurine);
             model.addAttribute("figurine", figurine);
