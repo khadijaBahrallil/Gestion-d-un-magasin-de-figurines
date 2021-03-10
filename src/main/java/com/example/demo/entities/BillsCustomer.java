@@ -1,6 +1,7 @@
 package com.example.demo.entities;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 public class BillsCustomer {
@@ -9,6 +10,8 @@ public class BillsCustomer {
     private Integer id;
     @OneToOne
     private Customer customer;
+    @OneToMany
+    private Collection<Figurine> figurines;
     public enum StatusOrdered {
         PAYEE,
         VALIDEE,
