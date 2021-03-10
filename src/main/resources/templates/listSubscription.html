@@ -1,41 +1,85 @@
 <!DOCTYPE html>
 <html lang="fr" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+
     <title>404 Figurines</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+    <!-- Custom styles for this template -->
+    <link href="demo/static/main.css" rel="stylesheet">
 </head>
+
 <body>
-<p>Subscription</p>
-<a href="subscription">Ajouter</a>
-<a href="/listSubscription">Annuler recherche</a>
-<form action="/listSubscriptionPerso" method="GET">
-    <label>Nom de l'abonnement:</label>
-    <input type="text" name="recherche" id="recherche" class="form-control">
-    <input type="submit" value="Rechercher" class="btn btn-info">
-</form>
-<table>
-    <tr>
-        <th>ID</th>
-        <th>NOM</th>
-        <th>PRIX</th>
-        <th>DESCRIPTION</th>
-        <th>MAJ</th>
-        <th>SUPPRIMER</th>
-    </tr>
-    <tr th:each="subscription: ${subscriptionList}">
-        <form action="/updateSubscription" method="POST">
-            <input type="hidden" name="idSubscription" id="idSubscription" th:value="${subscription.getId()}">
-            <td th:text="${subscription.getId()}"/></td>
-            <td><input type="text" name="name" id="name" th:value="${subscription.getName()}"></td>
-            <td><input type="number" name="price" id="price" th:value="${subscription.getPrice()}">€</td>
-            <td><textarea type="text" name="text" id="text" rows="3" cols="30" class="form-control" th:text="${subscription.getText()}"></textarea></td>
-            <td><button type="submit">Mise à jour</button></td>
-        </form>
-        <form action="/deleteSubscription" method="POST">
-            <input type="hidden" name="id" id="id" th:value="${subscription.getId()}">
-            <td><button type="submit">Supprimer</button></td>
-        </form>
-    </tr>
-</table>
+<header>
+    <div class="navbar navbar-dark bg-dark box-shadow">
+        <div class="container d-flex justify-content-between">
+            <a href="index" class="navbar-brand d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                <strong>404 FIGURINES</strong>
+            </a>
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="index">Menu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="indexFigurine">Figurines</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="register">Profil</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+<div style="padding-left:400px; padding-right:400px; padding-top:20px">
+    <h3>Liste des Abonnements</h3>
+    </br>
+    <p>Pour ajouter un abonnement, veuillez cliquer <a href="subscription">ici</a>.</p>
+    </br>
+    <a href="subscription">Ajouter</a>
+    <a href="/listSubscription">Annuler recherche</a>
+    <form action="/listSubscriptionPerso" method="GET">
+        <div class="col-md-4" style="display: inline-block">
+            <label>Nom de l'abonnement:</label>
+            <input type="text" name="recherche" id="recherche" class="form-control">
+        </div>
+        <input type="submit" value="Rechercher" class="btn btn-info">
+    </form>
+    <div style="text-align: center; padding-top: 40px">
+        <table>
+            <tr style="width:75%">
+                <th style="width:5%">ID</th>
+                <th style="width:15%">NOM</th>
+                <th style="width:5%">PRIX</th>
+                <th style="width:35%">DESCRIPTION</th>
+                <th style="width:15%">MAJ</th>
+                <th style="width:15%">SUPPRIMER</th>
+            </tr>
+            <tr th:each="subscription: ${subscriptionList}">
+                <form action="/updateSubscription" method="POST">
+                    <input type="hidden" name="idSubscription" id="idSubscription" th:value="${subscription.getId()}">
+                    <td th:text="${subscription.getId()}"/></td>
+                    <td><input type="text" name="name" id="name" th:value="${subscription.getName()}"></td>
+                    <td><input type="number" name="price" id="price" th:value="${subscription.getPrice()}">€</td>
+                    <td><textarea type="text" name="text" id="text" rows="3" cols="30" class="form-control" th:text="${subscription.getText()}"></textarea></td>
+                    <td><button type="submit">Mise à jour</button></td>
+                </form>
+                <form action="/deleteSubscription" method="POST">
+                    <input type="hidden" name="id" id="id" th:value="${subscription.getId()}">
+                    <td><button type="submit">Supprimer</button></td>
+                </form>
+            </tr>
+        </table>
+    </div>
+</div>
 </body>
 </html>
