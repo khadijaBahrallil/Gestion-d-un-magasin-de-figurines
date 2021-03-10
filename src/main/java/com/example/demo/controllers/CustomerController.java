@@ -101,7 +101,11 @@ public class CustomerController {
     }
 
     @GetMapping("home")
-    public String home() {
+    public String home(Model model) {
+        Customer customer = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0)).get();
+
+        model.addAttribute("role",customer.getRole());
+
 
 
         return "home";

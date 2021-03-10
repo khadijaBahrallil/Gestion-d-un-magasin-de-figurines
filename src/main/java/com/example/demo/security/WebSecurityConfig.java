@@ -72,7 +72,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/","/favicon.ico", "/favicon.ico", "/index","/register", "/addCustomer", "/indexFigurine","/addFigurine", "/licences", "/opinion",
+                .antMatchers("/", "/favicon.ico", "/index","/register","/addAdministrator", "/addCustomer", "/indexFigurine","/addFigurine", "/licences", "/opinion",
                         "/addLicence", "/addOpinion", "/indexCategory", "/subscription", "/addSubscription","/listSubscription", "/deleteSubscription","/users",
                         "/listLicence", "/deleteLicence", "/listCategory", "/deleteCategory", "/addCategory", "/updateCategory", "/updateLicence", "/updateSubscription",
                         "/figurines", "/images/**", "static/**", "/findFigurine", "/listCategoryPerso", "/listLicencePerso", "/listSubscriptionPerso", "/listFigurinePerso").permitAll()

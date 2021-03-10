@@ -90,6 +90,10 @@ public class Customer implements UserDetails {
 
     }
 
+    public String getRole(){
+        return "user";
+    }
+
     @Override
     public String getPassword() {
         return password;

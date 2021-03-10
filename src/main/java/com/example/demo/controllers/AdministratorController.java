@@ -20,6 +20,13 @@ public class AdministratorController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @GetMapping("/addAdministrator")
+    public String addAdministrator() {
+
+            return "registeradmin";
+
+    }
+
     @PostMapping("/addAdministrator")
     public String addAdministrator(@RequestParam String lastName, @RequestParam String firstName, @RequestParam String userName,
                               @RequestParam String password, @RequestParam Boolean civility) {
