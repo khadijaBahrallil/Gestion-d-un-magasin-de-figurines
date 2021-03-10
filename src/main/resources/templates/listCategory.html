@@ -41,34 +41,47 @@
     </div>
 </header>
 
-<p>Categorie</p>
-<a href="indexCategory">Ajouter</a>
-<a href="listCategory">Annuler recherche</a>
-<form action="/listCategoryPerso" method="GET">
-    <label>Nom de la catégorie:</label>
-    <input type="text" name="recherche" id="recherche" class="form-control" th:value="${recherche} ?: ''">
-    <input type="submit" value="Rechercher" class="btn btn-info">
-</form>
+<div style="padding-left:400px; padding-right:400px; padding-top:20px">
+    <h3>Liste des catégories</h3>
+    </br>
+    <p>Pour ajouter une catégorie, veuillez cliquer <a href="indexCategory">ici</a>.</p>
+    </br>
 
-<table>
-    <tr>
-        <th>ID</th>
-        <th>NOM</th>
-        <th>MAJ</th>
-        <th>SUPPRIMER</th>
-    </tr>
-    <tr th:each="category: ${categoryList}">
-        <form action="/updateCategory" method="POST">
-            <input type="hidden" name="idCat" id="idCat" th:value="${category.getId()}">
-            <td th:text="${category.getId()}"></td>
-            <td><input type="text" name="name" id="name" th:value="${category.getName()}"></td>
-            <td><button type="submit">Mettre à jour</button></td>
-        </form>
-            <form action="/deleteCategory" method="POST">
-                <td><button type="submit">Supprimer</button></td>
-                <input type="hidden" name="id" id="id" th:value="${category.getId()}">
-            </form>
-    </tr>
-</table>
+    <form action="/listCategoryPerso" method="GET">
+        <div class="col-md-4" style="display: inline-block">
+            <label for="recherche">Nom de la catégorie :</label>
+            <input type="text" name="recherche" id="recherche" class="form-control" th:value="${recherche} ?: ''">
+        </div>
+        <div class="col-md-5" style="display: inline-block">
+            <input type="submit" value="Rechercher" class="btn btn-info">
+            <a class="btn btn-light" th:href="listCategory">Annuler la recherche</a>
+        </div>
+    </form>
+
+    <div style="text-align: center; padding-top: 40px">
+        <table>
+            <tr style="width:100%">
+                <th style="width:5%">ID</th>
+                <th style="width:30%">NOM</th>
+                <th style="width:15%">MAJ</th>
+                <th style="width:15%">SUPPRIMER</th>
+            </tr>
+            <tr th:each="category: ${categoryList}">
+                <form action="/updateCategory" method="POST">
+                    <input type="hidden" name="idCat" id="idCat" th:value="${category.getId()}">
+                    <td th:text="${category.getId()}"></td>
+                    <td><input type="text" name="name" id="name" th:value="${category.getName()}"></td>
+                    <td><button type="submit">Mettre à jour</button></td>
+                </form>
+                <form action="/deleteCategory" method="POST">
+                    <td><button type="submit">Supprimer</button></td>
+                    <input type="hidden" name="id" id="id" th:value="${category.getId()}">
+                </form>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
 </body>
 </html>

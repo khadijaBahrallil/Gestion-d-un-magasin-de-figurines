@@ -30,7 +30,7 @@
             </a>
             <ul class="nav">
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="index">Menu</a>
+                    <a class="nav-link text-white" href="home">Menu</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="figurines">Figurines</a>
@@ -43,27 +43,41 @@
     </div>
 </header>
 
-<div style="text-align: center;">
-    <br/>
-    <form action="/addSubscription" method="POST">
-        <p>Ajoutons un abonnement.</p>
-        <table class="table col-md-4" border align="center">
-            <tr>
-                <td><label for="name">Nom de l'abonnement :</label></td>
-                <td><input type="text" name="name" id="name" maxlength="255" value="" class="form-control" required></td>
-            </tr>
+<div style="padding-left:400px; padding-right:400px; padding-top:20px">
+    <h3>Formulaire ajout d'un abonnement</h3>
+    </br>
 
-            <tr>
-                <td><label for="price">Prix :</label></td>
-                <td><input type="number" name="price" id="price" required> €</td>
-            </tr>
-            <tr>
-                <td><label for="text">Description :</label></td>
-                <td><textarea type="text" name="text" id="text" rows="3" cols="30" class="form-control"></textarea></td>
-            </tr>
-        </table>
-        <button type="submit">Publier</button>
-    </form>
+    <div style="text-align: center">
+        <br/>
+        <form action="/addSubscription" method="POST">
+            <table class="table col-md-6" border align="center">
+                <tr>
+                    <td><label for="name">Nom de l'abonnement :</label></td>
+                    <td><input type="text" name="name" id="name" maxlength="255" value="" class="form-control" required></td>
+                </tr>
+
+                <tr>
+                    <td><label for="price">Prix :</label></td>
+                    <td><input type="number" name="price" id="price" required> €</td>
+                </tr>
+                <tr>
+                    <td><label for="text">Description :</label></td>
+                    <td><textarea type="text" name="text" id="text" rows="3" cols="30" class="form-control" required></textarea></td>
+                </tr>
+            </table>
+
+            <div style="padding-bottom: 20px; padding-top: 20px">
+                <button type="submit">Créer un abonnement</button>
+            </div>
+            <a href="/listSubscription">Liste des abonnements</a>
+            </br>
+            </br>
+            <a href="home">Retour au menu</a>
+        </form>
+    </div>
+
 </div>
+
+
 </body>
 </html>

@@ -51,7 +51,7 @@
                 <label>Nom :</label>
                 <input type="text" name="recherche" class="form-control" th:value="${recherche} ?: ''">
             </div>
-            <div class="col-md-3" style="display: inline-block">
+            <div class="col-md-2" style="display: inline-block">
                 <label>Catégorie :</label>
                 <select name="category_name" class="form-control" required>
                     <option selected>Toutes</option>
@@ -60,7 +60,7 @@
                     </th:block>
                 </select>
             </div>
-            <div class="col-md-3" style="display: inline-block">
+            <div class="col-md-2" style="display: inline-block">
                 <label>Licence :</label>
                 <select name="license_name" class="form-control" required>
                     <option selected>Toutes</option>
@@ -69,8 +69,9 @@
                     </th:block>
                 </select>
             </div>
-            <div class="col-md-2" style="display: inline-block">
+            <div class="col-md-4" style="display: inline-block">
                 <input type="submit" value="Rechercher" class="btn btn-info">
+                <a class="btn btn-light" th:href="figurines">Annuler la recherche</a>
             </div>
         </form>
     </div>

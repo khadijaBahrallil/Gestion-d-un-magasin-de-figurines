@@ -27,37 +27,41 @@
             </a>
             <ul class="nav">
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="index">Menu</a>
+                    <a class="nav-link text-white" href="home">Menu</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="indexFigurine">Figurines</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="login">Se connecter</a>
+                    <a class="nav-link text-white" href="logout">Se déconnecter</a>
                 </li>
             </ul>
         </div>
     </div>
 </header>
 
-<form action="/addCategory" method="POST">
-    <p>Let's add a category.</p>
+<div style="padding-left:400px; padding-right:400px; padding-top:20px">
+    <h3 style="padding-bottom: 20px">Formulaire ajout d'une catégorie</h3>
 
-    <div>
-        <label for="name"> Name category:</label>
-        <input name="name" id="name" value="">
+    <div style="text-align: center">
+        <form action="/addCategory" method="POST">
+            <div style="padding-bottom: 20px">
+                <label for="name"> Nom de la nouvelle catégorie :</label>
+                <input type="text" name="name" id="name" placeholder="Nom de la catégorie">
+            </div>
+
+            <div>
+                <button type="submit">Créer la catégorie</button>
+            </div>
+        </form>
+
+        </br>
+        <a href="listCategory">Liste des catégories</a>
+        </br>
+        </br>
+        <a href="home">Retour au menu</a>
     </div>
 
-    <div>
-        <button type="submit">Add Category</button>
-    </div>
-</form>
-
-
-
-<form action="/listCategory" method="GET">
-    <button>List category</button>
-</form>
-<a href="index">Menu</a>
+</div>
 </body>
 </html>

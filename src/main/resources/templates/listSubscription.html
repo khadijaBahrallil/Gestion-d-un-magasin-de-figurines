@@ -34,33 +34,36 @@
                     <a class="nav-link text-white" href="indexFigurine">Figurines</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="register">Profil</a>
+                    <a class="nav-link text-white" href="profile">Profil</a>
                 </li>
             </ul>
         </div>
     </div>
 </header>
+
 <div style="padding-left:400px; padding-right:400px; padding-top:20px">
-    <h3>Liste des Abonnements</h3>
+    <h3>Liste des abonnements</h3>
     </br>
     <p>Pour ajouter un abonnement, veuillez cliquer <a href="subscription">ici</a>.</p>
     </br>
-    <a href="subscription">Ajouter</a>
-    <a href="/listSubscription">Annuler recherche</a>
+
     <form action="/listSubscriptionPerso" method="GET">
         <div class="col-md-4" style="display: inline-block">
             <label>Nom de l'abonnement ou description :</label>
             <input type="text" name="recherche" id="recherche" class="form-control">
         </div>
-        <input type="submit" value="Rechercher" class="btn btn-info">
+        <div class="col-md-5" style="display: inline-block">
+            <input type="submit" value="Rechercher" class="btn btn-info">
+            <a class="btn btn-light" th:href="listSubscription">Annuler la recherche</a>
+        </div>
     </form>
     <div style="text-align: center; padding-top: 40px">
         <table>
-            <tr style="width:75%">
+            <tr style="width:100%">
                 <th style="width:5%">ID</th>
                 <th style="width:15%">NOM</th>
-                <th style="width:5%">PRIX</th>
-                <th style="width:35%">DESCRIPTION</th>
+                <th style="width:5%">PRIX (€)</th>
+                <th style="width:45%">DESCRIPTION</th>
                 <th style="width:15%">MAJ</th>
                 <th style="width:15%">SUPPRIMER</th>
             </tr>
@@ -69,8 +72,8 @@
                     <input type="hidden" name="idSubscription" id="idSubscription" th:value="${subscription.getId()}">
                     <td th:text="${subscription.getId()}"/></td>
                     <td><input type="text" name="name" id="name" th:value="${subscription.getName()}"></td>
-                    <td><input type="number" name="price" id="price" th:value="${subscription.getPrice()}">€</td>
-                    <td><textarea type="text" name="text" id="text" rows="3" cols="30" class="form-control" th:text="${subscription.getText()}"></textarea></td>
+                    <td><input type="number" name="price" id="price" th:value="${subscription.getPrice()}"></td>
+                    <td><textarea type="text" name="text" id="text" rows="2" cols="30" class="form-control" th:text="${subscription.getText()}"></textarea></td>
                     <td><button type="submit">Mise à jour</button></td>
                 </form>
                 <form action="/deleteSubscription" method="POST">

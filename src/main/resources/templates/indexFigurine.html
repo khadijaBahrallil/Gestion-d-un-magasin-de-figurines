@@ -27,7 +27,7 @@
             </a>
             <ul class="nav">
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="index">Menu</a>
+                    <a class="nav-link text-white" href="home">Menu</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="indexFigurine">Figurines</a>
@@ -40,66 +40,70 @@
     </div>
 </header>
 
-<div style="text-align: center;">
-    <br/>
-    <form action="/addFigurine" method="POST">
-    <p>Ajoutons une figurine.</p>
+<div style="padding-left:400px; padding-right:400px; padding-top:20px">
+    <h3>Formulaire ajout d'une figurine</h3>
+    </br>
 
-    <table class="table col-md-4" border align="center">
-        <tr>
-            <td><label for="name">Nom de la figurine :</label></td>
-            <td><input type="text" name="name" id="name" maxlength="255" class="form-control" required></td>
-        </tr>
-        <tr>
-            <td><label for="idCat">Catégorie :</label></td>
-<!--            <td><input type="text" name="category" id="category" maxLength="255" class="form-control" required></td>-->
-            <td>
-                <select name="idCat" id="idCat">
-                    <option th:each="category: ${categoryList}"
-                            th:value="${category.getId()}"
-                            th:text="${category.getName()}"></option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td><label for="idLicense">Licence :</label></td>
-<!--            <td><input type="text" name="license" id="license" maxLength="255" class="form-control" required></td>-->
-            <td>
-                <select name="idLicense" id="idLicense">
-                    <option th:each="licence: ${licenceList}"
-                            th:value="${licence.getId()}"
-                            th:text="${licence.getName()}"></option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td><label for="startDate">Date de parution :</label></td>
-            <td><input type="text" name="startDate" id="startDate" maxlength="255" placeholder="JJ/MM/AAAA" class="form-control" required></td>
-        </tr>
-        <tr>
-            <td><label for="description">Description :</label></td>
-            <td><textarea type="text" name="description" id="description" rows="3" cols="30" class="form-control"></textarea></td>
-        </tr>
-        <tr>
-            <td><label for="price">Prix :</label></td>
-            <td><input type="number" name="price" id="price" required> €</td>
-        </tr>
-        <tr>
-            <td><label for="quantity">Nombre d'unités :</label></td>
-            <td><input type="number" name="quantity" id="quantity" required></td>
-        </tr>
-    </table>
+    <div style="text-align: center">
+        <br/>
+        <form action="/addFigurine" method="POST">
 
+            <table class="table col-md-6" border align="center">
+                <tr>
+                    <td><label for="name">Nom de la figurine :</label></td>
+                    <td><input type="text" name="name" id="name" maxlength="255" class="form-control" required></td>
+                </tr>
+                <tr>
+                    <td><label for="idCat">Catégorie :</label></td>
+                    <td>
+                        <select name="idCat" id="idCat">
+                            <option th:each="category: ${categoryList}"
+                                    th:value="${category.getId()}"
+                                    th:text="${category.getName()}"></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="idLicense">Licence :</label></td>
+                    <td>
+                        <select name="idLicense" id="idLicense">
+                            <option th:each="licence: ${licenceList}"
+                                    th:value="${licence.getId()}"
+                                    th:text="${licence.getName()}"></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="startDate">Date de parution :</label></td>
+                    <td><input type="text" name="startDate" id="startDate" maxlength="255" placeholder="JJ/MM/AAAA" class="form-control" required></td>
+                </tr>
+                <tr>
+                    <td><label for="description">Description :</label></td>
+                    <td><textarea type="text" name="description" id="description" rows="3" cols="30" class="form-control"></textarea></td>
+                </tr>
+                <tr>
+                    <td><label for="price">Prix :</label></td>
+                    <td><input type="number" name="price" id="price" required> €</td>
+                </tr>
+                <tr>
+                    <td><label for="quantity">Nombre d'unités :</label></td>
+                    <td><input type="number" name="quantity" id="quantity" required></td>
+                </tr>
+            </table>
+
+            </br>
+            <div>
+                <button type="submit">Ajouter la figurine</button>
+            </div>
+        </form>
         </br>
-    <div>
-        <button type="submit">Ajouter la figurine</button>
+        <a href="/figurines">Liste des figurines</a>
+        </br>
+        </br>
+        <a href="home">Retour au menu</a>
     </div>
-    </form>
-    </br>
-    <a href="/figurines">Liste des figurines</a>
-    </br>
-    </br>
-    <a href="index">Retour au menu</a>
+
 </div>
+
 </body>
 </html>
