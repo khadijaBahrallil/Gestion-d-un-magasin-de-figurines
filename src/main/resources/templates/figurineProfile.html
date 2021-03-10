@@ -42,36 +42,61 @@
 </header>
 
 <div style="padding-left:400px; padding-right:400px; padding-top:20px">
-    <div class="row">
-        <table>
-            <tr>
-                <td><h3  th:text="${'Page Figurine : ' + figurine.getName()}"></h3></td>
-            </tr>
-            <tr>
-                <td><img  th:src="@{${'/images/' + figurine.getPicture().getName() + '.png'}}"/></td>
-            </tr>
-            <tr>
-                <td th:text="${'Categorie :' + figurine.getLicence().getCategory().getName()}"></td>
-            </tr>
-            <tr>
-                <td th:text="${'Licence :' + figurine.getLicence().getName()}"></td>
-            </tr>
-            <tr>
-                <td th:text="${'Prix (TTC) :' + figurine.getPrice() + '€'}"></td>
-            </tr>
-        </table>
-        <h3>Avis</h3>
-        <h3 th:text="${'Note ' + note + ' / 5'}"></h3>
-
-        <table th:each="opinion: ${opinions}">
-            <tr>
-                <td th:text="${'Avis :' + opinion.getText()}"></td>
-                <td th:text="${'Note :' + opinion.getNote()}"></td>
-                <td th:text="${'Utilisateur :' + opinion.getCustomer().getUsername()}"></td>
-                <td th:text="${'Date :' + opinion.getDate()}"></td>
-            </tr>
-        </table>
+    <h3>Page produit</h3>
+    </br>
+    <div class="row" style="padding-top: 20px">
+        <div class="col">
+            <img th:src="@{${'/images/' + figurine.getPicture().getName() + '.png'}}" height="450" width="400"/>
+        </div>
+        <div class="col">
+            <div class="row" style="padding-top: 20px">
+                <h5 th:text="${'Figurine : ' + figurine.getName()}"></h5>
+            </div>
+            <div class="row" style="padding-top: 20px">
+                <p th:text="${'Date de parution : ' + figurine.getStartDate()}"></p>
+            </div>
+            <div class="row" style="padding-top: 20px">
+                <p th:text="${'Categorie : ' + figurine.getLicence().getCategory().getName()}"></p>
+            </div>
+            <div class="row" style="padding-top: 20px">
+                <p th:text="${'Licence : ' + figurine.getLicence().getName()}"></p>
+            </div>
+            <div class="row" style="padding-top: 20px">
+                <p th:text="${'Description : ' + figurine.getDescription()}"></p>
+            </div>
+            <div class="row" style="padding-top: 20px">
+                <p th:text="${'Prix (TTC) : ' + figurine.getPrice() + ' €'}"></p>
+            </div>
+            <div class="row" style="padding-top: 20px">
+                <form action="/basket" method="POST">
+                    <button type="submit" class="btn btn-primary">Ajouter au panier</button>
+                </form>
+                <form action="/bill" method="POST" style="padding-left: 30px">
+                    <button type="submit" class="btn btn-success">Payer</button>
+                </form>
+            </div>
+        </div>
     </div>
+
+
+    <h4 style="padding-top: 40px">Commentaires</h4>
+    </br>
+    <h5 th:text="${'Note moyenne : ' + note + ' / 5'}"></h5>
+
+    <table style="padding-top: 40px">
+        <tr style="width: 100%; text-align: center">
+            <th style="width:50%">Avis</th>
+            <th style="width:10%">Note</th>
+            <th style="width:10%">Utilisateur</th>
+            <th style="width:10%">Date</th>
+        </tr>
+        <tr style="text-align: center" th:each="opinion: ${opinions}">
+            <td th:text="${opinion.getText()}"></td>
+            <td th:text="${opinion.getNote()}"></td>
+            <td th:text="${opinion.getCustomer().getUsername()}"></td>
+            <td th:text="${opinion.getDate()}"></td>
+        </tr>
+    </table>
 
 </div>
 
