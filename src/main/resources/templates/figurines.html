@@ -101,7 +101,7 @@
             <td style="width: 15%; text-align: center" th:text="${figurine.getPrice()}"></td>
             <form action="/findFigurine" method="POST">
                 <input type="hidden" name="idFigurine" id="idFigurine" th:value="${figurine.getId()}">
-                <td><button type="submit">Voir</button></td>
+                <td style="text-align: center"><button type="submit">Voir</button></td>
             </form>
         </tr>
     </table>
