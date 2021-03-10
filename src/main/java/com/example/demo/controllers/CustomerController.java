@@ -6,6 +6,7 @@ import com.example.demo.repos.CustomerRepository;
 import com.example.demo.entities.Customer;
 import com.example.demo.security.ActiveUserStore;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -41,11 +42,19 @@ public class CustomerController {
 
     @GetMapping("/profile")
     public String profile(Locale locale, Model model) {
-        Customer customer = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0)).get();
-        model.addAttribute("lname",customer.getLastName());
-        model.addAttribute("fname",customer.getFirstName());
-        model.addAttribute("username",customer.getUsername());
-        model.addAttribute("address",customer.getAddress());
+        if (findRole().equals("user")) {
+            Customer customer = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0)).get();
+            model.addAttribute("lname", customer.getLastName());
+            model.addAttribute("fname", customer.getFirstName());
+            model.addAttribute("username", customer.getUsername());
+            model.addAttribute("address", customer.getAddress());
+        }else if (findRole().equals("admin")) {
+            Administrator administrator = administratorRepository.findAdministratorByName(activeUserStore.getCustomers().get(0)).get();
+            model.addAttribute("lname", administrator.getLastName());
+            model.addAttribute("fname", administrator.getFirstName());
+            model.addAttribute("username", administrator.getUsername());
+            model.addAttribute("address", "Add me");
+        }
 
         return "profile";
     }
