@@ -80,11 +80,10 @@
     <section class="jumbotron text-center">
         <div class="container">
             <h1 class="jumbotron-heading">Bienvenue sur 404 Figurines</h1>
+            <h2 th:inline="text">Bonjour [[${#httpServletRequest.remoteUser}]] !</h2>
+            </br>
             <p class="lead text-muted">Acheter des figurines de vos comics, mangas, séries TV préférés et bien plus...</p>
-            <p>
-                <a href="register" class="btn btn-primary my-2">S'inscrire</a>
-                <a href="login" class="btn btn-secondary my-2">Se connecter</a>
-            </p>
+            <a href="logout" class="btn btn-secondary my-2">Se déconnecter</a>
         </div>
     </section>
 
