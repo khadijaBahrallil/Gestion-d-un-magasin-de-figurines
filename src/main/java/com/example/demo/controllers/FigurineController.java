@@ -52,12 +52,7 @@ public class FigurineController {
         for(Figurine figurine : figurineRepository.findAll()){
 
             figurines.add(figurine.getName());
-
-
-
         }
-
-
         model.addAttribute("figurines", figurines);
         return "recherche";
     }
@@ -82,12 +77,7 @@ public class FigurineController {
         return figurineRepository.findAll();
     }
 
-   /* @RequestMapping("/findFigurine/{id}")
-    public Figurine findFigurineById(@PathVariable Integer id) {
-        return figurineRepository.findFigurineById(id);
-    }
-    */
- @PostMapping("/findFigurine")
+     @PostMapping("/findFigurine")
     public String findFigurine(@RequestParam Integer idFigurine, Model model) {
      Figurine figurine = new Figurine();
      List<Opinion> opinions = new ArrayList<>();

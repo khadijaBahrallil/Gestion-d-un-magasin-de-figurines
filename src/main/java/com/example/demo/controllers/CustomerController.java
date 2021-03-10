@@ -34,7 +34,6 @@ public class CustomerController {
         return "users";
     }
 
-
     @GetMapping("/profile")
     public String profile(Locale locale, Model model) {
         Customer customer = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0)).get();
@@ -46,13 +45,10 @@ public class CustomerController {
         return "profile";
     }
 
-
     @GetMapping("/index")
     public String index() {
         return "index";
     }
-
-
 
     @PostMapping("/addCustomer")
     public String addCustomer(@RequestParam String lastName, @RequestParam String firstName, @RequestParam String userName,
@@ -72,7 +68,6 @@ public class CustomerController {
         customerRepository.save(customer);
         return "index";
     }
-
 
     @GetMapping("/register")
     public String addUser() {
@@ -105,9 +100,6 @@ public class CustomerController {
         System.out.println("logout");
         return "logout";
     }
-
-
-
 
     @GetMapping("home")
     public String home(Model model) {
