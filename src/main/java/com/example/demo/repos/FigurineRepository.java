@@ -16,4 +16,6 @@ public interface FigurineRepository extends CrudRepository<Figurine, Integer> {
     List<Figurine> findFigurineWithLicence(@Param("licencename") String licencename);
     @Query("SELECT f FROM Figurine f INNER JOIN f.licence l INNER JOIN l.category c WHERE c.name LIKE CONCAT('%',:categoryname,'%')")
     List<Figurine> findFigurineWithCategory(@Param("categoryname") String categoryname);
+    @Query("SELECT f FROM Figurine f ORDER BY f.startDate DESC")
+    List<Figurine> findFigurineLast();
 }
