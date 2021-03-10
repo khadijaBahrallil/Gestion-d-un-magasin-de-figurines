@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-
-<html lang="fr" xmlns:th="http://www.thymeleaf.org">
-
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -9,7 +7,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
 
-    <title>404 Figurines</title>
+    <title>404 FIGURINES</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -51,24 +49,22 @@
     <div class="row" style="padding-left: 20px; padding-bottom: 40px">
         <div class="col">
             <div class="row">
-                <p th:text="${'Nom : ' + lname}">lname</p>
+                <label>Nom :</label>
             </div>
             <div class="row">
-                <p th:text="${'Prénom : ' + fname}">fname</p>
+                <label>Prénom :</label>
             </div>
             <div class="row">
-                <p th:text="${'Adresse mail : ' + username}">username</p>
+                <label>Adresse mail :</label>
             </div>
         </div>
         <div class="col">
             <div class="row">
-                <p th:text="${'Adresse de facturation : ' + address.getStreetnumber() + ' '
-                + address.getStreet() + ' ' + address.getPostalCode() + ' ' + address.getCity() + ' ' + address.getPays()}">adress</p>
+                <label>Adresse de facturation :</label>
             </div>
             </br>
             <div class="row">
-                <p th:text="${'Adresse de livraison : ' + address.getStreetnumber() + ' '
-                + address.getStreet() + ' ' + address.getPostalCode() + ' ' + address.getCity() + ' ' + address.getPays()}">adress</p>
+                <label>Adresse de livraison :</label>
             </div>
         </div>
     </div>
