@@ -46,17 +46,17 @@
     </br>
 
     <div>
-        <form th:action="@{/figurines/recherche}" method="get">
+        <form action="/listFigurinePerso" method="GET">
             <div class="col-md-3" style="display: inline-block">
                 <label>Nom :</label>
-                <input type="text" name="recherche" class="form-control">
+                <input type="text" name="recherche" class="form-control" th:value="${recherche} ?: ''">
             </div>
             <div class="col-md-3" style="display: inline-block">
                 <label>Catégorie :</label>
                 <select name="category_name" class="form-control" required>
                     <option selected>Toutes</option>
                     <th:block th:each="category : ${categoryList}">
-                        <option th:text="${category.getName()}">...</option>
+                        <option th:name="${category.getName()}" th:text="${category.getName()}" th:selected="${category_name==category.getName()}">...</option>
                     </th:block>
                 </select>
             </div>
@@ -65,7 +65,7 @@
                 <select name="license_name" class="form-control" required>
                     <option selected>Toutes</option>
                     <th:block th:each="license : ${licenceList}">
-                        <option th:text="${license.getName()}">...</option>
+                        <option th:name="${license.getName()}" th:text="${license.getName()}" th:selected="${license_name==license.getName()}">...</option>
                     </th:block>
                 </select>
             </div>

@@ -117,6 +117,44 @@ public class FigurineController {
         return "/figurineProfile";
     }
 
+    @RequestMapping("/listFigurinePerso")
+    public String findFigurine(@RequestParam String recherche, @RequestParam String category_name, @RequestParam String license_name, Model model) {
+        List<Figurine> figurines;
+        List<Figurine> figurinesCategory;
+        List<Figurine> figurinesLicence;
+        if(recherche.equals("")){
+            figurines = figurineRepository.findAll();
+        }
+        else{
+            figurines = figurineRepository.findFigurineWithPartOfName(recherche);
+        }
+        if(category_name.equals("Toutes")){
+            figurinesCategory = figurineRepository.findAll();
+        }
+        else{
+            figurinesCategory = figurineRepository.findFigurineWithCategory(category_name);
+        }
+        if(license_name.equals("Toutes")){
+            figurinesLicence = figurineRepository.findAll();
+        }
+        else{
+            figurinesLicence = figurineRepository.findFigurineWithLicence(license_name);
+        }
+        List<Figurine> allfigurines = figurineRepository.findAll();
+        List<Figurine> figurines2Return = new ArrayList<>();
+        Figurine figurine;
+        for (int i = 0; i < allfigurines.size(); i++){
+            figurine = allfigurines.get(i);
+            if(figurines.contains(figurine) && figurinesCategory.contains(figurine) && figurinesLicence.contains(figurine)){
+                figurines2Return.add(figurine);
+            }
+        }
+        model.addAttribute("figurineList", figurines2Return);
+        model.addAttribute("recherche", recherche);
+        model.addAttribute("category_name", category_name);
+        model.addAttribute("license_name", license_name);
+        return "/figurines";
+    }
     @ModelAttribute("figurineList")
     protected List<Figurine> getAllFigurine(){
         List<Figurine> figurineList = figurineRepository.findAll();
