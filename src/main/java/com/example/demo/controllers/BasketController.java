@@ -1,13 +1,16 @@
 package com.example.demo.controllers;
 
+import com.example.demo.entities.Administrator;
 import com.example.demo.entities.Basket;
 import com.example.demo.entities.Customer;
 import com.example.demo.entities.Figurine;
+import com.example.demo.repos.AdministratorRepository;
 import com.example.demo.repos.BasketRepository;
 import com.example.demo.repos.CustomerRepository;
 import com.example.demo.security.ActiveUserStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,10 +20,7 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.Format;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class BasketController {
@@ -33,6 +33,8 @@ public class BasketController {
 
     @Autowired
     private ActiveUserStore activeUserStore;
+    @Autowired
+    private AdministratorRepository administratorRepository;
 
     /**
      * Ajouter une figurine au panier
@@ -284,7 +286,8 @@ public class BasketController {
 
 
     @GetMapping("/basket")
-    public String basket() {
+    public String basket(Model model) {
+        findRole(model);
         return "basket";
     }
 
@@ -293,5 +296,28 @@ public class BasketController {
         return "validBuy";
     }
 
+    public void findRole(Model model){
+        try {
+            Optional<Customer> customer = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0));
+            if (!customer.isEmpty()) {
+                model.addAttribute("role", "user");
+                System.out.println("user");
+            } else {
+                Optional<Administrator> administrator = administratorRepository.findAdministratorByName(activeUserStore.getCustomers().get(0));
+                if (!administrator.isEmpty()) {
+                    model.addAttribute("role", "admin");
+                    System.out.println("admin");
+                }
+                else{
+                    model.addAttribute("role", "visitor");
+                    System.out.println("visitor");
+                }
+            }
+
+        }catch (Exception e){
+            model.addAttribute("role", "visitor");
+            System.out.println("visitor");
+        }
+    }
 }
 

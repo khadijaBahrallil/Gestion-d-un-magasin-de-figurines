@@ -21,5 +21,35 @@ public class BillsCustomer {
         RECUE
     }
 
+    public Integer getId() {
+        return id;
+    }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Collection<Figurine> getFigurines() {
+        return figurines;
+    }
+
+    public void setFigurines(Collection<Figurine> figurines) {
+        this.figurines = figurines;
+    }
+
+    public float getPrix() {
+        return prix;
+    }
+
+    public void setPrix(float prix) {
+        this.prix = prix;
+    }
 }

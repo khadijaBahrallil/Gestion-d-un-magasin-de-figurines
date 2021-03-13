@@ -15,8 +15,6 @@ public class Basket {
     @OneToOne
     private PromoCodeClassic classicCode;
     @OneToOne
-    private Visitor visitor;
-    @OneToOne
     private Customer customer;
     @OneToOne
     private PromoCodePercent percentCode;
@@ -51,14 +49,6 @@ public class Basket {
 
     public void setClassicCode(PromoCodeClassic classicCode) {
         this.classicCode = classicCode;
-    }
-
-    public Visitor getVisitor() {
-        return visitor;
-    }
-
-    public void setVisitor(Visitor visitor) {
-        this.visitor = visitor;
     }
 
     public Customer getCustomer() {

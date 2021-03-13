@@ -116,13 +116,28 @@ public class CustomerController {
     }
 
     @GetMapping("login")
-    public String LoginUser() {
+    public String LoginUser(Model model) {
+        if(findInfoRole(model) != ("visitor")){
+            return "redirect:/index";
+        }
         return "login";
     }
 
     @GetMapping("/indexlogout")
-    public String LogoutUser() {
+    public String LogoutUser(Model model) {
+        if(findInfoRole(model).equals("visitor")){
+            return "redirect:/index";
+        }
+        System.out.println("logout");
+        return "logout";
+    }
 
+    @GetMapping("/logout")
+    public String Logout(Model model) {
+        if(findRole(model).equals("visitor")){
+            return "redirect:/index";
+        }
+        model.addAttribute("role", "visitor");
         System.out.println("logout");
         return "logout";
     }
@@ -139,27 +154,27 @@ public class CustomerController {
     }
 
 
-    public void findRole(Model model){
+    public String findRole(Model model){
         try {
             Optional<Customer> customer = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0));
             if (!customer.isEmpty()) {
                 model.addAttribute("role", "user");
-                System.out.println("user");
+                return "user";
             } else {
                 Optional<Administrator> administrator = administratorRepository.findAdministratorByName(activeUserStore.getCustomers().get(0));
                 if (!administrator.isEmpty()) {
                     model.addAttribute("role", "admin");
-                    System.out.println("admin");
+                    return "admin";
                 }
                 else{
                     model.addAttribute("role", "visitor");
-                    System.out.println("visitor");
+                    return "visitor";
                 }
             }
 
         }catch (Exception e){
             model.addAttribute("role", "visitor");
-            System.out.println("visitor");
+            return "visitor";
         }
     }
 
@@ -188,4 +203,5 @@ public class CustomerController {
             return "visitor";
         }
     }
+
 }
