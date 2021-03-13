@@ -40,14 +40,22 @@ public class FigurineController {
                 throw new Exception("Erreur, nom trop grand");
             }
         }catch (Exception e){
-            return "indexFigurine";
+            return "redirect:/index";
         }
         Figurine figurine = new Figurine();
         figurine.setName(name);
         figurineRepository.save(figurine);
-        return "indexFigurine";
+        return "redirect:/indexFigurine";
     }
 
+    @RequestMapping("/indexFigurine")
+    public String indexFigurine(Model model) {
+        System.out.println(findRole(model));
+        if(findRole(model).equals("admin")){
+            return "indexFigurine";
+        }
+        return "redirect:/index";
+    }
     @GetMapping("/recherche")
     public String recherche() {
 
@@ -83,28 +91,28 @@ public class FigurineController {
         return figurineRepository.findAll();
     }
 
+    /**
+     * This method calculates the note average and checks the rights
+     * @param idFigurine
+     * @param model
+     * @return figurines if error else figurineProfile
+     */
      @PostMapping("/findFigurine")
-    public String findFigurine(@RequestParam Integer idFigurine, Model model) {
-     Figurine figurine = new Figurine();
-     List<Opinion> opinions = new ArrayList<>();
-     float note = 0;
-     try {
-         figurine = figurineRepository.findFigurineById(idFigurine);
-         opinions = (List<Opinion>) figurine.getOpinions();
-         if(opinions.size() > 0) {
-             for (int i = 0; i < opinions.size(); i++) {
-                 note = note + opinions.get(i).getNote();
-             }
-             note = note / opinions.size();
+     public String findFigurine(@RequestParam Integer idFigurine, Model model) {
+         Figurine figurine = new Figurine();
+         List<Opinion> opinions = new ArrayList<>();
+         Float note = noteFigurine(idFigurine);
+         if(note != null){
+             figurine = figurineRepository.findFigurineById(idFigurine);
+             opinions = (List<Opinion>) figurine.getOpinions();
          }
-
-     }catch(Exception e){
-         System.out.println(e);
-         return "figurines";
-     }
-     model.addAttribute("figurine", figurine);
-     model.addAttribute("opinions", opinions);
-     model.addAttribute("note", note);
+         else{
+             return "redirect:/figurines";
+         }
+         model.addAttribute("figurine", figurine);
+         model.addAttribute("opinions", opinions);
+         model.addAttribute("note", note);
+         findRole(model);
         return "figurineProfile";
     }
 
@@ -177,6 +185,33 @@ public class FigurineController {
         return pictureList;
     }
 
+    /**
+     * This method calculae the averqge of the note for one figurine
+     * @param idFigurine
+     * @return Float null if error else note
+     */
+    public Float noteFigurine(int idFigurine){
+        float note = 0;
+        try {
+            Figurine figurine = figurineRepository.findFigurineById(idFigurine);
+            List<Opinion> opinions = (List<Opinion>) figurine.getOpinions();
+            if(opinions.size() > 0) {
+                for (int i = 0; i < opinions.size(); i++) {
+                    note = note + opinions.get(i).getNote();
+                }
+                note = note / opinions.size();
+            }
+            return note;
+        }catch(Exception e){
+            return null;
+        }
+    }
+
+    /**
+     * This method found and return th role of currently user
+     * @param model
+     * @return String in function of the currently user
+     */
     public String findRole(Model model){
         try {
             Optional<Customer> customer = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0));

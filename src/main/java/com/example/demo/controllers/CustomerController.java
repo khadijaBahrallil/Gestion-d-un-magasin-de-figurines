@@ -80,7 +80,7 @@ public class CustomerController {
     public String addCustomer(@RequestParam String lastName, @RequestParam String firstName, @RequestParam String userName,
                               @RequestParam String password, @RequestParam Boolean civility, Model model) {
         if (lastName.equals("") || firstName.equals("") || userName.equals("") || password.equals("")){
-            return "register";
+            return "redirect:/register";
         }
         Customer customer = new Customer();
         customer.setFirstName(firstName);
@@ -98,7 +98,10 @@ public class CustomerController {
 
 
     @GetMapping("/register")
-    public String addUser() {
+    public String addUser(Model model) {
+        if(findRole(model) != "visitor"){
+            return "redirect:/index";
+        }
         return "register";
     }
 

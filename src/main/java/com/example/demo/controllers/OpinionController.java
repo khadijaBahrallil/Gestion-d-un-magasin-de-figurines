@@ -42,9 +42,6 @@ public class OpinionController {
             model.addAttribute("fname", customerCo.getFirstName());
             model.addAttribute("username", customerCo.getUsername());
             model.addAttribute("address", customerCo.getAddress());
-        }else if (findRole(model).equals("admin")) {
-            model.addAttribute("figurineList", figurineRepository.findAll());
-            return "redirect:/figurines";
         }
         else{
             return "redirect:/index";

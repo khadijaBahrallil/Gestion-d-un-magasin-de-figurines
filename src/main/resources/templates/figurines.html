@@ -24,6 +24,9 @@
 <div th:insert="${role == 'user'} ? ~{headerCustomer :: header} : _"></div>
 
 <div style="padding-left:400px; padding-right:400px; padding-top:20px">
+    <div th:if="${role == 'admin'}">
+        <p>Pour ajouter une figurine, veuillez cliquer <a href="indexFigurine">ici</a>.</p>
+    </div>
     <h3>Recherche de la figurine de vos rêves</h3>
     </br>
 
