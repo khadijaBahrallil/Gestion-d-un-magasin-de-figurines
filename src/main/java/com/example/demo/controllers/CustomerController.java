@@ -82,6 +82,18 @@ public class CustomerController {
         if (lastName.equals("") || firstName.equals("") || userName.equals("") || password.equals("")){
             return "redirect:/register";
         }
+        List<Customer>customers = customerRepository.findAll();
+        for(int i=0; i< customers.size(); i++){
+            if(customers.get(i).getUsername().equals(userName)){
+                System.out.println("mail existant");
+                return "redirect:/register";
+            }
+        }
+        /* Verif
+        if(password.length() < 8){
+            return "redirect:/register";
+        }
+        */
         Customer customer = new Customer();
         customer.setFirstName(firstName);
         customer.setLastName(lastName);
