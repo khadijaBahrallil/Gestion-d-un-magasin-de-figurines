@@ -14,70 +14,11 @@
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-
-    <!-- Custom styles for this template -->
-    <link href="demo/static/main.css" rel="stylesheet">
 </head>
 
 <body>
-<div th:switch="${role}">
-
-    <header th:case="'user'" >
-        <div  class="navbar navbar-dark bg-dark box-shadow">
-            <div class="container d-flex justify-content-between">
-                <a href="index" class="navbar-brand d-flex align-items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-                    <strong>404 FIGURINES</strong>
-                </a>
-                <ul class="nav">
-                    <li class="nav-item">
-                        <a href="home" class="nav-link text-white" >Menu</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="figurines">Figurines</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="/getBasketUser">Voir Panier</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="logout">Se déconnecter</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </header>
-
-    <header th:case="'admin'" >
-        <div  class="navbar navbar-dark bg-dark box-shadow">
-            <div class="container d-flex justify-content-between">
-                <a href="home" class="navbar-brand d-flex align-items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-                    <strong>404 FIGURINES</strong>
-                </a>
-                <ul class="nav">
-                    <li class="nav-item">
-                        <a href="home" class="nav-link text-white" >Menu</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="figurines">Figurines</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="listCategory">Catégories</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="listLicence">Licences</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="listSubscription">Abonnements</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="logout">Se déconnecter</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </header>
-</div>
+<div th:insert="${role == 'admin'} ? ~{headerAdministrator :: header} : _"></div>
+<div th:insert="${role == 'user'} ? ~{headerCustomer :: header} : _"></div>
 
 <div style="padding-left:400px; padding-right:400px; padding-top:20px">
     <h3>Mon Profil</h3>

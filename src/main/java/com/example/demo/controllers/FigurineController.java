@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.entities.*;
 import com.example.demo.repos.*;
+import com.example.demo.security.ActiveUserStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class FigurineController {
@@ -21,6 +23,12 @@ public class FigurineController {
     private LicenceRepository licenceRepository;
     @Autowired
     private PictureRepository pictureRepository;
+    @Autowired
+    ActiveUserStore activeUserStore;
+    @Autowired
+    private AdministratorRepository administratorRepository;
+    @Autowired
+    private CustomerRepository customerRepository;
     @Autowired
     private OpinionRepository opinionRepository;
 
@@ -65,7 +73,8 @@ public class FigurineController {
     }
 
     @RequestMapping("/figurines")
-    public String figurines(){
+    public String figurines(Model model){
+        findRole(model);
         return "figurines";
     }
 
@@ -143,6 +152,7 @@ public class FigurineController {
         model.addAttribute("recherche", recherche);
         model.addAttribute("category_name", category_name);
         model.addAttribute("license_name", license_name);
+        findRole(model);
         return "/figurines";
     }
     @ModelAttribute("figurineList")
@@ -168,5 +178,29 @@ public class FigurineController {
     protected List<Picture> getAllPicture(){
         List<Picture> pictureList = pictureRepository.findAll();
         return pictureList;
+    }
+
+    public void findRole(Model model){
+        try {
+            Optional<Customer> customer = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0));
+            if (!customer.isEmpty()) {
+                model.addAttribute("role", "user");
+                System.out.println("user");
+            } else {
+                Optional<Administrator> administrator = administratorRepository.findAdministratorByName(activeUserStore.getCustomers().get(0));
+                if (!administrator.isEmpty()) {
+                    model.addAttribute("role", "admin");
+                    System.out.println("admin");
+                }
+                else{
+                    model.addAttribute("role", "visitor");
+                    System.out.println("visitor");
+                }
+            }
+
+        }catch (Exception e){
+            model.addAttribute("role", "visitor");
+            System.out.println("visitor");
+        }
     }
 }

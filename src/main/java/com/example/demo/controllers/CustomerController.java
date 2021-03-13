@@ -47,20 +47,8 @@ public class CustomerController {
 
     @GetMapping("/profile")
     public String profile(Model model) {
-        if (findRole().equals("user")) {
-            Customer customer = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0)).get();
-            model.addAttribute("role", "user");
-            model.addAttribute("lname", customer.getLastName());
-            model.addAttribute("fname", customer.getFirstName());
-            model.addAttribute("username", customer.getUsername());
-            model.addAttribute("address", customer.getAddress());
-        }else if (findRole().equals("admin")) {
-            Administrator administrator = administratorRepository.findAdministratorByName(activeUserStore.getCustomers().get(0)).get();
-            model.addAttribute("lname", administrator.getLastName());
-            model.addAttribute("fname", administrator.getFirstName());
-            model.addAttribute("username", administrator.getUsername());
-            model.addAttribute("address", administrator.getAddress());
-            model.addAttribute("role", "admin");
+        if(findInfoRole(model).equals("visitor")){
+            return "redirect:/index";
         }
 
         return "profile";
@@ -68,16 +56,7 @@ public class CustomerController {
 
     @RequestMapping("/")
     public String indexa(Model model){
-        List<Figurine> figurinesListSort = figurineRepository.findFigurineLast();
-        List<Figurine> figurinesList = new ArrayList<>();
-        for(int i = 0; i < figurinesListSort.size(); i++){
-            figurinesList.add(figurinesListSort.get(i));
-            if(figurinesList.size() == 6){
-                i = figurinesListSort.size();
-            }
-        }
-        model.addAttribute("figurineList", figurinesList);
-        return "index";
+        return "redirect:/index";
     }
 
     @GetMapping("/index")
@@ -91,6 +70,7 @@ public class CustomerController {
             }
         }
         model.addAttribute("figurineList", figurinesList);
+        findRole(model);
         return "index";
     }
 
@@ -98,7 +78,7 @@ public class CustomerController {
 
     @PostMapping("/addCustomer")
     public String addCustomer(@RequestParam String lastName, @RequestParam String firstName, @RequestParam String userName,
-                              @RequestParam String password, @RequestParam Boolean civility) {
+                              @RequestParam String password, @RequestParam Boolean civility, Model model) {
         if (lastName.equals("") || firstName.equals("") || userName.equals("") || password.equals("")){
             return "register";
         }
@@ -112,7 +92,8 @@ public class CustomerController {
         customer.setCivility(civility);
         customer.setAddress(addressRepository.findAddressById(1));//change
         customerRepository.save(customer);
-        return "index";
+        findRole(model);
+        return "redirect:/index";
     }
 
 
@@ -126,12 +107,12 @@ public class CustomerController {
     public String addUser(Customer costumer, BindingResult result, Model model) {
         if (result.hasErrors()) {
             System.out.println(result.getAllErrors());
-            return "index";
+            return "redirect:/index";
         }
         costumer.setPassword(passwordEncoder.encode(costumer.getPassword()));
         customerRepository.save(costumer);
         System.out.println("user créé avec succès");
-        return "index";
+        return "redirect:/index";
     }
 
     @GetMapping("login")
@@ -149,17 +130,7 @@ public class CustomerController {
 
     @GetMapping("/home")
     public String home(Model model) {
-        List<Figurine> figurinesListSort = figurineRepository.findFigurineLast();
-        List<Figurine> figurinesList = new ArrayList<>();
-        for(int i = 0; i < figurinesListSort.size(); i++){
-            figurinesList.add(figurinesListSort.get(i));
-            if(figurinesList.size() == 6){
-                i = figurinesListSort.size();
-            }
-        }
-        model.addAttribute("figurineList", figurinesList);
-        model.addAttribute("role",findRole());
-        return "home";
+        return "redirect:/index";
     }
 
     @GetMapping("/listCustomer")
@@ -167,21 +138,54 @@ public class CustomerController {
         return customerRepository.findAll();
     }
 
-    @GetMapping("/findCustomer/{id}")
-    public Optional<Customer> findCustomerByName(@PathVariable String username) {
-        return customerRepository.findCustomerByName(username);
+
+    public void findRole(Model model){
+        try {
+            Optional<Customer> customer = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0));
+            if (!customer.isEmpty()) {
+                model.addAttribute("role", "user");
+                System.out.println("user");
+            } else {
+                Optional<Administrator> administrator = administratorRepository.findAdministratorByName(activeUserStore.getCustomers().get(0));
+                if (!administrator.isEmpty()) {
+                    model.addAttribute("role", "admin");
+                    System.out.println("admin");
+                }
+                else{
+                    model.addAttribute("role", "visitor");
+                    System.out.println("visitor");
+                }
+            }
+
+        }catch (Exception e){
+            model.addAttribute("role", "visitor");
+            System.out.println("visitor");
+        }
     }
 
-    public String findRole(){
-        Optional<Customer> customer = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0));
-        if (!customer.isEmpty()){
-            return "user";
-        } else {
-            Optional<Administrator> administrator = administratorRepository.findAdministratorByName(activeUserStore.getCustomers().get(0));
-            if (!administrator.isEmpty()){
+    public String findInfoRole(Model model){
+        try {
+            Optional<Customer> custo = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0));
+            if (!custo.isEmpty()) {
+                Customer customer = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0)).get();
+                model.addAttribute("lname", customer.getLastName());
+                model.addAttribute("fname", customer.getFirstName());
+                model.addAttribute("username", customer.getUsername());
+                model.addAttribute("address", customer.getAddress());
+                model.addAttribute("role", "user");
+                return "user";
+            } else {
+                Administrator administrator = administratorRepository.findAdministratorByName(activeUserStore.getCustomers().get(0)).get();
+                model.addAttribute("lname", administrator.getLastName());
+                model.addAttribute("fname", administrator.getFirstName());
+                model.addAttribute("username", administrator.getUsername());
+                model.addAttribute("address", administrator.getAddress());
+                model.addAttribute("role", "admin");
                 return "admin";
             }
+        }catch (Exception e){
+            model.addAttribute("role", "visitor");
+            return "visitor";
         }
-        return null;
     }
 }
