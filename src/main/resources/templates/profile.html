@@ -38,7 +38,7 @@
                 <p th:text="${'Adresse mail : ' + username}">username</p>
             </div>
         </div>
-        <div class="col">
+        <div class="col" th:if="${role == 'user'}">
             <div class="row">
                 <p th:text="${'Adresse de facturation : ' + address.getStreetnumber() + ' '
                 + address.getStreet() + ' ' + address.getPostalCode() + ' ' + address.getCity() + ' ' + address.getCountry()}">adress</p>
@@ -53,19 +53,19 @@
 
     <div style="padding-bottom: 60px">
         <div class="row">
-            <form action="/information" method="GET" style="padding-left: 200px">
+            <form th:if="${role == 'user'}" action="/information" method="GET" style="padding-left: 200px">
                 <button class="btn-primary">Modifier mes informations</button>
             </form>
             <form action="/password" method="GET" style="padding-left: 40px; padding-right: 40px">
                 <button class="btn-primary">Modifier mon mot de passe</button>
             </form>
-            <form action="/address" method="GET" style="padding-right: 200px">
+            <form th:if="${role == 'user'}" action="/address" method="GET" style="padding-right: 200px">
                 <button class="btn-primary">Modifier mes adresses</button>
             </form>
         </div>
     </div>
 
-    <h4>Mes factures</h4>
+    <h4 th:if="${role == 'user'}">Mes factures</h4>
     </br>
 </div>
 <div th:replace="footer :: footer"></div>
