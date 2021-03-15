@@ -143,7 +143,11 @@ public class LicenceController {
         return categoryList;
     }
 
-
+    /**
+     * This method found and return th role of currently user
+     * @param model
+     * @return String in function of the currently user
+     */
     public String findRole(Model model){
         try {
             Optional<Customer> customer = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0));
@@ -167,4 +171,5 @@ public class LicenceController {
             return "visitor";
         }
     }
+
 }
