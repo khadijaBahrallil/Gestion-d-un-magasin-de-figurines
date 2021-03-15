@@ -16,8 +16,7 @@
 </head>
 
 <body>
-
-
+<div th:insert="${role == 'admin'} ? ~{headerAdministrator :: header} : _"></div>
 <div style="padding-left:400px; padding-right:400px; padding-top:20px">
     <h3 style="padding-bottom: 20px">Formulaire ajout d'une licence</h3>
 

@@ -114,13 +114,13 @@ public class CategoryController {
         }
         return "redirect:/index";
     }
-
+    /*
     @ModelAttribute("categoryList")
     protected List<Category> getAllCategory(){
         List<Category> categoryList = categoryRepository.findAll();
         return categoryList;
     }
-
+*/
 
     @GetMapping("/listCategory")
     public String getCategory(Model model) {
@@ -141,11 +141,12 @@ public class CategoryController {
         return "redirect:/index";
     }
 
+    /*
     @GetMapping("/findCategory/{id}")
     public Category findCategoryById(@PathVariable Integer id) {
         return categoryRepository.findCategoryById(id);
     }
-
+*/
     public String findRole(Model model){
         try {
             Optional<Customer> customer = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0));
