@@ -11,7 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.entities.Administrator;
@@ -20,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
-import javax.servlet.http.HttpSession;
 
 @Controller
 public class CustomerController {
@@ -138,16 +136,7 @@ public class CustomerController {
         return "login";
     }
 
-    @GetMapping("/indexlogout")
-    public String LogoutUser(Model model) {
-        if(findInfoRole(model).equals("visitor")){
-            return "redirect:/index";
-        }
-        System.out.println("logout");
-        return "logout";
-    }
-
-    @GetMapping("/logout")
+    @RequestMapping("/indexLogout")
     public String Logout(Model model) {
         if(findRole(model).equals("visitor")){
             return "redirect:/index";
