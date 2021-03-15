@@ -247,7 +247,10 @@ public class BasketController {
      * @return
      */
     @GetMapping("/getValidBuy")
-    public String getFigurine(ModelMap modelMap) {
+    public String getFigurine(ModelMap modelMap, Model model) {
+        if(findRole(model) != "user"){
+            return "redirect:/index";
+        }
         Customer customer = getActivecustomer();
         try {
             if(customer == null) {
@@ -296,27 +299,26 @@ public class BasketController {
         return "validBuy";
     }
 
-    public void findRole(Model model){
+    public String findRole(Model model){
         try {
             Optional<Customer> customer = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0));
             if (!customer.isEmpty()) {
                 model.addAttribute("role", "user");
-                System.out.println("user");
+                return "user";
             } else {
                 Optional<Administrator> administrator = administratorRepository.findAdministratorByName(activeUserStore.getCustomers().get(0));
                 if (!administrator.isEmpty()) {
                     model.addAttribute("role", "admin");
-                    System.out.println("admin");
-                }
+                    return "admin";                }
                 else{
                     model.addAttribute("role", "visitor");
-                    System.out.println("visitor");
+                    return "visitor";
                 }
             }
 
         }catch (Exception e){
             model.addAttribute("role", "visitor");
-            System.out.println("visitor");
+            return "visitor";
         }
     }
 }
