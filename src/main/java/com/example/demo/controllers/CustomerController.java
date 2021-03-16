@@ -136,17 +136,6 @@ public class CustomerController {
         return "login";
     }
 
-    @RequestMapping("/indexLogout")
-    public String Logout(Model model) {
-        if(findRole(model).equals("visitor")){
-            return "redirect:/index";
-        }
-        model.addAttribute("role", "visitor");
-        System.out.println("logout");
-        return "logout";
-    }
-
-
     @GetMapping("/home")
     public String home(Model model) {
         return "redirect:/index";

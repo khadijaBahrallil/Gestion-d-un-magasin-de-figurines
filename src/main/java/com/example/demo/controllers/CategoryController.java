@@ -114,13 +114,12 @@ public class CategoryController {
         }
         return "redirect:/index";
     }
-    /*
+
     @ModelAttribute("categoryList")
     protected List<Category> getAllCategory(){
         List<Category> categoryList = categoryRepository.findAll();
         return categoryList;
     }
-*/
 
     @GetMapping("/listCategory")
     public String getCategory(Model model) {
