@@ -24,8 +24,7 @@ public class Administrator implements UserDetails {
     private int bonusPoint;
     private int assets;
     private String pseudo;
-    @OneToOne
-    private Address address;
+
     public Integer getId() {
         return id;
     }
@@ -129,11 +128,4 @@ public class Administrator implements UserDetails {
         this.assets = assets;
     }
 
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
 }

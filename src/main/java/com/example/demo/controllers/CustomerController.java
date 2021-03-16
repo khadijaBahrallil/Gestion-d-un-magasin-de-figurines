@@ -191,7 +191,6 @@ public class CustomerController {
                 model.addAttribute("lname", administrator.getLastName());
                 model.addAttribute("fname", administrator.getFirstName());
                 model.addAttribute("username", administrator.getUsername());
-                model.addAttribute("address", administrator.getAddress());
                 model.addAttribute("role", "admin");
                 return "admin";
             }
