@@ -23,7 +23,7 @@
 <div th:insert="${role == 'admin'} ? ~{headerAdministrator :: header} : _"></div>
 <div th:insert="${role == 'user'} ? ~{headerCustomer :: header} : _"></div>
 
-<div style="padding-left:400px; padding-right:400px; padding-top:20px">
+<div style="padding: 20px 400px 200px;">
     <div th:if="${role == 'admin'}">
         <p>Pour ajouter une figurine, veuillez cliquer <a href="indexFigurine">ici</a>.</p>
     </div>
