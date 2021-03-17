@@ -26,7 +26,7 @@
     <div>
         <div class="text-right">
             <p class="card-text" th:text="'Montant total: '+${solde}+' €'" ></p>
-            <div class="float-right row" style="padding-top: 20px">
+            <div th:if="${!vide}" class="float-right row" style="padding-top: 20px">
                 <form th:method="get" th:action="@{/toBuy}">
                     <button type="submit" class="btn btn-success" >Payer</button>
                 </form>
@@ -41,34 +41,35 @@
 
     <h3>Vitrine de vos figurines</h3>
     </br>
+    <div th:if="${!vide}">
+        <table class="table">
+            <tr>
+                <th style="text-align: center">Image</th>
+                <th style="text-align: center">Nom</th>
+                <th style="text-align: center">Quantité</th>
+                <th style="text-align: center">Prix (€)</th>
+                <th style="text-align: center">Modifier Quantité</th>
 
-    <table class="table">
-        <tr>
-            <th style="text-align: center">Image</th>
-            <th style="text-align: center">Nom</th>
-            <th style="text-align: center">Quantité</th>
-            <th style="text-align: center">Prix (€)</th>
-            <th style="text-align: center">Modifier Quantité</th>
 
-
-        </tr>
-        <br/>
-        <tr style="width:100%" th:each="figurine : ${figurines}">
-            <td style="width: 20%"><img th:src="@{${'/images/' + figurine.getPicture().getName() + '.png'}}" height="100" width="100"></td>
-            <td style="width: 15%; text-align: center" th:text="${figurine.getName()}"></td>
-            <td style="width: 10%; text-align: center" th:text="${figurine.getQuantity()}"></td>
-            <td style="width: 15%; text-align: center" th:text="${figurine.getPrice()}"></td>
-            <td></td>
-            <form th:action="@{/removeQantityOfProduct}" th:method="POST">
-                <input type="hidden" name="idFigurine" id="idFigurineAdd" th:value="${figurine.getId()}">
-                <td class="row" style="..."><button type="submit" class="btn btn-primary">-</button>
-            </form>
-            <form th:action="@{/addQantityOfProduct}" th:method="POST">
-                <input type="hidden" name="idFigurine" id="idFigurineRemove" th:value="${figurine.getId()}">
-                <button type="submit" class="btn btn-primary">+</button></td>
-            </form>
-        </tr>
-    </table>
+            </tr>
+            <br/>
+            <tr style="width:100%" th:each="basketFi : ${basketFigurines}">
+                <td style="width: 20%"><img th:src="@{${'/images/' + basketFi.getFigurine().getPicture().getName() + '.png'}}" height="100" width="100"></td>
+                <td style="width: 15%; text-align: center" th:text="${basketFi.getFigurine().getName()}"></td>
+                <td style="width: 10%; text-align: center" th:text="${basketFi.getQuantite()}"></td>
+                <td style="width: 15%; text-align: center" th:text="${basketFi.getUnitPrice()}"></td>
+                <td></td>
+                <form th:action="@{/removeQuantityOfProduct}" th:method="POST">
+                    <input type="hidden" name="idFigurine" id="idFigurineAdd" th:value="${basketFi.getFigurine().getId()}">
+                    <td class="row" style="..."><button type="submit" class="btn btn-primary">-</button>
+                </form>
+                <form th:action="@{/addQantityOfProduct}" th:method="POST">
+                    <input type="hidden" name="idFigurine" id="idFigurineRemove" th:value="${basketFi.getFigurine().getId()}">
+                    <button type="submit" class="btn btn-primary">+</button></td>
+                </form>
+            </tr>
+        </table>
+    </div>
 
 </div>
 <div th:replace="footer :: footer"></div>

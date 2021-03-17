@@ -10,6 +10,6 @@ import java.util.Optional;
 
 public interface AdministratorRepository extends CrudRepository<Administrator, Integer> {
     List<Administrator> findAll();
-    @Query(" select u from Administrator u  where u.userName = ?1")
+    @Query(" select a from Administrator a  where a.userName = ?1")
     Optional<Administrator> findAdministratorByName(String username);
 }

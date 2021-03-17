@@ -10,6 +10,6 @@ import java.util.Optional;
 public interface CustomerRepository extends CrudRepository<Customer, Integer> {
     List<Customer> findAll();
     Customer findCustomerById(Integer id);
-    @Query(" select u from Customer u  where u.userName = ?1")
+    @Query(" select c from Customer c  where c.userName = ?1")
     Optional<Customer> findCustomerByName(String username);
 }

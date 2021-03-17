@@ -163,4 +163,14 @@ public class Customer implements UserDetails {
     public void setBillsCustomers(Collection<BillsCustomer> billsCustomers) {
         this.billsCustomers = billsCustomers;
     }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", userName='" + userName + '\'' +
+                '}';
+    }
 }

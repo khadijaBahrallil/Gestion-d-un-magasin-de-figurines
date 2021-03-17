@@ -119,9 +119,18 @@ public class Figurine {
     public void setOpinion(Opinion opinion) {
         this.opinions.add(opinion);
     }
-    //A changer
-    /*public void sortLicence(){
 
-    }*/
+    @Override
+    public String toString() {
+        return "Figurine{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                ", startDate=" + startDate +
+                ", status=" + status +
+                '}';
+    }
 }
 

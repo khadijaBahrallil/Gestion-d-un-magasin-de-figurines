@@ -1,12 +1,7 @@
 package com.example.demo.controllers;
 
-import com.example.demo.entities.Administrator;
-import com.example.demo.entities.Basket;
-import com.example.demo.entities.Customer;
-import com.example.demo.entities.Figurine;
-import com.example.demo.repos.AdministratorRepository;
-import com.example.demo.repos.BasketRepository;
-import com.example.demo.repos.CustomerRepository;
+import com.example.demo.entities.*;
+import com.example.demo.repos.*;
 import com.example.demo.security.ActiveUserStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -27,9 +21,14 @@ public class BasketController {
 
     @Autowired
     private BasketRepository basketRepository;
+    @Autowired
+    private BasketFigurinesRepository basketFigurinesRepository;
 
     @Autowired
     private CustomerRepository customerRepository;
+
+    @Autowired
+    private FigurineRepository figurineRepository;
 
     @Autowired
     private ActiveUserStore activeUserStore;
@@ -42,47 +41,52 @@ public class BasketController {
      * @param quantity : quantité à ajouter
      * @return
      */
-    /*
     @PostMapping("/addProductInBasket")
     public String addProductInBasket(@RequestParam Integer idFigurine, @RequestParam Integer quantity){
         Integer value = 0;
-        Customer customer = getActivecustomer();
+        Customer customer = getActiveCustomer();
         try {
             if(customer == null) {
-                throw new Exception("Panier inexistant");
+                throw new Exception("Non connecté");
             }
         }catch (Exception e){
             return "redirect:/login";
         }
-        Figurine figurine = basketRepository.findFigurineByID(idFigurine);
-        if(figurine == null)  return "redirect:/figurines";
-
-        Basket basket = basketRepository.findBasketByCustomerID(customer);
-        if(basket == null)  basket = new Basket(customer);
-
-        if(!basket.getQuantityFigurineOfbasket().isEmpty()) {
-            if (basket.getQuantityFigurineOfbasket().containsKey(figurine.getId())) {
-                value = basket.getQuantityFigurineOfbasket().get(figurine.getId());
-            }
-        }
-        value += quantity;
-
-        try {
-            if(value > figurine.getQuantity()) {
-                throw new Exception("Quanté choisi superieur au stock");
-            }
-        }catch (Exception e){
+        Figurine figurine = figurineRepository.findFigurineById(idFigurine);
+        if(figurine == null) {
             return "redirect:/figurines";
         }
+        if(quantity > figurine.getQuantity()){
+            //"Quantité choisie supérieure au stock"
+            return "redirect:/figurines";
+        }
+        Basket basket = basketRepository.findBasketByCustomerID(customer);
+        if(basket == null){
+            basket = new Basket();
+            basket.setCustomer(customer);
+            basket.setSubTotal(0);
+            basketRepository.save(basket);
+        }
+        BasketFigurines basketFigurines = basketFigurinesRepository.findBasketFigurineByFigurineAndBasket(figurine, basket);
+        if(basketFigurines == null){
+            basketFigurines = new BasketFigurines();
+            basketFigurines.setBasket(basket);
+            basketFigurines.setFigurine(figurine);
+            basketFigurines.setQuantite(quantity);
+            basketFigurines.setUnitPrice(figurine.getPrice());
+        }
+        else{
+            if(basketFigurines.getQuantite() + quantity <= figurine.getQuantity()){
+                basketFigurines.setQuantite(basketFigurines.getQuantite() + quantity);
 
-        basket.getQuantityFigurineOfbasket().put(figurine.getId(),value);
-        basket.setSubTotal(figurine.getPrice()*quantity);
+            }
+            basketFigurines.setUnitPrice(figurine.getPrice());
+        }
 
-        basketRepository.save(basket);
-
-        return "redirect:/getBasketUser";
+        basketFigurinesRepository.save(basketFigurines);
+        return "redirect:/basket";
     };
-     */
+
     /**
      * Modifier la quantité dans le panier
      * @param quantity
@@ -140,39 +144,60 @@ public class BasketController {
      * Diminuer la quantité de -1
      * @return
      */
-    /*
-    @PostMapping("/removeQantityOfProduct")
-    public String removeQantityOfProduct(@RequestParam Integer idFigurine){
+    @PostMapping("/removeQuantityOfProduct")
+    public String removeQuantityOfProduct(@RequestParam Integer idFigurine){
+        Customer customer = getActiveCustomer();
+        try {
+            Basket basket = basketRepository.findBasketByCustomerID(customer);
+            Figurine figurine = figurineRepository.findFigurineById(idFigurine);
+            BasketFigurines basketFigurines = basketFigurinesRepository.findBasketFigurineByFigurineAndBasket(figurine, basket);
+            int quantity = basketFigurines.getQuantite() - 1;
+            if(quantity <= 0){
+                basketFigurinesRepository.delete(basketFigurines);
+            }
+            else{
+                basketFigurines.setQuantite(quantity);
+                basketFigurines.setUnitPrice(figurine.getPrice());
+                basketFigurinesRepository.save(basketFigurines);
+            }
+            List<BasketFigurines> basketFigurines2 = basketFigurinesRepository.findBasketFigurineByBasket(basket);
+            if(basketFigurines2.size() == 0){
+                basketRepository.delete(basket);
+            }
+        }catch (Exception e){
+            return "redirect:/basket";
+        }
+
+        return "redirect:/basket";
         //return updateQantityProductInBasket(idFigurine,-1);
     }
-*/
     /**
      * Vider le panier
      * @return
      */
     @GetMapping("/removeBasket")
-    public String removeQantityProductInBasket(){
-        Customer customer = getActivecustomer();
+    public String removeQuantityProductInBasket(){
+        Customer customer = getActiveCustomer();
         try {
             if(customer == null) {
-                throw new Exception("Panier inexistant");
+                throw new Exception("Impossible de récupérer l'utilisateur");
             }
         }catch (Exception e){
             return "redirect:/login";
         }
-        Basket basket = basketRepository.findBasketByCustomerID(customer);
 
         try {
-            if(basket == null) {
-                throw new Exception("Panier inexistant");
+            Basket basket = basketRepository.findBasketByCustomerID(customer);
+            List<BasketFigurines> basketFigurines = basketFigurinesRepository.findBasketFigurineByBasket(basket);
+            for(int i = 0; i < basketFigurines.size(); i++){
+                basketFigurinesRepository.delete(basketFigurines.get(i));
             }
+            basketRepository.delete(basket);
         }catch (Exception e){
             return "redirect:/figurines";
         }
 
-        basketRepository.delete(basket);
-
-        return "redirect:/figurines";
+        return "redirect:/basket";
     }
 
 
@@ -182,42 +207,47 @@ public class BasketController {
      * @param modelMap
      * @return
      */
+    /*
     @GetMapping("/getBasketUser")
     public String getBasketUser( ModelMap modelMap) {
-        Customer customer = getActivecustomer();
+        Customer customer = getActiveCustomer();
         try {
             if(customer == null) {
-                throw new Exception("Panier inexistant");
+                throw new Exception("Erreur de connexion");
             }
         }catch (Exception e){
             return "redirect:/login";
         }
 
         Basket basket = basketRepository.findBasketByCustomerID(customer);
-        if(basket == null) return "redirect:/basket";
+        if(basket == null){
+            return "redirect:/basket";
+        }
 
         List<Figurine> listfigurine = new ArrayList<>();
 
-        /*for(HashMap.Entry<Integer, Integer> mapFig : basket.getQuantityFigurineOfbasket().entrySet()){
+        for(HashMap.Entry<Integer, Integer> mapFig : basket.getQuantityFigurineOfbasket().entrySet()){
             Figurine mockfigurine = basketRepository.findFigurineByID(mapFig.getKey());
             mockfigurine.setQuantity(mapFig.getValue());
             listfigurine.add(mockfigurine);
-        }*/
+        }
         DecimalFormat df = new DecimalFormat("0.00");
+        double solde = basket.getSubTotal();
+        System.out.println(solde);
         modelMap.addAttribute("figurines", listfigurine);
         modelMap.addAttribute("solde", df.format(basket.getSubTotal()));
 
 
         return "basket";
     }
-
+*/
     /**
      * Effectuer un achat
      * @return
      */
     @GetMapping("/toBuy")
     public String toBuy(){
-        Customer customer = getActivecustomer();
+        Customer customer = getActiveCustomer();
         try {
             if(customer == null) {
                 throw new Exception("Panier inexistant");
@@ -238,11 +268,11 @@ public class BasketController {
      * Recuperer l'utilisateur
      * @return
      */
-    public Customer getActivecustomer(){
+    public Customer getActiveCustomer(){
          List<String> userName = activeUserStore.getCustomers();
          if(userName.isEmpty()) { return null; }
-
-        return basketRepository.findCustomerByUserName(userName.get(0));
+         Customer customer = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0)).get();
+        return customer;
     }
 
     /**
@@ -255,7 +285,7 @@ public class BasketController {
         if(findRole(model) != "user"){
             return "redirect:/index";
         }
-        Customer customer = getActivecustomer();
+        Customer customer = getActiveCustomer();
         try {
             if(customer == null) {
                 throw new Exception("Panier inexistant");
@@ -294,6 +324,26 @@ public class BasketController {
 
     @GetMapping("/basket")
     public String basket(Model model) {
+        Customer customer = getActiveCustomer();
+        Basket basket = basketRepository.findBasketByCustomerID(customer);
+        DecimalFormat df = new DecimalFormat("0.00");
+        double solde;
+        try {
+            majPrice(basket);
+            solde = basket.getSubTotal();
+            if(solde == 0 ){
+                model.addAttribute("vide", true);
+            }
+            else {
+                model.addAttribute("vide", false);
+            }
+        }catch (Exception e){
+            solde = 0;
+            model.addAttribute("vide", true);
+        }
+        List<BasketFigurines> basketFigurines = basketFigurinesRepository.findBasketFigurineByBasket(basket);
+        model.addAttribute("basketFigurines", basketFigurines);
+        model.addAttribute("solde", df.format(solde));
         findRole(model);
         return "basket";
     }
@@ -301,6 +351,22 @@ public class BasketController {
     @GetMapping("/validBuy")
     public String validby() {
         return "validBuy";
+    }
+
+    public void majPrice(Basket basket){
+        List<BasketFigurines> basketFigurines = basketFigurinesRepository.findBasketFigurineByBasket(basket);
+        Float price = 0f ;
+        Float majPrice;
+        for(int i = 0; i < basketFigurines.size(); i++){
+            majPrice = basketFigurines.get(i).getFigurine().getPrice();
+            basketFigurines.get(i).setUnitPrice(majPrice);
+            basketFigurinesRepository.save(basketFigurines.get(i));
+            price = price + (majPrice * basketFigurines.get(i).getQuantite());
+
+        }
+        basket.setSubTotal(price);
+        basketRepository.save(basket);
+        System.out.println("sauvegarde basket "+ price);
     }
 
     public String findRole(Model model){

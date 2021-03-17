@@ -53,21 +53,22 @@ public class AddressController {
 
         List<String> userName = activeUserStore.getCustomers();
         if(userName.isEmpty())  return "redirect:/login";
-        Customer customer = addressRepository.findCustomerByUserName(userName.get(0));
+        Optional<Customer> custo = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0));
         try {
-            if(customer == null) {
+            if(custo.isEmpty()) {
                 throw new Exception("Panier inexistant");
             }
+            Customer customer = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0)).get();
+            customer.setAddress(address);
+            customerRepository.save(customer);
+            addressRepository.save(address);
         }catch (Exception e){
             return "redirect:/login";
         }
-        customer.setAddress(address);
-
-        //customerRepository.save(customer);
-        addressRepository.save(address);
 
         return "redirect:/getBasketUser";
     }
+
     @GetMapping("/address")
     public String addAddress(Model model) {
         findRole(model);

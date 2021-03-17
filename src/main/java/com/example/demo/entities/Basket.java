@@ -30,7 +30,7 @@ public class Basket {
     }
 
     public void setSubTotal(double subTotal) {
-        this.subTotal += subTotal;
+        this.subTotal = subTotal;
     }
 
     public PromoCodeClassic getClassicCode() {
@@ -57,4 +57,14 @@ public class Basket {
         this.promoCodePercent = percentCode;
     }
 
+    @Override
+    public String toString() {
+        return "Basket{" +
+                "id=" + id +
+                ", customer=" + customer +
+                ", subTotal=" + subTotal +
+                ", promoCodeClassic=" + promoCodeClassic +
+                ", promoCodePercent=" + promoCodePercent +
+                '}';
+    }
 }
