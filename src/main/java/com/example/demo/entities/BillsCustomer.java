@@ -10,9 +10,10 @@ public class BillsCustomer {
     private Integer id;
     @OneToOne
     private Customer customer;
-    @ManyToMany
-    private Collection<Figurine> figurines;
-    private float prix;
+
+    @Enumerated(EnumType.STRING)
+    private StatusOrdered status;
+
     public enum StatusOrdered {
         PAYEE,
         VALIDEE,
@@ -37,19 +38,4 @@ public class BillsCustomer {
         this.customer = customer;
     }
 
-    public Collection<Figurine> getFigurines() {
-        return figurines;
-    }
-
-    public void setFigurines(Collection<Figurine> figurines) {
-        this.figurines = figurines;
-    }
-
-    public float getPrix() {
-        return prix;
-    }
-
-    public void setPrix(float prix) {
-        this.prix = prix;
-    }
 }

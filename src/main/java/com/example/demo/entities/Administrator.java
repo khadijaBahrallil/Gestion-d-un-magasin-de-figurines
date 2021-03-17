@@ -21,8 +21,6 @@ public class Administrator implements UserDetails {
     private String userName;
     private String password;
     private boolean civility;
-    private int bonusPoint;
-    private int assets;
     private String pseudo;
 
     public Integer getId() {
@@ -110,22 +108,6 @@ public class Administrator implements UserDetails {
     @Override
     public boolean isEnabled() {
         return false;
-    }
-
-    public int getBonusPoint() {
-        return bonusPoint;
-    }
-
-    public void setBonusPoint(int bonusPoint) {
-        this.bonusPoint = bonusPoint;
-    }
-
-    public int getAssets() {
-        return assets;
-    }
-
-    public void setAssets(int assets) {
-        this.assets = assets;
     }
 
 }

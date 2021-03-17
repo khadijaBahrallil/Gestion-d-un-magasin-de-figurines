@@ -56,11 +56,11 @@ public class OpinionController {
             figurine = figurineRepository.findFigurineById(idFigurine);
             List<BillsCustomer> billsCustomers = (List<BillsCustomer>) customer.getBillsCustomers();
             int verif = 0;
-            for(int i = 0; i < billsCustomers.size(); i++){
+           /* for(int i = 0; i < billsCustomers.size(); i++){
                 if(billsCustomers.get(i).getFigurines().contains(figurine)){
                     verif = 1;
                 }
-            }
+            }*/
             if(verif == 0){
                 System.out.println("contient pas");
                 return "redirect:/figurines";

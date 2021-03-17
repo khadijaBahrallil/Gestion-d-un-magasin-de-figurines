@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
+import java.util.Set;
 
 @Entity
 public class Figurine {
@@ -22,9 +23,10 @@ public class Figurine {
     @ManyToMany
     private Collection<Picture> pictures;
     @OneToMany
-    private Collection<Basket> baskets;
-    @OneToMany
     private Collection<Opinion> opinions;
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
     public enum Status {
         EN_PRECOMANDE,
         EN_STOCK,
@@ -104,14 +106,6 @@ public class Figurine {
 
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
-    }
-
-    public Collection<Basket> getBaskets() {
-        return baskets;
-    }
-
-    public void setBaskets(Collection<Basket> baskets) {
-        this.baskets = baskets;
     }
 
     public Collection<Opinion> getOpinions() {

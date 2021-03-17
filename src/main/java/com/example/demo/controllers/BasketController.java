@@ -42,6 +42,7 @@ public class BasketController {
      * @param quantity : quantité à ajouter
      * @return
      */
+    /*
     @PostMapping("/addProductInBasket")
     public String addProductInBasket(@RequestParam Integer idFigurine, @RequestParam Integer quantity){
         Integer value = 0;
@@ -81,12 +82,13 @@ public class BasketController {
 
         return "redirect:/getBasketUser";
     };
-
+     */
     /**
      * Modifier la quantité dans le panier
      * @param quantity
      * @return
      */
+    /*
     public String updateQantityProductInBasket( Integer idFigurine, Integer quantity){
         Integer value = 0;
         double solde = 0;
@@ -123,25 +125,27 @@ public class BasketController {
 
         return "redirect:/getBasketUser";
     }
-
+*/
     /**
      * Ajouter la quantité de +1
      * @return
      */
+    /*
     @PostMapping("/addQantityOfProduct")
     public String addQantityOfProduct(@RequestParam Integer idFigurine){
         return updateQantityProductInBasket(idFigurine,1);
     }
-
+*/
     /**
      * Diminuer la quantité de -1
      * @return
      */
+    /*
     @PostMapping("/removeQantityOfProduct")
     public String removeQantityOfProduct(@RequestParam Integer idFigurine){
-        return updateQantityProductInBasket(idFigurine,-1);
+        //return updateQantityProductInBasket(idFigurine,-1);
     }
-
+*/
     /**
      * Vider le panier
      * @return
@@ -194,11 +198,11 @@ public class BasketController {
 
         List<Figurine> listfigurine = new ArrayList<>();
 
-        for(HashMap.Entry<Integer, Integer> mapFig : basket.getQuantityFigurineOfbasket().entrySet()){
+        /*for(HashMap.Entry<Integer, Integer> mapFig : basket.getQuantityFigurineOfbasket().entrySet()){
             Figurine mockfigurine = basketRepository.findFigurineByID(mapFig.getKey());
             mockfigurine.setQuantity(mapFig.getValue());
             listfigurine.add(mockfigurine);
-        }
+        }*/
         DecimalFormat df = new DecimalFormat("0.00");
         modelMap.addAttribute("figurines", listfigurine);
         modelMap.addAttribute("solde", df.format(basket.getSubTotal()));
@@ -264,13 +268,13 @@ public class BasketController {
         if(basket == null) return "redirect:/basket";
 
         List<Figurine> listfigurine = new ArrayList<>();
-
+/*
         for(HashMap.Entry<Integer, Integer> mapFig : basket.getQuantityFigurineOfbasket().entrySet()){
             Figurine mockfigurine = basketRepository.findFigurineByID(mapFig.getKey());
             mockfigurine.setQuantityBasket(-mapFig.getValue());
             listfigurine.add(mockfigurine);
         }
-
+*/
         Date date = new Date(System.currentTimeMillis());
         DateFormat dft = new SimpleDateFormat("dd/MM/yyyy");
 
