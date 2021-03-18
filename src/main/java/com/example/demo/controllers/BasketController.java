@@ -82,7 +82,9 @@ public class BasketController {
             }
             basketFigurines.setUnitPrice(figurine.getPrice());
         }
-
+        int figurineQuantity = figurine.getQuantity();
+        figurine.setQuantity(figurineQuantity - quantity);
+        figurineRepository.save(figurine);
         basketFigurinesRepository.save(basketFigurines);
         return "redirect:/basket";
     };
@@ -134,12 +136,33 @@ public class BasketController {
      * Ajouter la quantité de +1
      * @return
      */
-    /*
-    @PostMapping("/addQantityOfProduct")
-    public String addQantityOfProduct(@RequestParam Integer idFigurine){
-        return updateQantityProductInBasket(idFigurine,1);
+
+    @PostMapping("/addQuantityOfProduct")
+    public String addQuantityOfProduct(@RequestParam Integer idFigurine){
+        Customer customer = getActiveCustomer();
+        try {
+            Basket basket = basketRepository.findBasketByCustomerID(customer);
+            Figurine figurine = figurineRepository.findFigurineById(idFigurine);
+            BasketFigurines basketFigurines = basketFigurinesRepository.findBasketFigurineByFigurineAndBasket(figurine, basket);
+            int quantity = basketFigurines.getQuantite() + 1;
+            if(quantity > figurine.getQuantity()){
+
+            }
+            else{
+                int figurineQuantity = figurine.getQuantity();
+                figurine.setQuantity(figurineQuantity - 1);
+                figurineRepository.save(figurine);
+                basketFigurines.setQuantite(quantity);
+                basketFigurines.setUnitPrice(figurine.getPrice());
+                basketFigurinesRepository.save(basketFigurines);
+            }
+        }catch (Exception e){
+            return "redirect:/basket";
+        }
+
+        return "redirect:/basket";
     }
-*/
+
     /**
      * Diminuer la quantité de -1
      * @return
@@ -152,10 +175,17 @@ public class BasketController {
             Figurine figurine = figurineRepository.findFigurineById(idFigurine);
             BasketFigurines basketFigurines = basketFigurinesRepository.findBasketFigurineByFigurineAndBasket(figurine, basket);
             int quantity = basketFigurines.getQuantite() - 1;
+            int figurineQuantity;
             if(quantity <= 0){
+                figurineQuantity = figurine.getQuantity();
+                figurine.setQuantity(figurineQuantity + 1);
+                figurineRepository.save(figurine);
                 basketFigurinesRepository.delete(basketFigurines);
             }
             else{
+                figurineQuantity = figurine.getQuantity();
+                figurine.setQuantity(figurineQuantity + 1);
+                figurineRepository.save(figurine);
                 basketFigurines.setQuantite(quantity);
                 basketFigurines.setUnitPrice(figurine.getPrice());
                 basketFigurinesRepository.save(basketFigurines);
@@ -190,6 +220,9 @@ public class BasketController {
             Basket basket = basketRepository.findBasketByCustomerID(customer);
             List<BasketFigurines> basketFigurines = basketFigurinesRepository.findBasketFigurineByBasket(basket);
             for(int i = 0; i < basketFigurines.size(); i++){
+                int figurineQuantity = basketFigurines.get(i).getFigurine().getQuantity();
+                basketFigurines.get(i).getFigurine().setQuantity(figurineQuantity + basketFigurines.get(i).getQuantite());
+                figurineRepository.save(basketFigurines.get(i).getFigurine());
                 basketFigurinesRepository.delete(basketFigurines.get(i));
             }
             basketRepository.delete(basket);
