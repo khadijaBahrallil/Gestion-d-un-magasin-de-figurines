@@ -39,6 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/register");
         web.ignoring().antMatchers("/addUser");
         web.ignoring().antMatchers("/addCustomer");
+        web.ignoring().antMatchers("/addAdministrator");
         web.ignoring().antMatchers("/addFigurine");
         web.ignoring().antMatchers("/figurines");
         web.ignoring().antMatchers("/indexFigurine");
