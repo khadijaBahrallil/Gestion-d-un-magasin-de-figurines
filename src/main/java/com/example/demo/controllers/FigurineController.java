@@ -80,22 +80,8 @@ public class FigurineController {
         return "redirect:/index";
     }
 
-    @GetMapping("/recherche")
-    public String recherche() {
 
-        return "recherche";
-    }
 
-    @PostMapping("/recherche")
-    public String rechercheCategorie(@RequestParam("recherche") String recherche, Model model) {
-        ArrayList<String> figurines = new ArrayList<>();
-        for(Figurine figurine : figurineRepository.findAll()){
-
-            figurines.add(figurine.getName());
-        }
-        model.addAttribute("figurines", figurines);
-        return "recherche";
-    }
 
 
     @GetMapping("/deleteFigurine")

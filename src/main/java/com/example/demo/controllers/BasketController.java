@@ -283,7 +283,7 @@ public class BasketController {
         Customer customer = getActiveCustomer();
         try {
             if(customer == null) {
-                throw new Exception("Panier inexistant");
+                throw new Exception("Impossible de récupérer l'utilisateur");
             }
         }catch (Exception e){
             return "redirect:/login";

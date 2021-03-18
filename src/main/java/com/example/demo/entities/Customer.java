@@ -29,6 +29,8 @@ public class Customer implements UserDetails {
     private Address address;
     @OneToOne
     private Address addressBills;
+    @OneToOne
+    private Address deliveryAddress;
     @OneToMany()
     private List<Address> adressCusto;
     @OneToMany

@@ -3,8 +3,8 @@ package com.example.demo.entities;
 
 import java.io.Serializable;
 
-public class BasketFigurinePK implements Serializable {
-    private Integer basket;
+public class BillsCustomerFigurinesPK implements Serializable {
+    private Integer billsCustomer;
     private Integer figurine;
 
 }

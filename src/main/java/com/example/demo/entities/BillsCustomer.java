@@ -14,13 +14,12 @@ public class BillsCustomer {
     @Enumerated(EnumType.STRING)
     private StatusOrdered status;
 
-    public enum StatusOrdered {
-        PAYEE,
-        VALIDEE,
-        ANNULEE,
-        EN_COURS_D_ENVOI,
-        RECUE
-    }
+    @OneToOne
+    private PromoCodeClassic promoCodeClassic;
+    @OneToOne
+    private PromoCodePercent promoCodePercent;
+
+    private double subTotal;
 
     public Integer getId() {
         return id;
