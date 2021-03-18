@@ -21,7 +21,7 @@
 <div style="padding-left:400px; padding-right:400px; padding-top:20px">
     <h3>Facture d'achat</h3>
     </br>
-    <div class="row" style="padding-top: 20px">
+    <div class="row" style="padding-top: 20px; padding-left: 20px">
         <div class="col">
             <div class="row" style="padding-top: 20px">
                 <h5 th:text="${'Nom : ' + customer.getLastName()}"></h5>
@@ -51,7 +51,7 @@
         </tr>
         <br/>
         <tr style="width:100%" th:each="basketFigurine : ${basketFigurines}">
-            <td style="width: 20%"><img th:src="@{${'/images/' + basketFigurine.getFigurine().getPicture().getName() + '.png'}}" height="80" width="80"></td>
+            <td style="width: 20%; text-align: center"><img th:src="@{${'/images/' + basketFigurine.getFigurine().getPicture().getName() + '.png'}}" height="80" width="80"></td>
             <td style="width: 15%; text-align: center" th:text="${basketFigurine.getFigurine().getName()}"></td>
             <td style="width: 10%; text-align: center" th:text="${basketFigurine.getQuantite()}"></td>
             <td style="width: 15%; text-align: center" th:text="${basketFigurine.getUnitPrice()}"></td>

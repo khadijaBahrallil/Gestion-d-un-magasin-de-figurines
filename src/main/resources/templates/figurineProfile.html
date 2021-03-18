@@ -54,7 +54,7 @@
                 <div class="row" style="padding-top: 20px">
                     <form th:method="post" th:action="@{/addProductInBasket}">
                         <input type="hidden" name="idFigurine" id="idFigurine1" th:value="${figurine.getId()}">
-                        <input type="number" id="quantity" name="quantity" value="Quantité" min="0" th:max="${figurine.getQuantity()}" placeholder="Entrer le quantité" required>
+                        <input type="number" id="quantity" name="quantity" value="Quantité" min="0" th:max="${figurine.getQuantity()}" placeholder="Quantité" required>
                         <button type="submit" class="btn btn-primary">Ajouter au panier</button>
                     </form>
                 </div>
@@ -63,7 +63,7 @@
     </div>
 
 
-    <div class="row" style="padding-top: 40px">
+    <div class="row" style="padding-top: 60px">
         <h4>Commentaires</h4>
         <div th:if="${role == 'user'}">
             <form action="/opinion" method="POST">
