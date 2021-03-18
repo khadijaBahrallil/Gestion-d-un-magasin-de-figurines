@@ -291,21 +291,10 @@ public class BasketController {
 
         Basket basket = basketRepository.findBasketByCustomerID(customer);
 
-        if(basket == null) return "redirect:/getBasketUser";
-        if(customer.getAddress() == null) return "redirect:/address";
+        if(basket == null) return "redirect:/figurines";
+        //if(customer.getAddress() == null) return "redirect:/address";
 
         return "redirect:/getValidBuy";
-    }
-
-    /**
-     * Recuperer l'utilisateur
-     * @return
-     */
-    public Customer getActiveCustomer(){
-         List<String> userName = activeUserStore.getCustomers();
-         if(userName.isEmpty()) { return null; }
-         Customer customer = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0)).get();
-        return customer;
     }
 
     /**
@@ -328,28 +317,21 @@ public class BasketController {
         }
 
         Basket basket = basketRepository.findBasketByCustomerID(customer);
-        if(basket == null) return "redirect:/basket";
-
-        List<Figurine> listfigurine = new ArrayList<>();
-/*
-        for(HashMap.Entry<Integer, Integer> mapFig : basket.getQuantityFigurineOfbasket().entrySet()){
-            Figurine mockfigurine = basketRepository.findFigurineByID(mapFig.getKey());
-            mockfigurine.setQuantityBasket(-mapFig.getValue());
-            listfigurine.add(mockfigurine);
+        if(basket == null){
+            return "redirect:/figurines";
         }
-*/
-        Date date = new Date(System.currentTimeMillis());
-        DateFormat dft = new SimpleDateFormat("dd/MM/yyyy");
-
-        modelMap.addAttribute("Date", dft.format(date));
+        Double solde = basket.getSubTotal();
+        if(solde == 0 ){
+            return "redirect:/figurines";
+        }
         DecimalFormat df = new DecimalFormat("0.00");
+        List<BasketFigurines> basketFigurines = basketFigurinesRepository.findBasketFigurineByBasket(basket);
+        model.addAttribute("customer", customer);
+        model.addAttribute("basketFigurines", basketFigurines);
+        model.addAttribute("solde", df.format(solde));
+        findRole(model);
 
-        modelMap.addAttribute("figurines", listfigurine);
-        modelMap.addAttribute("solde", df.format(basket.getSubTotal()));
-        modelMap.addAttribute("customer", basket.getCustomer());
-        modelMap.addAttribute("date", dft.format(date));
-
-        basketRepository.delete(basket);
+        //basketRepository.delete(basket);
 
         return "validBuy";
     }
@@ -379,11 +361,6 @@ public class BasketController {
         model.addAttribute("solde", df.format(solde));
         findRole(model);
         return "basket";
-    }
-
-    @GetMapping("/validBuy")
-    public String validby() {
-        return "validBuy";
     }
 
     public void majPrice(Basket basket){
@@ -424,5 +401,17 @@ public class BasketController {
             return "visitor";
         }
     }
+
+    /**
+     * Recuperer l'utilisateur
+     * @return
+     */
+    public Customer getActiveCustomer(){
+        List<String> userName = activeUserStore.getCustomers();
+        if(userName.isEmpty()) { return null; }
+        Customer customer = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0)).get();
+        return customer;
+    }
+
 }
 

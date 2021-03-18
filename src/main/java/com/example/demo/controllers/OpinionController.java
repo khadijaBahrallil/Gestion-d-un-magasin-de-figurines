@@ -1,10 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.entities.*;
-import com.example.demo.repos.AdministratorRepository;
-import com.example.demo.repos.CustomerRepository;
-import com.example.demo.repos.FigurineRepository;
-import com.example.demo.repos.OpinionRepository;
+import com.example.demo.repos.*;
 import com.example.demo.security.ActiveUserStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +25,8 @@ public class OpinionController {
     private FigurineRepository figurineRepository;
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private BillsFigurinesRepository billsFigurinesRepository;
     @Autowired
     private AdministratorRepository administratorRepository;
     @Autowired
@@ -56,11 +55,13 @@ public class OpinionController {
             figurine = figurineRepository.findFigurineById(idFigurine);
             List<BillsCustomer> billsCustomers = (List<BillsCustomer>) customer.getBillsCustomers();
             int verif = 0;
-           /* for(int i = 0; i < billsCustomers.size(); i++){
-                if(billsCustomers.get(i).getFigurines().contains(figurine)){
+            for(int i = 0; i < billsCustomers.size(); i++){
+                BillsCustomerFigurines billsCustomerFigurine = billsFigurinesRepository.findBillsCustomerFigurineseByFigurineAndBills(figurine, billsCustomers.get(i));
+
+                if(billsCustomerFigurine != null){
                     verif = 1;
                 }
-            }*/
+            }
             if(verif == 0){
                 System.out.println("contient pas");
                 return "redirect:/figurines";
