@@ -11,7 +11,7 @@ import java.sql.Date;
 @Entity
 public class PromoCodePercent {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String code;
     @JsonFormat(pattern="dd/MM/yyyy")

@@ -8,7 +8,7 @@ import java.sql.Date;
 @Entity
 public class Opinion {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int note;
     private String text;

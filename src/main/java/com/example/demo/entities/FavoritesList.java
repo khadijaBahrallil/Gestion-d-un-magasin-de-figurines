@@ -6,7 +6,7 @@ import java.util.Collection;
 @Entity
 public class FavoritesList {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     @OneToMany
