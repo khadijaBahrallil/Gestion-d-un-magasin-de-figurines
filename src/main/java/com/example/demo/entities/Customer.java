@@ -89,8 +89,16 @@ public class Customer implements UserDetails {
         return address;
     }
 
+    public Address getAddressDelivery(){
+        return deliveryAddress;
+    }
+
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public void setAddressDelivery(Address address) {
+        this.deliveryAddress = address;
     }
 
     @Override

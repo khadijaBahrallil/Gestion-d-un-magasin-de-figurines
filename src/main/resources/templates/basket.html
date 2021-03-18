@@ -13,7 +13,6 @@
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-
 </head>
 
 <body>
@@ -27,7 +26,7 @@
         <div class="text-right">
             <p class="card-text" th:text="'Montant total: '+${solde}+' €'" ></p>
             <div th:if="${!vide}" class="float-right row" style="padding-top: 20px">
-                <form th:method="get" th:action="@{/toBuy}">
+                <form th:method="get" th:action="@{/bill}">
                     <button type="submit" class="btn btn-success" >Payer</button>
                 </form>
                 <form th:method="get" th:action="@{/removeBasket}">
@@ -49,8 +48,6 @@
                 <th style="text-align: center">Quantité</th>
                 <th style="text-align: center">Prix (€)</th>
                 <th style="text-align: center">Modifier Quantité</th>
-
-
             </tr>
             <br/>
             <tr style="width:100%" th:each="basketFi : ${basketFigurines}">

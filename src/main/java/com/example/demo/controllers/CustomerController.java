@@ -1,10 +1,7 @@
 package com.example.demo.controllers;
 
-import com.example.demo.entities.Figurine;
-import com.example.demo.repos.AddressRepository;
-import com.example.demo.repos.CustomerRepository;
-import com.example.demo.entities.Customer;
-import com.example.demo.repos.FigurineRepository;
+import com.example.demo.entities.*;
+import com.example.demo.repos.*;
 import com.example.demo.security.ActiveUserStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,8 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import com.example.demo.entities.Administrator;
-import com.example.demo.repos.AdministratorRepository;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -35,6 +31,9 @@ public class CustomerController {
     ActiveUserStore activeUserStore;
     @Autowired
     private AdministratorRepository administratorRepository;
+    @Autowired
+    private BillsRepository billsRepository;
+
 
     @GetMapping("/loggedUsers")
     public String getLoggedUsers(Locale locale, Model model) {
@@ -48,7 +47,11 @@ public class CustomerController {
         if(findInfoRole(model).equals("visitor")){
             return "redirect:/index";
         }
-
+        if(findInfoRole(model).equals("user")) {
+            Customer customer = getActiveCustomer();
+            List<BillsCustomer> billsCustomer =  billsRepository.findBillsByCustomerID(customer);
+            model.addAttribute("billsCustomer", billsCustomer);
+        }
         return "profile";
     }
 
@@ -184,6 +187,7 @@ public class CustomerController {
                 model.addAttribute("fname", customer.getFirstName());
                 model.addAttribute("username", customer.getUsername());
                 model.addAttribute("address", customer.getAddress());
+                model.addAttribute("addressDelevery", customer.getAddressDelivery());
                 model.addAttribute("role", "user");
                 return "user";
             } else {
@@ -198,6 +202,17 @@ public class CustomerController {
             model.addAttribute("role", "visitor");
             return "visitor";
         }
+    }
+
+    /**
+     * Recuperer l'utilisateur
+     * @return
+     */
+    public Customer getActiveCustomer(){
+        List<String> userName = activeUserStore.getCustomers();
+        if(userName.isEmpty()) { return null; }
+        Customer customer = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0)).get();
+        return customer;
     }
 
 }

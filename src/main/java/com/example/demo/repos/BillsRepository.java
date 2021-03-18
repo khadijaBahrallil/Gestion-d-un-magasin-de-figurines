@@ -5,9 +5,11 @@ import com.example.demo.entities.Customer;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
+
 public interface BillsRepository extends CrudRepository<BillsCustomer, Integer> {
 
     @Query(" select b from BillsCustomer b  where b.customer = ?1")
-    BillsCustomer findBillsByCustomerID(Customer customer);
+    List<BillsCustomer> findBillsByCustomerID(Customer customer);
 
 }

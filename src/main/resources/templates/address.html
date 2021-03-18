@@ -22,7 +22,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<form th:method="post" th:action="@{/addAddress}" class="w3-container w3-card-4 w3-light-grey w3-text-blue w3-margin">
+<form th:method="POST" th:action="@{/addAddress}" class="w3-container w3-card-4 w3-light-grey w3-text-blue w3-margin">
     <h2 class="w3-center">Ajouter votre adresse</h2>
 
     <div class="w3-row w3-section">
@@ -61,7 +61,7 @@
     </div>
 
     <p class="w3-center">
-        <button class="w3-button w3-section w3-blue w3-ripple"> Ajouter </button>
+        <button type="submit" class="w3-button w3-section w3-blue w3-ripple"> Ajouter </button>
     </p>
 </form>
 <div th:replace="footer :: footer"></div>

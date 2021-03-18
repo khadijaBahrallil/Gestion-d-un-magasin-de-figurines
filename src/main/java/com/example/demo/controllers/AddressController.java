@@ -50,6 +50,7 @@ public class AddressController {
         address.setPostalCode(postalCode);
         address.setCity(city);
         address.setCountry(country);
+        addressRepository.save(address);
 
         List<String> userName = activeUserStore.getCustomers();
         if(userName.isEmpty())  return "redirect:/login";
@@ -60,13 +61,14 @@ public class AddressController {
             }
             Customer customer = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0)).get();
             customer.setAddress(address);
+            customer.setAddressDelivery(address);
             customerRepository.save(customer);
             addressRepository.save(address);
         }catch (Exception e){
             return "redirect:/login";
         }
 
-        return "redirect:/getBasketUser";
+        return "redirect:/profile";
     }
 
     @GetMapping("/address")

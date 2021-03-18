@@ -298,49 +298,6 @@ public class BasketController {
         return "redirect:/getValidBuy";
     }
 
-    /**
-     * Afficher la facture du paiement
-     * @param modelMap
-     * @return
-     */
-    @GetMapping("/getValidBuy")
-    public String getFigurine(ModelMap modelMap, Model model) {
-        if(findRole(model) != "user"){
-            return "redirect:/index";
-        }
-        Customer customer = getActiveCustomer();
-        try {
-            if(customer == null) {
-                throw new Exception("Panier inexistant");
-            }
-        }catch (Exception e){
-            return "redirect:/login";
-        }
-
-        Basket basket = basketRepository.findBasketByCustomerID(customer);
-        if(basket == null){
-            return "redirect:/figurines";
-        }
-        Double solde = basket.getSubTotal();
-        if(solde == 0 ){
-            return "redirect:/figurines";
-        }
-        DecimalFormat df = new DecimalFormat("0.00");
-        java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
-
-        List<BasketFigurines> basketFigurines = basketFigurinesRepository.findBasketFigurineByBasket(basket);
-        model.addAttribute("date", new SimpleDateFormat("dd-MM-yyyy").format(date));
-        model.addAttribute("customer", customer);
-        model.addAttribute("basketFigurines", basketFigurines);
-        model.addAttribute("solde", df.format(solde));
-        findRole(model);
-
-        //basketRepository.delete(basket);
-
-        return "validBuy";
-    }
-
-
     @GetMapping("/basket")
     public String basket(Model model) {
         Customer customer = getActiveCustomer();

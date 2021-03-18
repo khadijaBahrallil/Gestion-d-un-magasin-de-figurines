@@ -17,4 +17,35 @@ public class BillsCustomerFigurines implements Serializable {
     private Integer quantite;
     private Float unitPrice;
 
+    public BillsCustomer getBillsCustomer() {
+        return billsCustomer;
+    }
+
+    public void setBillsCustomer(BillsCustomer billsCustomer) {
+        this.billsCustomer = billsCustomer;
+    }
+
+    public Figurine getFigurine() {
+        return figurine;
+    }
+
+    public void setFigurine(Figurine figurine) {
+        this.figurine = figurine;
+    }
+
+    public Integer getQuantite() {
+        return quantite;
+    }
+
+    public void setQuantite(Integer quantite) {
+        this.quantite = quantite;
+    }
+
+    public Float getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(Float unitPrice) {
+        this.unitPrice = unitPrice;
+    }
 }

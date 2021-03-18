@@ -22,6 +22,26 @@
     <h3>Prévisualisation de la facture</h3>
     </br>
     <div class="row" style="padding-top: 20px">
+        <div class="col">
+            <div class="row" style="padding-top: 20px">
+                <h5 th:text="${'Nom : ' + customer.getLastName()}"></h5>
+            </div>
+            <div class="row" style="padding-top: 20px">
+                <p th:text="${'Prénom : ' + customer.getFirstName()}"></p>
+            </div>
+            <div class="row" style="padding-top: 20px">
+                <p th:text="${'Adresse : ' + customer.getAddress()?.toString()}"></p>
+            </div>
+            <div class="row" style="padding-top: 20px">
+                <p th:text="${'Montant total: ' + solde + ' €'}"></p>
+            </div>
+            <div class="row" style="padding-top: 20px">
+                <p th:text="${'Date: ' + date}"></p>
+            </div>
+        </div>
+    </div>
+    <!--
+    <div class="row" style="padding-top: 20px">
         <h4 th:text="${'Facture # '}">Facture #</h4>
         <div class="col" style="padding-top: 20px">
             <div class="row" style="padding-top: 20px">
@@ -55,19 +75,24 @@
             </div>
         </form>
     </div>
-
+-->
     <div style="padding-top: 40px">
         <h5>Paiement</h5>
         <div class="row">
-            <form action="/profile" method="get" style="padding-left: 10px">
+            <form action="/getValidBuy" method="get" style="padding-left: 10px">
                 <button type="submit" class="btn btn-success">Payer par carte bancaire</button>
             </form>
-            <form action="/profile" method="get" style="padding-left: 30px">
+            <form action="/getValidBuy" method="get" style="padding-left: 30px">
                 <button type="submit" class="btn btn-success">Payer par Paypal</button>
             </form>
         </div>
     </div>
 </div>
+<br>
+<br>
+<br>
+<br>
+<br>
 <div th:replace="footer :: footer"></div>
 </body>
 </html>
