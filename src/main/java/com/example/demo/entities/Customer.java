@@ -35,8 +35,6 @@ public class Customer implements UserDetails {
     private List<Address> adressCusto;
     @OneToMany
     private Collection<Opinion> opinions;
-    @OneToMany
-    private Collection<BillsCustomer> billsCustomers;
     @OneToOne
     private Subscription subscription;
 
@@ -164,14 +162,6 @@ public class Customer implements UserDetails {
 
     public void setOpinions(Collection<Opinion> opinions) {
         this.opinions = opinions;
-    }
-
-    public Collection<BillsCustomer> getBillsCustomers() {
-        return billsCustomers;
-    }
-
-    public void setBillsCustomers(Collection<BillsCustomer> billsCustomers) {
-        this.billsCustomers = billsCustomers;
     }
 
     @Override

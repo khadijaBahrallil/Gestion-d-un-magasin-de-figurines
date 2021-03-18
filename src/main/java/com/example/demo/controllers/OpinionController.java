@@ -28,6 +28,8 @@ public class OpinionController {
     @Autowired
     private BillsFigurinesRepository billsFigurinesRepository;
     @Autowired
+    private BillsRepository billsRepository;
+    @Autowired
     private AdministratorRepository administratorRepository;
     @Autowired
     ActiveUserStore activeUserStore;
@@ -53,7 +55,7 @@ public class OpinionController {
         try{
             customer = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0)).get();
             figurine = figurineRepository.findFigurineById(idFigurine);
-            List<BillsCustomer> billsCustomers = (List<BillsCustomer>) customer.getBillsCustomers();
+            List<BillsCustomer> billsCustomers = billsRepository.findBillsByCustomerID(customer);
             int verif = 0;
             for(int i = 0; i < billsCustomers.size(); i++){
                 BillsCustomerFigurines billsCustomerFigurine = billsFigurinesRepository.findBillsCustomerFigurineseByFigurineAndBills(figurine, billsCustomers.get(i));
@@ -141,6 +143,9 @@ public class OpinionController {
 
     @PostMapping("/addOpinion")
     public String addOpinion(@RequestParam int note, @RequestParam String text, @RequestParam int idFigurine, Model model) {
+        if (!findRole(model).equals("user")) {
+            return "redirect:/index";
+        }
         Opinion opinion = new Opinion();
         Figurine figurine = new Figurine();
         List<Opinion> opinions = new ArrayList<>();
