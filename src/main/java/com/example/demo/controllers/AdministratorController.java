@@ -42,7 +42,7 @@ public class AdministratorController {
     public String addAdministrator(@RequestParam String lastName, @RequestParam String firstName, @RequestParam String userName,
                               @RequestParam String password, @RequestParam Boolean civility) {
         if (lastName.equals("") || firstName.equals("") || userName.equals("") || password.equals("")){
-            return "registeradmin";
+            return "redirect:/registeradmin";
         }
         Administrator admin = new Administrator();
         admin.setFirstName(firstName);
