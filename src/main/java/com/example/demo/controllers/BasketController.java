@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -325,7 +326,10 @@ public class BasketController {
             return "redirect:/figurines";
         }
         DecimalFormat df = new DecimalFormat("0.00");
+        java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
+
         List<BasketFigurines> basketFigurines = basketFigurinesRepository.findBasketFigurineByBasket(basket);
+        model.addAttribute("date", new SimpleDateFormat("dd-MM-yyyy").format(date));
         model.addAttribute("customer", customer);
         model.addAttribute("basketFigurines", basketFigurines);
         model.addAttribute("solde", df.format(solde));
