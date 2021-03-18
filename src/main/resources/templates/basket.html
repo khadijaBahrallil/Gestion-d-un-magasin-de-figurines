@@ -58,7 +58,7 @@
                 <td></td>
                 <form th:action="@{/removeQuantityOfProduct}" th:method="POST">
                     <input type="hidden" name="idFigurine" id="idFigurineAdd" th:value="${basketFi.getFigurine().getId()}">
-                    <td class="row" style="..."><button type="submit" class="btn btn-primary">-</button>
+                    <td class="row"><button type="submit" class="btn btn-primary">-</button>
                 </form>
                 <form th:action="@{/addQuantityOfProduct}" th:method="POST">
                     <input type="hidden" name="idFigurine" id="idFigurineRemove" th:value="${basketFi.getFigurine().getId()}">
