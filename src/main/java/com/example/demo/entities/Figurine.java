@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
 
@@ -25,14 +26,8 @@ public class Figurine {
     @OneToMany
     private Collection<Opinion> opinions;
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private StatusFigurine status;
 
-    public enum Status {
-        EN_PRECOMANDE,
-        EN_STOCK,
-        NON_DISPONIBLE,
-        EN_COURS_DE_REAPPROVISIONNEMENT
-    }
 
     public String getDescription() {
         return description;
@@ -96,6 +91,11 @@ public class Figurine {
          return picture;
     }
 
+    public void setPicture(Picture picture) {
+        pictures = new ArrayList<>();
+        pictures.add(picture);
+    }
+
     public void setPictures(Collection<Picture> pictures) {
         this.pictures = pictures;
     }
@@ -118,6 +118,14 @@ public class Figurine {
 
     public void setOpinion(Opinion opinion) {
         this.opinions.add(opinion);
+    }
+
+    public StatusFigurine getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusFigurine status) {
+        this.status = status;
     }
 
     @Override

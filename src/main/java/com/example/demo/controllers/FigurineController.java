@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,28 +35,51 @@ public class FigurineController {
 
     //Post
     @PostMapping("/addFigurine")
-    public String addFigurine(@RequestParam String name) {
+    public String addFigurine(@RequestParam String name, @RequestParam Integer idLicense, @RequestParam String description, @RequestParam Date startDate,
+                              @RequestParam Float price, @RequestParam Integer quantity, @RequestParam StatusFigurine status) {
         try {
             if (name.length() > 255) {
                 throw new Exception("Erreur, nom trop grand");
             }
+            if (description.length() > 255) {
+                throw new Exception("Erreur, description trop grande");
+            }
+            if (price < 0) {
+                throw new Exception("Erreur, prix");
+            }
+            if (quantity < 0) {
+                throw new Exception("Erreur, quantity");
+            }
         }catch (Exception e){
             return "redirect:/index";
         }
+        Picture picture = pictureRepository.findPictureByName("default");
         Figurine figurine = new Figurine();
         figurine.setName(name);
+        figurine.setQuantity(quantity);
+        figurine.setStatus(status);
+        figurine.setDescription(description);
+        figurine.setPrice(price);
+        figurine.setPicture(picture);
+        figurine.setLicence(licenceRepository.findLicenceById(idLicense));
+        figurine.setStartDate(startDate);
         figurineRepository.save(figurine);
+
+
         return "redirect:/indexFigurine";
     }
 
     @RequestMapping("/indexFigurine")
     public String indexFigurine(Model model) {
-        System.out.println(findRole(model));
+
         if(findRole(model).equals("admin")){
+            System.out.println(StatusFigurine.values());
+            model.addAttribute("status", StatusFigurine.values());
             return "indexFigurine";
         }
         return "redirect:/index";
     }
+
     @GetMapping("/recherche")
     public String recherche() {
 
