@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Set;
 
 @Entity
 public class Figurine {
@@ -22,15 +24,10 @@ public class Figurine {
     @ManyToMany
     private Collection<Picture> pictures;
     @OneToMany
-    private Collection<Basket> baskets;
-    @OneToMany
     private Collection<Opinion> opinions;
-    public enum Status {
-        EN_PRECOMANDE,
-        EN_STOCK,
-        NON_DISPONIBLE,
-        EN_COURS_DE_REAPPROVISIONNEMENT
-    }
+    @Enumerated(EnumType.STRING)
+    private StatusFigurine status;
+
 
     public String getDescription() {
         return description;
@@ -94,6 +91,11 @@ public class Figurine {
          return picture;
     }
 
+    public void setPicture(Picture picture) {
+        pictures = new ArrayList<>();
+        pictures.add(picture);
+    }
+
     public void setPictures(Collection<Picture> pictures) {
         this.pictures = pictures;
     }
@@ -104,14 +106,6 @@ public class Figurine {
 
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
-    }
-
-    public Collection<Basket> getBaskets() {
-        return baskets;
-    }
-
-    public void setBaskets(Collection<Basket> baskets) {
-        this.baskets = baskets;
     }
 
     public Collection<Opinion> getOpinions() {
@@ -125,9 +119,26 @@ public class Figurine {
     public void setOpinion(Opinion opinion) {
         this.opinions.add(opinion);
     }
-    //A changer
-    /*public void sortLicence(){
 
-    }*/
+    public StatusFigurine getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusFigurine status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Figurine{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                ", startDate=" + startDate +
+                ", status=" + status +
+                '}';
+    }
 }
 

@@ -14,37 +14,14 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 
-    <!-- Custom styles for this template -->
-    <link href="demo/static/main.css" rel="stylesheet">
 </head>
 
 <body>
-<header>
-    <div class="navbar navbar-dark bg-dark box-shadow">
-        <div class="container d-flex justify-content-between">
-            <a href="home" class="navbar-brand d-flex align-items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-                <strong>404 FIGURINES</strong>
-            </a>
-            <ul class="nav">
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="home">Menu</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="figurines">Figurines</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="/getBasketUser">Voir Panier</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="profile">Profil</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</header>
+<div th:insert="${role == 'visitor'} ? ~{header :: header} : _"></div>
+<div th:insert="${role == 'admin'} ? ~{headerAdministrator :: header} : _"></div>
+<div th:insert="${role == 'user'} ? ~{headerCustomer :: header} : _"></div>
 
-<div style="padding-left:400px; padding-right:400px; padding-top:20px">
+<div style="padding: 20px 400px 200px;">
     <h3>Page produit</h3>
     </br>
     <div class="row" style="padding-top: 20px">
@@ -71,24 +48,31 @@
                 <p th:text="${'Prix (TTC) : ' + figurine.getPrice() + ' €'}"></p>
             </div>
             <div class="row" style="padding-top: 20px">
-                <form th:method="post" th:action="@{/addProductInBasket}">
-                    <input type="hidden" name="idFigurine" id="idFigurine1" th:value="${figurine.getId()}">
-                    <input type="number" id="quantity" name="quantity" value="Quantité" min="0" max="${figurine.getQuantity()}" placeholder="Entrer le quantité" required>
-                    <button type="submit" class="btn btn-primary">Ajouter au panier</button>
-                </form>
+                <p th:text="${'Quantité disponible : ' + figurine.getQuantity()}"></p>
+            </div>
+            <div th:if="${role == 'user'}">
+                <div class="row" style="padding-top: 20px">
+                    <form th:method="post" th:action="@{/addProductInBasket}">
+                        <input type="hidden" name="idFigurine" id="idFigurine1" th:value="${figurine.getId()}">
+                        <input type="number" id="quantity" name="quantity" value="Quantité" min="0" th:max="${figurine.getQuantity()}" placeholder="Quantité" required>
+                        <button type="submit" class="btn btn-primary">Ajouter au panier</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 
 
-    <div class="row" style="padding-top: 40px">
+    <div class="row" style="padding-top: 60px">
         <h4>Commentaires</h4>
-        <form action="/opinion" method="POST">
-            <input type="hidden" name="idFigurine" id="idFigurine" th:value="${figurine.getId()}">
-            <p class="float-right" style="padding-left: 650px">
-            <button class="btn btn-primary" type="submit">Laisser un commentaire</button>
-            </p>
-        </form>
+        <div th:if="${role == 'user'}">
+            <form action="/opinion" method="POST">
+                <input type="hidden" name="idFigurine" id="idFigurine" th:value="${figurine.getId()}">
+                <p class="float-right" style="padding-left: 650px">
+                <button class="btn btn-primary" type="submit">Laisser un commentaire</button>
+                </p>
+            </form>
+        </div>
     </div>
     </br>
     <h5 th:text="${'Note moyenne : ' + #numbers.formatDecimal(note, 0, 'COMMA', 2, 'POINT') + ' / 5'}"></h5>
@@ -109,6 +93,6 @@
     </table>
 
 </div>
-
+<div th:replace="footer :: footer"></div>
 </body>
 </html>

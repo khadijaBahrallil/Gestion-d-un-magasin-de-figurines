@@ -21,11 +21,8 @@ public class Administrator implements UserDetails {
     private String userName;
     private String password;
     private boolean civility;
-    private int bonusPoint;
-    private int assets;
     private String pseudo;
-    @OneToOne
-    private Address address;
+
     public Integer getId() {
         return id;
     }
@@ -113,27 +110,4 @@ public class Administrator implements UserDetails {
         return false;
     }
 
-    public int getBonusPoint() {
-        return bonusPoint;
-    }
-
-    public void setBonusPoint(int bonusPoint) {
-        this.bonusPoint = bonusPoint;
-    }
-
-    public int getAssets() {
-        return assets;
-    }
-
-    public void setAssets(int assets) {
-        this.assets = assets;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
 }

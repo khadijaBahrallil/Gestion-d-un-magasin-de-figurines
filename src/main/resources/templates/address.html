@@ -13,83 +13,57 @@
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-
-    <!-- Custom styles for this template -->
-    <link href="demo/static/main.css" rel="stylesheet">
 </head>
 
 <body>
-<header>
-    <div class="navbar navbar-dark bg-dark box-shadow">
-        <div class="container d-flex justify-content-between">
-            <a href="index" class="navbar-brand d-flex align-items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-                <strong>404 FIGURINES</strong>
-            </a>
-            <ul class="nav">
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="home">Menu</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="figurines">Figurines</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="/getBasketUser">Voir Panier</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="profile">Profil</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</header>
+<div th:replace="${role == 'user'} ? ~{headerCustomer :: header} : _"></div>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<form th:method="post" th:action="@{/addAddress}" class="w3-container w3-card-4 w3-light-grey w3-text-blue w3-margin">
+<div id="errors" name="errors" th:replace="errors :: errors"></div>
+<form th:method="POST" th:action="@{/addAddress}" class="w3-container w3-card-4 w3-light-grey w3-text-blue w3-margin">
     <h2 class="w3-center">Ajouter votre adresse</h2>
 
     <div class="w3-row w3-section">
         <div class="w3-col" style="width:50px"></div>
         <div class="w3-rest">
-            <input class="w3-input w3-border" name="streetnumber" type="text" placeholder="Numéro de la rue">
+            <input class="w3-input w3-border" name="streetnumber" type="number" placeholder="Numéro de la rue" min="0">
         </div>
     </div>
 
     <div class="w3-row w3-section">
         <div class="w3-col" style="width:50px"></i></div>
         <div class="w3-rest">
-            <input class="w3-input w3-border" name="street" type="text" placeholder="Nom de la rue, Bâtiment, N° Appartement">
+            <input class="w3-input w3-border" name="street" type="text" placeholder="Nom de la rue" max="255">
         </div>
     </div>
 
     <div class="w3-row w3-section">
         <div class="w3-col" style="width:50px"></i></div>
         <div class="w3-rest">
-            <input class="w3-input w3-border" name="postalCode" type="text" placeholder="Code Postal">
+            <input class="w3-input w3-border" name="postalCode" type="number" placeholder="Code Postal" min="0">
         </div>
     </div>
 
     <div class="w3-row w3-section">
         <div class="w3-col" style="width:50px"></div>
         <div class="w3-rest">
-            <input class="w3-input w3-border" name="city" type="text" placeholder="Ville">
+            <input class="w3-input w3-border" name="city" type="text" placeholder="Ville" max="255">
         </div>
     </div>
 
     <div class="w3-row w3-section">
         <div class="w3-col" style="width:50px"></div>
         <div class="w3-rest">
-            <input class="w3-input w3-border" name="country" type="text" placeholder="Pays">
+            <input class="w3-input w3-border" name="country" type="text" placeholder="Pays" max="255">
         </div>
     </div>
 
     <p class="w3-center">
-        <button class="w3-button w3-section w3-blue w3-ripple"> Ajouter </button>
+        <button type="submit" class="w3-button w3-section w3-blue w3-ripple"> Ajouter </button>
     </p>
 </form>
-
+<div th:replace="footer :: footer"></div>
 </body>
 </html>

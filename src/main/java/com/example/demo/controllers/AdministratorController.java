@@ -36,8 +36,6 @@ public class AdministratorController {
         admin.setFirstName(firstName);
         admin.setLastName(lastName);
         admin.setUserName(userName);
-        admin.setAssets(0);
-        admin.setBonusPoint(0);
         passwordEncoder = new BCryptPasswordEncoder();
         String hashedPassword = passwordEncoder.encode(password);
         admin.setPassword(hashedPassword);

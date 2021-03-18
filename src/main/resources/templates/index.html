@@ -12,48 +12,25 @@
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-
-    <!-- Custom styles for this template -->
-    <link href="demo/static/main.css" rel="stylesheet">
 </head>
 
 <body>
+    <div th:insert="${role == 'visitor'} ? ~{header :: header} : _"></div>
+    <div th:insert="${role == 'admin'} ? ~{headerAdministrator :: header} : _"></div>
+    <div th:insert="${role == 'user'} ? ~{headerCustomer :: header} : _"></div>
 
-<header>
-    <div class="navbar navbar-dark bg-dark box-shadow">
-        <div class="container d-flex justify-content-between">
-            <a href="index" class="navbar-brand d-flex align-items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-                <strong>404 FIGURINES</strong>
-            </a>
-            <ul class="nav">
-                <li class="nav-item">
-                    <a href="index" class="nav-link text-white" >Menu</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="figurines">Figurines</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="/getBasketUser">Voir Panier</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="register">S'inscrire</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</header>
-
-<main role="main">
+<main role="main" style="padding-bottom: 200px">
 
     <section class="jumbotron text-center">
         <div class="container">
             <h1 class="jumbotron-heading">Bienvenue sur 404 Figurines</h1>
             <p class="lead text-muted">Acheter des figurines de vos comics, mangas, séries TV préférés et bien plus...</p>
-            <p>
-                <a href="register" class="btn btn-primary my-2">S'inscrire</a>
-                <a href="login" class="btn btn-secondary my-2">Se connecter</a>
-            </p>
+            <div  th:if="${role == 'visitor'}">
+                <p>
+                    <a href="register" class="btn btn-primary my-2">S'inscrire</a>
+                    <a href="login" class="btn btn-secondary my-2">Se connecter</a>
+                </p>
+            </div>
         </div>
     </section>
 
@@ -87,29 +64,13 @@
             </div>
         </div>
     </div>
-
 </main>
-
-<footer class="text-muted">
-    <div class="container">
-        </br>
-        <p class="float-right">
-            <a href="#">Retour en haut</a>
-        </p>
-        <p>Pour profiter au maximum de nos produits et profiter d'avantages client, penser à vous inscrire !</p>
-        <p>Nouveau sur notre site ? Regarder notre collection de figurines <a href="figurines">ici</a> pour trouver votre bonheur.</p>
-        <p>Besoin de nous contacter ? Ça se passe ici :<a href="mailto:adresse@imaginaire.com ">adresse@imaginaire.com </a></p>
-    </div>
-</footer>
-
+<div th:replace="footer :: footer"></div>
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-<script src="../../../../assets/js/vendor/popper.min.js"></script>
-<script src="../../../../dist/js/bootstrap.min.js"></script>
-<script src="../../../../assets/js/vendor/holder.min.js"></script>
 
 </body>
 </html>

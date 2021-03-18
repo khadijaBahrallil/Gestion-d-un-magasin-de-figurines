@@ -15,6 +15,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import javax.servlet.http.HttpServletResponse;
 
 @Configuration
 @EnableWebSecurity
@@ -67,6 +70,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/listSubscriptionPerso");
         web.ignoring().antMatchers("/listFigurinePerso");
         web.ignoring().antMatchers("/static/**");
+        web.ignoring().antMatchers("/indexLogout");
     }
 
     @Override
@@ -77,7 +81,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/addLicence", "/addOpinion", "/indexCategory", "/subscription", "/addSubscription","/listSubscription", "/deleteSubscription","/users",
                         "/listLicence", "/deleteLicence", "/listCategory", "/deleteCategory", "/addCategory", "/updateCategory", "/updateLicence", "/updateSubscription",
                         "/figurines", "/images/**", "static/**", "/findFigurine", "/listCategoryPerso", "/listLicencePerso", "/listSubscriptionPerso", "/listFigurinePerso",
-                        "/indexOpinion").permitAll()
+                        "/indexOpinion", "/indexLogout").permitAll()
 
                 .anyRequest().authenticated()
                 .and()
@@ -93,13 +97,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .logout()
-                .logoutSuccessHandler(myLogoutSuccessHandler)
-
-                .logoutSuccessUrl("/indexlogout")
-
-                .permitAll();
-
-
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/index")
+                .invalidateHttpSession(true);
+                //.logoutSuccessHandler(myLogoutSuccessHandler);
     }
 
     @Autowired

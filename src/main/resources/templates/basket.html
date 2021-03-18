@@ -13,34 +13,10 @@
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-
-    <!-- Custom styles for this template -->
-    <link href="demo/static/main.css" rel="stylesheet">
 </head>
 
 <body>
-<header>
-    <div class="navbar navbar-dark bg-dark box-shadow">
-        <div class="container d-flex justify-content-between">
-            <a href="index" class="navbar-brand d-flex align-items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-                <strong>404 FIGURINES</strong>
-            </a>
-            <ul class="nav">
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="home">Menu</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="figurines">Figurines</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="profile">Profil</a>
-                </li>
-            </ul>
-            </ul>
-        </div>
-    </div>
-</header>
+<div th:insert="${role == 'user'} ? ~{headerCustomer :: header} : _"></div>
 
 <div style="padding-left:400px; padding-right:400px; padding-top:20px">
     <h3>Votre Panier</h3>
@@ -49,8 +25,8 @@
     <div>
         <div class="text-right">
             <p class="card-text" th:text="'Montant total: '+${solde}+' €'" ></p>
-            <div class="float-right row" style="padding-top: 20px">
-                <form th:method="get" th:action="@{/toBuy}">
+            <div th:if="${!vide}" class="float-right row" style="padding-top: 20px">
+                <form th:method="get" th:action="@{/bill}">
                     <button type="submit" class="btn btn-success" >Payer</button>
                 </form>
                 <form th:method="get" th:action="@{/removeBasket}">
@@ -64,36 +40,35 @@
 
     <h3>Vitrine de vos figurines</h3>
     </br>
-
-    <table class="table">
-        <tr>
-            <th style="text-align: center">Image</th>
-            <th style="text-align: center">Nom</th>
-            <th style="text-align: center">Quantité</th>
-            <th style="text-align: center">Prix (€)</th>
-            <th style="text-align: center">Modifier Quantité</th>
-
-
-        </tr>
-        <br/>
-        <tr style="width:100%" th:each="figurine : ${figurines}">
-            <td style="width: 20%"><img th:src="@{${'/images/' + figurine.getPicture().getName() + '.png'}}" height="100" width="100"></td>
-            <td style="width: 15%; text-align: center" th:text="${figurine.getName()}"></td>
-            <td style="width: 10%; text-align: center" th:text="${figurine.getQuantity()}"></td>
-            <td style="width: 15%; text-align: center" th:text="${figurine.getPrice()}"></td>
-            <td></td>
-            <form th:action="@{/removeQantityOfProduct}" th:method="POST">
-                <input type="hidden" name="idFigurine" id="idFigurineAdd" th:value="${figurine.getId()}">
-                <td class="row" style="..."><button type="submit" class="btn btn-primary">-</button>
-            </form>
-            <form th:action="@{/addQantityOfProduct}" th:method="POST">
-                <input type="hidden" name="idFigurine" id="idFigurineRemove" th:value="${figurine.getId()}">
-                <button type="submit" class="btn btn-primary">+</button></td>
-            </form>
-        </tr>
-    </table>
+    <div th:if="${!vide}">
+        <table class="table">
+            <tr>
+                <th style="text-align: center">Image</th>
+                <th style="text-align: center">Nom</th>
+                <th style="text-align: center">Quantité</th>
+                <th style="text-align: center">Prix (€)</th>
+                <th style="text-align: center">Modifier Quantité</th>
+            </tr>
+            <br/>
+            <tr style="width:100%" th:each="basketFi : ${basketFigurines}">
+                <td style="width: 20%"><img th:src="@{${'/images/' + basketFi.getFigurine().getPicture().getName() + '.png'}}" height="100" width="100"></td>
+                <td style="width: 15%; text-align: center" th:text="${basketFi.getFigurine().getName()}"></td>
+                <td style="width: 10%; text-align: center" th:text="${basketFi.getQuantite()}"></td>
+                <td style="width: 15%; text-align: center" th:text="${basketFi.getUnitPrice()}"></td>
+                <td></td>
+                <form th:action="@{/removeQuantityOfProduct}" th:method="POST">
+                    <input type="hidden" name="idFigurine" id="idFigurineAdd" th:value="${basketFi.getFigurine().getId()}">
+                    <td class="row" style="..."><button type="submit" class="btn btn-primary">-</button>
+                </form>
+                <form th:action="@{/addQuantityOfProduct}" th:method="POST">
+                    <input type="hidden" name="idFigurine" id="idFigurineRemove" th:value="${basketFi.getFigurine().getId()}">
+                    <button type="submit" class="btn btn-primary">+</button></td>
+                </form>
+            </tr>
+        </table>
+    </div>
 
 </div>
-
+<div th:replace="footer :: footer"></div>
 </body>
 </html>

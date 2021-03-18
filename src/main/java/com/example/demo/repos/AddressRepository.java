@@ -12,7 +12,4 @@ public interface AddressRepository extends CrudRepository<Address, Integer> {
 
     List<Address> findAll();
     Address findAddressById(Integer id);
-
-    @Query(" select u from Customer u  where u.userName = ?1")
-    Customer findCustomerByUserName(String userName);
 }

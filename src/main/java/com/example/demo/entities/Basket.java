@@ -1,33 +1,21 @@
 package com.example.demo.entities;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.HashMap;
 
 @Entity
 public class Basket {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private HashMap<Integer,Integer> quantityFigurineOfbasket;
-    private double subTotal;
-
-    @OneToOne
-    private PromoCodeClassic classicCode;
-    @OneToOne
-    private Visitor visitor;
     @OneToOne
     private Customer customer;
+    private double subTotal;
     @OneToOne
-    private PromoCodePercent percentCode;
-    @OneToMany
-    private Collection<Figurine> figurines;
+    private PromoCodeClassic promoCodeClassic;
+    @OneToOne
+    private PromoCodePercent promoCodePercent;
 
     public Basket() {}
-    public Basket(Customer customer) {
-        this.customer = customer;
-        this.quantityFigurineOfbasket = new HashMap<Integer,Integer>();
-    }
 
     public Integer getId() {
         return id;
@@ -42,23 +30,15 @@ public class Basket {
     }
 
     public void setSubTotal(double subTotal) {
-        this.subTotal += subTotal;
+        this.subTotal = subTotal;
     }
 
     public PromoCodeClassic getClassicCode() {
-        return classicCode;
+        return promoCodeClassic;
     }
 
-    public void setClassicCode(PromoCodeClassic classicCode) {
-        this.classicCode = classicCode;
-    }
-
-    public Visitor getVisitor() {
-        return visitor;
-    }
-
-    public void setVisitor(Visitor visitor) {
-        this.visitor = visitor;
+    public void setClassicCode(PromoCodeClassic promoCodeClassic) {
+        this.promoCodeClassic = promoCodeClassic;
     }
 
     public Customer getCustomer() {
@@ -69,27 +49,22 @@ public class Basket {
         this.customer = customer;
     }
 
-    public PromoCodePercent getPercentCode() {
-        return percentCode;
+    public PromoCodePercent getPromoCodePercent() {
+        return promoCodePercent;
     }
 
-    public void setPercentCode(PromoCodePercent percentCode) {
-        this.percentCode = percentCode;
+    public void setPromoCodePercent(PromoCodePercent percentCode) {
+        this.promoCodePercent = percentCode;
     }
 
-    public Collection<Figurine> getFigurines() {
-        return figurines;
-    }
-
-    public void setFigurines(Collection<Figurine> figurines) {
-        this.figurines = figurines;
-    }
-
-    public HashMap<Integer, Integer> getQuantityFigurineOfbasket() {
-        return quantityFigurineOfbasket;
-    }
-
-    public void setQuantityFigurineOfbasket(HashMap<Integer, Integer> quantityFigurineOfbasket) {
-        this.quantityFigurineOfbasket = quantityFigurineOfbasket;
+    @Override
+    public String toString() {
+        return "Basket{" +
+                "id=" + id +
+                ", customer=" + customer +
+                ", subTotal=" + subTotal +
+                ", promoCodeClassic=" + promoCodeClassic +
+                ", promoCodePercent=" + promoCodePercent +
+                '}';
     }
 }

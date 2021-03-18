@@ -1,13 +1,7 @@
 package com.example.demo.controllers;
 
-import com.example.demo.entities.Administrator;
-import com.example.demo.entities.Customer;
-import com.example.demo.entities.Figurine;
-import com.example.demo.entities.Opinion;
-import com.example.demo.repos.AdministratorRepository;
-import com.example.demo.repos.CustomerRepository;
-import com.example.demo.repos.FigurineRepository;
-import com.example.demo.repos.OpinionRepository;
+import com.example.demo.entities.*;
+import com.example.demo.repos.*;
 import com.example.demo.security.ActiveUserStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,6 +26,8 @@ public class OpinionController {
     @Autowired
     private CustomerRepository customerRepository;
     @Autowired
+    private BillsFigurinesRepository billsFigurinesRepository;
+    @Autowired
     private AdministratorRepository administratorRepository;
     @Autowired
     ActiveUserStore activeUserStore;
@@ -39,17 +35,17 @@ public class OpinionController {
 
     @PostMapping("/opinion")
     public String opinion(@RequestParam int idFigurine, Model model) {
-        if (findRole().equals("user")) {
+        if (findRole(model).equals("user")) {
             Customer customerCo = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0)).get();
-            model.addAttribute("role", "user");
             model.addAttribute("lname", customerCo.getLastName());
             model.addAttribute("fname", customerCo.getFirstName());
             model.addAttribute("username", customerCo.getUsername());
             model.addAttribute("address", customerCo.getAddress());
-        }else if (findRole().equals("admin")) {
-            model.addAttribute("figurineList", figurineRepository.findAll());
-            return "figurines";
         }
+        else{
+            return "redirect:/index";
+        }
+
         Figurine figurine = new Figurine();
         Customer customer;
         Opinion opinion;
@@ -57,30 +53,45 @@ public class OpinionController {
         try{
             customer = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0)).get();
             figurine = figurineRepository.findFigurineById(idFigurine);
+            List<BillsCustomer> billsCustomers = (List<BillsCustomer>) customer.getBillsCustomers();
+            int verif = 0;
+            for(int i = 0; i < billsCustomers.size(); i++){
+                BillsCustomerFigurines billsCustomerFigurine = billsFigurinesRepository.findBillsCustomerFigurineseByFigurineAndBills(figurine, billsCustomers.get(i));
+
+                if(billsCustomerFigurine != null){
+                    verif = 1;
+                }
+            }
+            if(verif == 0){
+                System.out.println("contient pas");
+                return "redirect:/figurines";
+            }
             opinions = (List<Opinion>) figurine.getOpinions();
             for(int i = 0; i < opinions.size(); i++){
                 if(opinions.get(i).getCustomer().equals(customer)){
                     model.addAttribute("figurine", figurine);
                     model.addAttribute("opinion", opinions.get(i));
+                    //si déjà un commentaire
                     return "indexOpinion";
                 }
             }
             model.addAttribute("figurine", figurine);
         }catch (Exception e){
             System.out.println("erreur " + e);
+            return "redirect:/figurines";
         }
         return "opinion";
     }
+
     @PostMapping("/updateOpinion")
     public String updateOpinion(@RequestParam int idOpinion, @RequestParam int note, @RequestParam String text, Model model) {
-        if (findRole().equals("user")) {
+        if (findRole(model).equals("user")) {
             Customer customerCo = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0)).get();
-            model.addAttribute("role", "user");
             model.addAttribute("lname", customerCo.getLastName());
             model.addAttribute("fname", customerCo.getFirstName());
             model.addAttribute("username", customerCo.getUsername());
             model.addAttribute("address", customerCo.getAddress());
-        }else if (findRole().equals("admin")) {
+        }else if (findRole(model).equals("admin")) {
             model.addAttribute("figurineList", figurineRepository.findAll());
             return "figurines";
         }
@@ -177,16 +188,27 @@ public class OpinionController {
         return "figurineProfile";
     }
 
-    public String findRole(){
-        Optional<Customer> customer = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0));
-        if (!customer.isEmpty()){
-            return "user";
-        } else {
-            Optional<Administrator> administrator = administratorRepository.findAdministratorByName(activeUserStore.getCustomers().get(0));
-            if (!administrator.isEmpty()){
-                return "admin";
+    public String findRole(Model model){
+        try {
+            Optional<Customer> customer = customerRepository.findCustomerByName(activeUserStore.getCustomers().get(0));
+            if (!customer.isEmpty()) {
+                model.addAttribute("role", "user");
+                return "user";
+            } else {
+                Optional<Administrator> administrator = administratorRepository.findAdministratorByName(activeUserStore.getCustomers().get(0));
+                if (!administrator.isEmpty()) {
+                    model.addAttribute("role", "admin");
+                    return "admin";
+                }
+                else{
+                    model.addAttribute("role", "visitor");
+                    return "visitor";
+                }
             }
+
+        }catch (Exception e){
+            model.addAttribute("role", "visitor");
+            return "visitor";
         }
-        return null;
     }
 }
