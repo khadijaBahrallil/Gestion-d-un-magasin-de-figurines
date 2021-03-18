@@ -73,7 +73,7 @@
                 <th style="text-align: center">Date de paiement</th>
             </tr>
             <tr style="width:100%" th:each="bill : ${billsCustomer}">
-                <td style="width: 15%; text-align: center" th:text="${bill.getId()}"></td>
+                <td style="width: 15%; text-align: center">Facture</td>
                 <td style="width: 10%; text-align: center" th:text="${bill.getStatus()}"></td>
                 <td style="width: 15%; text-align: center" th:text="${bill.getSubTotal()}"></td>
                 <td style="width: 15%; text-align: center" th:text="${#dates.format(bill.getDate(), 'dd-MMM-yyyy')}"></td>
