@@ -91,49 +91,6 @@ public class BasketController {
     };
 
     /**
-     * Modifier la quantité dans le panier
-     * @param quantity
-     * @return
-     */
-    /*
-    public String updateQantityProductInBasket( Integer idFigurine, Integer quantity){
-        Integer value = 0;
-        double solde = 0;
-        Customer customer = getActivecustomer();
-        try {
-            if(customer == null) {
-                throw new Exception("Panier inexistant");
-            }
-        }catch (Exception e){
-            return "redirect:/login";
-        }
-        Figurine figurine = basketRepository.findFigurineByID(idFigurine);
-        if(figurine == null)  return "redirect:/figurines";
-
-        Basket basket = basketRepository.findBasketByCustomerID(customer);
-
-        if(!basket.getQuantityFigurineOfbasket().isEmpty()) {
-            if (basket.getQuantityFigurineOfbasket().containsKey(figurine.getId()))
-                value = basket.getQuantityFigurineOfbasket().get(figurine.getId());
-        }
-        value += quantity;
-
-        if(value > figurine.getQuantity()){
-            return "redirect:/getBasketUser";
-        }
-
-        if(value <= 0 )
-            basket.getQuantityFigurineOfbasket().remove(idFigurine);
-        else
-            basket.getQuantityFigurineOfbasket().put(figurine.getId(),value);
-
-        basket.setSubTotal(quantity*figurine.getPrice());
-        basketRepository.save(basket);
-
-        return "redirect:/getBasketUser";
-    }
-*/
-    /**
      * Ajouter la quantité de +1
      * @return
      */
@@ -146,7 +103,8 @@ public class BasketController {
             Figurine figurine = figurineRepository.findFigurineById(idFigurine);
             BasketFigurines basketFigurines = basketFigurinesRepository.findBasketFigurineByFigurineAndBasket(figurine, basket);
             int quantity = basketFigurines.getQuantite() + 1;
-            if(quantity > figurine.getQuantity()){
+
+            if(figurine.getQuantity() <= 0 ){
 
             }
             else{
@@ -234,47 +192,6 @@ public class BasketController {
         return "redirect:/basket";
     }
 
-
-
-    /**
-     * Afficher le panier
-     * @param modelMap
-     * @return
-     */
-    /*
-    @GetMapping("/getBasketUser")
-    public String getBasketUser( ModelMap modelMap) {
-        Customer customer = getActiveCustomer();
-        try {
-            if(customer == null) {
-                throw new Exception("Erreur de connexion");
-            }
-        }catch (Exception e){
-            return "redirect:/login";
-        }
-
-        Basket basket = basketRepository.findBasketByCustomerID(customer);
-        if(basket == null){
-            return "redirect:/basket";
-        }
-
-        List<Figurine> listfigurine = new ArrayList<>();
-
-        for(HashMap.Entry<Integer, Integer> mapFig : basket.getQuantityFigurineOfbasket().entrySet()){
-            Figurine mockfigurine = basketRepository.findFigurineByID(mapFig.getKey());
-            mockfigurine.setQuantity(mapFig.getValue());
-            listfigurine.add(mockfigurine);
-        }
-        DecimalFormat df = new DecimalFormat("0.00");
-        double solde = basket.getSubTotal();
-        System.out.println(solde);
-        modelMap.addAttribute("figurines", listfigurine);
-        modelMap.addAttribute("solde", df.format(basket.getSubTotal()));
-
-
-        return "basket";
-    }
-*/
     /**
      * Effectuer un achat
      * @return
@@ -326,8 +243,8 @@ public class BasketController {
 
     public void majPrice(Basket basket){
         List<BasketFigurines> basketFigurines = basketFigurinesRepository.findBasketFigurineByBasket(basket);
-        Float price = 0f ;
-        Float majPrice;
+        double price = 0 ;
+        double majPrice;
         for(int i = 0; i < basketFigurines.size(); i++){
             majPrice = basketFigurines.get(i).getFigurine().getPrice();
             basketFigurines.get(i).setUnitPrice(majPrice);

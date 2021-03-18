@@ -15,7 +15,7 @@ public class Figurine {
     private Integer id;
     private String name;
     private String description;
-    private Float price;
+    private double price;
     private int quantity;
     @JsonFormat(pattern="dd/MM/yyyy")
     private Date startDate;
@@ -37,11 +37,11 @@ public class Figurine {
         this.description = description;
     }
 
-    public Float getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

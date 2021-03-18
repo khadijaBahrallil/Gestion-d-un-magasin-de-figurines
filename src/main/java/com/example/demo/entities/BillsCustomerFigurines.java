@@ -15,7 +15,7 @@ public class BillsCustomerFigurines implements Serializable {
     private Figurine figurine;
 
     private Integer quantite;
-    private Float unitPrice;
+    private double unitPrice;
 
     public BillsCustomer getBillsCustomer() {
         return billsCustomer;
@@ -41,11 +41,11 @@ public class BillsCustomerFigurines implements Serializable {
         this.quantite = quantite;
     }
 
-    public Float getUnitPrice() {
+    public double getUnitPrice() {
         return unitPrice;
     }
 
-    public void setUnitPrice(Float unitPrice) {
+    public void setUnitPrice(double unitPrice) {
         this.unitPrice = unitPrice;
     }
 }

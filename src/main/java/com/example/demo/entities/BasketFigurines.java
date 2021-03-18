@@ -15,7 +15,7 @@ public class BasketFigurines implements Serializable {
     private Figurine figurine;
 
     private Integer quantite;
-    private Float unitPrice;
+    private double unitPrice;
 
     public Basket getBasket() {
         return basket;
@@ -41,11 +41,11 @@ public class BasketFigurines implements Serializable {
         this.quantite = quantite;
     }
 
-    public Float getUnitPrice() {
+    public double getUnitPrice() {
         return unitPrice;
     }
 
-    public void setUnitPrice(Float unitPrice) {
+    public void setUnitPrice(double unitPrice) {
         this.unitPrice = unitPrice;
     }
 }
