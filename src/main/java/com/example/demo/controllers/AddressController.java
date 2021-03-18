@@ -40,7 +40,7 @@ public class AddressController {
 
     @PostMapping("/addAddress")
     public String addAddress(@RequestParam String streetnumber, @RequestParam String street, @RequestParam String postalCode,
-                              @RequestParam String city, @RequestParam String country) {
+                              @RequestParam String city, @RequestParam String country, Model model) {
         if (streetnumber.equals("") || street.equals("") || postalCode.equals("") || city.equals("") || country.equals("")){
             return "redirect:/address";
         }

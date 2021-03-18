@@ -16,12 +16,12 @@
 </head>
 
 <body>
-<div th:insert="${role == 'user'} ? ~{headerCustomer :: header} : _"></div>
+<div th:replace="${role == 'user'} ? ~{headerCustomer :: header} : _"></div>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+<div id="errors" name="errors" th:replace="errors :: errors"></div>
 <form th:method="POST" th:action="@{/addAddress}" class="w3-container w3-card-4 w3-light-grey w3-text-blue w3-margin">
     <h2 class="w3-center">Ajouter votre adresse</h2>
 
