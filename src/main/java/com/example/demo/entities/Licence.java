@@ -47,8 +47,11 @@ public class Licence {
         this.name = name;
     }
 
-    //A changer
-    public void sortLicence(){
+    public Collection<Figurine> getFigurines() {
+        return figurines;
+    }
 
+    public void setFigurines(Collection<Figurine> figurines) {
+        this.figurines = figurines;
     }
 }

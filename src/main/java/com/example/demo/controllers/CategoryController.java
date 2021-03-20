@@ -102,7 +102,12 @@ public class CategoryController {
                 List<Licence> licenceList = licenceRepository.findAll();
                 for (int i = 0; i < licenceList.size(); i++) {
                     if (licenceList.get(i).getCategory().getId() == new_id) {
-                        licenceRepository.deleteById(licenceList.get(i).getId());
+                        if(licenceList.get(i).getFigurines().size() > 0){
+                            throw new Exception("erreur");
+                        }
+                        else {
+                            licenceRepository.deleteById(licenceList.get(i).getId());
+                        }
                     }
                 }
                 categoryRepository.deleteById(new_id);

@@ -121,6 +121,9 @@ public class LicenceController {
             try {
                 new_id = Integer.parseInt(id);
                 licence = licenceRepository.findLicenceById(new_id);
+                if(licence.getFigurines().size() == 0){
+                    throw new Exception("erreur");
+                }
                 licenceRepository.deleteById(new_id);
             } catch (Exception e) {
                 System.out.println("erreur" + e);
