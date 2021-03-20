@@ -48,7 +48,7 @@ public class CategoryController {
                 new_id = Integer.parseInt(idCat);
                 category = categoryRepository.findCategoryById(new_id);
                 if (name.isEmpty() || name.length() > 255) {
-                    throw new Exception("Prblème avec le nom");
+                    throw new Exception("Problème avec le nom");
                 }
                 if (name.equals(category.getName())) {
                     throw new Exception("pas de changement");

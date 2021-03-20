@@ -18,22 +18,34 @@
 <div th:insert="${role == 'admin'} ? ~{headerAdministrator :: header} : _"></div>
 
 <div style="padding-left:400px; padding-right:400px; padding-top:20px">
-    <h3 style="padding-bottom: 20px">Formulaire ajout d'une catégorie</h3>
+    <h3 style="padding-bottom: 20px">Formulaire ajout d'un code</h3>
 
     <div style="text-align: center">
-        <form action="/addCategory" method="POST">
+        <form action="/addCode" method="POST">
             <div style="padding-bottom: 20px">
-                <label for="name"> Nom de la nouvelle catégorie :</label>
-                <input type="text" name="name" id="name" placeholder="Nom de la catégorie">
+                <label for="name"> Nom du code :</label>
+                <input type="text" name="name" id="name" placeholder="Nom du code">
+                <br>
+                <label for="codeR"> Réduction :</label>
+                <input type="number" name="codeR" id="codeR">
+                <br>
+                <label for="startDate"> Date de début :</label>
+                <input type="date" name="startDate" id="startDate">
+                <br>
+                <label for="endDate"> Date de fin :</label>
+                <input type="date" name="endDate" id="endDate" >
+                <br>
+                <label for="nb"> Nombre d'utilisation :</label>
+                <input type="number" name="nb" id="nb">
             </div>
 
             <div>
-                <button type="submit">Créer la catégorie</button>
+                <button type="submit">Créer le code</button>
             </div>
         </form>
 
         </br>
-        <a href="listCategory">Liste des catégories</a>
+        <a href="listCode">Liste des codes</a>
         </br>
         </br>
         <a href="index">Retour au menu</a>

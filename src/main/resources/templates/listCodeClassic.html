@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>404 Figurines</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+<div th:insert="${role == 'admin'} ? ~{headerAdministrator :: header} : _"></div>
+
+<div style="padding-left:400px; padding-right:400px; padding-top:20px">
+    <h3>Liste des codes classiques</h3>
+    </br>
+    <p>Pour ajouter un code, veuillez cliquer <a href="code">ici</a>.</p>
+    </br>
+
+    <form action="/listCodePerso" method="GET">
+        <div class="col-md-4" style="display: inline-block">
+            <label>Nom du code :</label>
+            <input type="text" name="recherche" id="recherche" class="form-control" th:value="${recherche} ?: ''">
+        </div>
+        <div class="col-md-5" style="display: inline-block">
+            <input type="submit" value="Rechercher" class="btn btn-info">
+            <a class="btn btn-light" th:href="listCode">Annuler la recherche</a>
+        </div>
+    </form>
+    <div style="text-align: center; padding-top: 40px">
+        <table>
+            <tr style="width:100%">
+                <th style="width:5%">ID</th>
+                <th style="width:15%">CODE</th>
+                <th style="width:5%">REDUCTION (€)</th>
+                <th style="width:45%">DATE DEBUT</th>
+                <th style="width:45%">DATE FIN</th>
+                <th style="width:45%">NB UTILISATION</th>
+                <th style="width:15%">MAJ</th>
+                <th style="width:15%">SUPPRIMER</th>
+            </tr>
+            <tr th:each="code: ${codeList}">
+                <form action="/updateCode" method="POST">
+                    <input type="hidden" name="idCode" id="idCode" th:value="${code.getId()}">
+                    <td th:text="${code.getId()}"/></td>
+                   <td><input type="text" name="name" id="name" th:value="${code.getCode()}"></td>
+                   <td><input type="number" name="codeR" id="codeR" th:value="${code.getReduction()}"></td>
+                    <td><input type="date" name="startDate" id="startDate" th:value="${code.getStartDate()}"></td>
+                    <td><input type="date" name="endDate" id="endDate" th:value="${code.getEndDate()}"></td>
+                    <td><input type="number" name="nb" id="nb" th:value="${code.getNbUtilisation()}"></td>
+                    <td><button type="submit">Mise à jour</button></td>
+                </form>
+                <form action="/deleteCode" method="POST">
+                    <input type="hidden" name="id" id="id" th:value="${code.getId()}">
+                    <td><button type="submit">Supprimer</button></td>
+                </form>
+            </tr>
+        </table>
+    </div>
+</div>
+<div th:replace="footer :: footer"></div>
+</body>
+</html>

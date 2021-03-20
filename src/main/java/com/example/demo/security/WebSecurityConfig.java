@@ -47,6 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/addLicence");
         web.ignoring().antMatchers("/addSubscription");
         web.ignoring().antMatchers("/addCategory");
+        web.ignoring().antMatchers("/addCode");
         web.ignoring().antMatchers("/indexCategory");
         web.ignoring().antMatchers("/indexOpinion");
         web.ignoring().antMatchers("/add");
@@ -64,6 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/deleteCategory");
         web.ignoring().antMatchers("/updateCategory");
         web.ignoring().antMatchers("/updateLicence");
+        web.ignoring().antMatchers("/updateCode");
         web.ignoring().antMatchers("/updateSubscription");
         web.ignoring().antMatchers("/findFigurine");
         web.ignoring().antMatchers("/listCategoryPerso");
@@ -72,6 +74,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/listFigurinePerso");
         web.ignoring().antMatchers("/static/**");
         web.ignoring().antMatchers("/indexLogout");
+        web.ignoring().antMatchers("/listCode");
+        web.ignoring().antMatchers("/code");
     }
 
     @Override
@@ -82,7 +86,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/addLicence", "/addOpinion", "/indexCategory", "/subscription", "/addSubscription","/listSubscription", "/deleteSubscription","/users",
                         "/listLicence", "/deleteLicence", "/listCategory", "/deleteCategory", "/addCategory", "/updateCategory", "/updateLicence", "/updateSubscription",
                         "/figurines", "/images/**", "static/**", "/findFigurine", "/listCategoryPerso", "/listLicencePerso", "/listSubscriptionPerso", "/listFigurinePerso",
-                        "/indexOpinion", "/indexLogout").permitAll()
+                        "/indexOpinion", "/indexLogout", "/listCode","/updateCode", "/addCode", "/code").permitAll()
 
                 .anyRequest().authenticated()
                 .and()
