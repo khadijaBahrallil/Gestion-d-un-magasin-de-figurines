@@ -121,10 +121,14 @@ public class LicenceController {
             try {
                 new_id = Integer.parseInt(id);
                 licence = licenceRepository.findLicenceById(new_id);
+                System.out.println(licence.getFigurines().size());
                 if(licence.getFigurines().size() == 0){
+                    licenceRepository.deleteById(new_id);
+                }
+                else{
                     throw new Exception("erreur");
                 }
-                licenceRepository.deleteById(new_id);
+
             } catch (Exception e) {
                 System.out.println("erreur" + e);
                 return "redirect:/listLicence";
